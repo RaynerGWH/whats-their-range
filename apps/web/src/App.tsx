@@ -4,11 +4,9 @@ import {
   ArrowDownLeft,
   ArrowUpRight,
   BrainCircuit,
-  Check,
   ChevronRight,
   CircleHelp,
   Clock3,
-  Code2,
   Eye,
   EyeOff,
   Layers3,
@@ -27,10 +25,9 @@ import {
 } from "lucide-react";
 import type { Config, Decision, Player, ServerConfig, Table } from "./types";
 
-const API =
-  (
-    import.meta as unknown as { env: { VITE_API_URL?: string } }
-  ).env.VITE_API_URL?.replace(/\/$/, "") || "";
+import { API, request } from "./api";
+import TraceBrowser from "./trace/TraceBrowser";
+
 const terminal = (s: string) =>
   ["finished", "stopped", "interrupted", "error"].includes(s);
 const fmt = (n = 0) => new Intl.NumberFormat("en").format(n);
@@ -225,7 +222,7 @@ function Inspector({
   thinking: boolean;
 }) {
   return (
-    <aside className="inspector panel">
+    <aside className={`inspector panel ${tab === "Trace" ? "trace-tab" : ""}`}>
       <div className="panel-title">
         <div>
           <BrainCircuit size={17} />
@@ -246,7 +243,18 @@ function Inspector({
           </button>
         ))}
       </div>
-      {!d ? (
+      {tab === "Trace" ? (
+        <div className="inspector-content">
+          <p className="subtle">
+            {d?.trace_id
+              ? `Decision at state ${d.state_version}.`
+              : "No trace linked to this decision."}
+          </p>
+          <a className="button secondary" href="#trace-explorer">
+            Open trace explorer <ChevronRight size={14} />
+          </a>
+        </div>
+      ) : !d ? (
         <div className="inspector-empty">
           <p>No agent decisions yet.</p>
         </div>
@@ -354,64 +362,6 @@ function Inspector({
               ))}
             </div>
           )}
-          {tab === "Trace" && (
-            <div className="inspector-content">
-              <div className="trace-step">
-                <span>01</span>
-                <div>
-                  <strong>Observation</strong>
-                  <p>
-                    Seat-specific cards and public state, version{" "}
-                    {d.state_version}.
-                  </p>
-                </div>
-                <Check size={15} />
-              </div>
-              <div className="trace-step">
-                <span>02</span>
-                <div>
-                  <strong>Parallel preparation</strong>
-                  <p>Hand calculations and bounded evidence retrieval.</p>
-                </div>
-                <Check size={15} />
-              </div>
-              <div className="trace-step">
-                <span>03</span>
-                <div>
-                  <strong>
-                    {d.source === "openrouter"
-                      ? "OpenRouter decision"
-                      : "Heuristic decision"}
-                  </strong>
-                  <p>
-                    {d.fallback ||
-                      "Validated against legal actions and state version."}
-                  </p>
-                </div>
-                <Check size={15} />
-              </div>
-              <div className="counts">
-                <span>
-                  Input tokens <b>{fmt(d.usage.prompt_tokens)}</b>
-                </span>
-                <span>
-                  Output tokens <b>{fmt(d.usage.completion_tokens)}</b>
-                </span>
-              </div>
-              <details>
-                <summary>
-                  <Code2 size={14} /> Exact agent input
-                </summary>
-                <pre>{JSON.stringify(d.observation, null, 2)}</pre>
-              </details>
-              <details>
-                <summary>Calculation assumptions</summary>
-                <p>{d.metrics.assumption}</p>
-                <p>{d.metrics.limitation}</p>
-              </details>
-              <small>Model calls: {d.calls}</small>
-            </div>
-          )}
         </>
       )}
     </aside>
@@ -439,25 +389,7 @@ export default function App() {
     [historyBusy, setHistoryBusy] = useState(false);
   const [section, setSection] = useState("live");
   const scrollRef = useRef<HTMLDivElement>(null);
-  const api = async (path: string, body?: unknown) => {
-    const res = await fetch(`${API}/api${path}`, {
-      method: body ? "POST" : "GET",
-      headers: {
-        "Content-Type": "application/json",
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      },
-      body: body ? JSON.stringify(body) : undefined,
-    });
-    if (!res.ok) {
-      const data = await res.json().catch(() => ({}));
-      throw new Error(
-        typeof data.detail === "string"
-          ? data.detail
-          : `Request failed (${res.status})`,
-      );
-    }
-    return res.json();
-  };
+  const api = (path: string, body?: unknown) => request<any>(path, token, body);
   useEffect(() => {
     let disposed = false,
       socket: WebSocket | undefined,
@@ -583,7 +515,9 @@ export default function App() {
     if (!replay)
       scrollRef.current?.scrollTo({
         top: scrollRef.current.scrollHeight,
-        behavior: "smooth",
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "instant"
+          : "smooth",
       });
   }, [table?.version, replay]);
   useEffect(() => {
@@ -1006,6 +940,23 @@ export default function App() {
                   thinking={table?.phase === "thinking"}
                 />
               </div>
+              {tab === "Trace" && table && (
+                <TraceBrowser
+                  key={`${table.id}:${replay ? replay.version : "live"}:${token}`}
+                  tableId={table.id}
+                  hand={table.hand}
+                  decisionTraceId={table.decision?.trace_id}
+                  decisionHand={table.decision?.hand}
+                  activeTraceId={replay ? null : table.active_trace_id}
+                  token={token}
+                  connection={connection}
+                />
+              )}
+              {tab === "Trace" && !table && (
+                <p className="trace-message" id="trace-explorer">
+                  Select a table to inspect traces.
+                </p>
+              )}
               <section className="panel activity-panel">
                 <div className="panel-title">
                   <div>
