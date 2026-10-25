@@ -1,0 +1,861 @@
+{
+  "date": "2026-10-25",
+  "application_commit": "24c8c135047a27609cd0fb4b3ec3cdc134746966",
+  "scope": "Six fixed 25-hand samples at 100 BB; not six completed tournaments or human-reference validation. Repeated verification is not added to the sample count.",
+  "summary": {
+    "runs": 6,
+    "hands": 150,
+    "actions": 1291,
+    "native_decisions": 1054,
+    "native_counts": {
+      "preflop": {
+        "fold": 539,
+        "raise": 122,
+        "call": 49,
+        "check": 6
+      },
+      "flop": {
+        "raise": 26,
+        "check": 81,
+        "fold": 13,
+        "call": 16
+      },
+      "turn": {
+        "raise": 25,
+        "check": 66,
+        "call": 12,
+        "fold": 8
+      },
+      "river": {
+        "check": 49,
+        "raise": 25,
+        "call": 12,
+        "fold": 5
+      }
+    },
+    "chip_conservation_passed": true,
+    "illegal_actions": 0,
+    "position_stats": {
+      "UTG": {
+        "hands": 70,
+        "vpip": 8,
+        "pfr": 8
+      },
+      "HJ": {
+        "hands": 124,
+        "vpip": 27,
+        "pfr": 26
+      },
+      "CO": {
+        "hands": 136,
+        "vpip": 20,
+        "pfr": 18
+      },
+      "BTN": {
+        "hands": 135,
+        "vpip": 31,
+        "pfr": 29
+      },
+      "BB": {
+        "hands": 104,
+        "vpip": 47,
+        "pfr": 13
+      },
+      "SB": {
+        "hands": 131,
+        "vpip": 28,
+        "pfr": 24
+      }
+    },
+    "native_aggressive_actions": 198,
+    "sizing_adjusted": 178,
+    "sizing_changed_over_20_percent": 19,
+    "no_legal_raise_normalizations": 1,
+    "postflop_hands": 73,
+    "street_hand_counts": {
+      "preflop": 150,
+      "flop": 73,
+      "turn": 65,
+      "river": 56
+    }
+  },
+  "runs": [
+    {
+      "run": 1,
+      "config": {
+        "name": "The opening table",
+        "seed": 42,
+        "stack_bb": 100,
+        "hands_per_level": 100,
+        "payouts": "70/30",
+        "mode": "heuristic",
+        "opponents": "pokerth",
+        "opponent_seed": 43,
+        "personality_seed": 44,
+        "hero_seed": 42,
+        "model": "",
+        "pace": 1.2
+      },
+      "hands": 25,
+      "actions": 172,
+      "finished": false,
+      "chip_total": 6000
+    },
+    {
+      "run": 2,
+      "config": {
+        "name": "The opening table",
+        "seed": 7,
+        "stack_bb": 100,
+        "hands_per_level": 100,
+        "payouts": "70/30",
+        "mode": "heuristic",
+        "opponents": "pokerth",
+        "opponent_seed": 60,
+        "personality_seed": 63,
+        "hero_seed": 43,
+        "model": "",
+        "pace": 1.2
+      },
+      "hands": 25,
+      "actions": 193,
+      "finished": false,
+      "chip_total": 6000
+    },
+    {
+      "run": 3,
+      "config": {
+        "name": "The opening table",
+        "seed": 101,
+        "stack_bb": 100,
+        "hands_per_level": 100,
+        "payouts": "70/30",
+        "mode": "heuristic",
+        "opponents": "pokerth",
+        "opponent_seed": 77,
+        "personality_seed": 82,
+        "hero_seed": 44,
+        "model": "",
+        "pace": 1.2
+      },
+      "hands": 25,
+      "actions": 262,
+      "finished": false,
+      "chip_total": 6000
+    },
+    {
+      "run": 4,
+      "config": {
+        "name": "The opening table",
+        "seed": 107,
+        "stack_bb": 100,
+        "hands_per_level": 100,
+        "payouts": "70/30",
+        "mode": "heuristic",
+        "opponents": "pokerth",
+        "opponent_seed": 94,
+        "personality_seed": 101,
+        "hero_seed": 45,
+        "model": "",
+        "pace": 1.2
+      },
+      "hands": 25,
+      "actions": 254,
+      "finished": false,
+      "chip_total": 6000
+    },
+    {
+      "run": 5,
+      "config": {
+        "name": "The opening table",
+        "seed": 1,
+        "stack_bb": 100,
+        "hands_per_level": 100,
+        "payouts": "70/30",
+        "mode": "heuristic",
+        "opponents": "pokerth",
+        "opponent_seed": 111,
+        "personality_seed": 120,
+        "hero_seed": 46,
+        "model": "",
+        "pace": 1.2
+      },
+      "hands": 25,
+      "actions": 244,
+      "finished": false,
+      "chip_total": 6000
+    },
+    {
+      "run": 6,
+      "config": {
+        "name": "The opening table",
+        "seed": 19,
+        "stack_bb": 100,
+        "hands_per_level": 100,
+        "payouts": "70/30",
+        "mode": "heuristic",
+        "opponents": "pokerth",
+        "opponent_seed": 128,
+        "personality_seed": 139,
+        "hero_seed": 47,
+        "model": "",
+        "pace": 1.2
+      },
+      "hands": 25,
+      "actions": 166,
+      "finished": false,
+      "chip_total": 6000
+    }
+  ],
+  "position_checks": [
+    {
+      "hand": 8,
+      "position": "SB",
+      "hole": [
+        "Ac",
+        "9h"
+      ],
+      "to_call": 30,
+      "opponents_behind": 0,
+      "actual_native": [
+        5,
+        0,
+        120
+      ],
+      "with_one_opponent_behind": [
+        1,
+        0,
+        0
+      ],
+      "executed": "raise:180"
+    },
+    {
+      "hand": 8,
+      "position": "SB",
+      "hole": [
+        "Ac",
+        "9h"
+      ],
+      "to_call": 180,
+      "opponents_behind": 0,
+      "actual_native": [
+        5,
+        0,
+        720
+      ],
+      "with_one_opponent_behind": [
+        1,
+        0,
+        0
+      ],
+      "executed": "raise:1080"
+    }
+  ],
+  "sampled_examples": [
+    {
+      "run": 1,
+      "hand": 8,
+      "player": 3,
+      "position": "UTG",
+      "hole": [
+        "8d",
+        "4s"
+      ],
+      "board": [],
+      "street": "preflop",
+      "pot": 15,
+      "to_call": 10,
+      "stack": 1050,
+      "bet": 0,
+      "action": "fold",
+      "native": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "run": 1,
+      "hand": 8,
+      "player": 4,
+      "position": "HJ",
+      "hole": [
+        "8c",
+        "As"
+      ],
+      "board": [],
+      "street": "preflop",
+      "pot": 15,
+      "to_call": 10,
+      "stack": 972,
+      "bet": 0,
+      "action": "fold",
+      "native": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "run": 1,
+      "hand": 8,
+      "player": 5,
+      "position": "CO",
+      "hole": [
+        "2s",
+        "8h"
+      ],
+      "board": [],
+      "street": "preflop",
+      "pot": 15,
+      "to_call": 10,
+      "stack": 965,
+      "bet": 0,
+      "action": "fold",
+      "native": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "run": 1,
+      "hand": 8,
+      "player": 0,
+      "position": "BTN",
+      "hole": [
+        "5c",
+        "9s"
+      ],
+      "board": [],
+      "street": "preflop",
+      "pot": 15,
+      "to_call": 10,
+      "stack": 968,
+      "bet": 0,
+      "action": "fold"
+    },
+    {
+      "run": 1,
+      "hand": 8,
+      "player": 1,
+      "position": "SB",
+      "hole": [
+        "Ac",
+        "9h"
+      ],
+      "board": [],
+      "street": "preflop",
+      "pot": 15,
+      "to_call": 5,
+      "stack": 1077,
+      "bet": 5,
+      "action": "raise:30",
+      "native": [
+        5,
+        0,
+        27
+      ],
+      "target": 37
+    },
+    {
+      "run": 1,
+      "hand": 8,
+      "player": 2,
+      "position": "BB",
+      "hole": [
+        "Ad",
+        "Kd"
+      ],
+      "board": [],
+      "street": "preflop",
+      "pot": 40,
+      "to_call": 20,
+      "stack": 953,
+      "bet": 10,
+      "action": "raise:60",
+      "native": [
+        5,
+        0,
+        42
+      ],
+      "target": 72
+    },
+    {
+      "run": 1,
+      "hand": 8,
+      "player": 1,
+      "position": "SB",
+      "hole": [
+        "Ac",
+        "9h"
+      ],
+      "board": [],
+      "street": "preflop",
+      "pot": 90,
+      "to_call": 30,
+      "stack": 1052,
+      "bet": 30,
+      "action": "raise:180",
+      "native": [
+        5,
+        0,
+        120
+      ],
+      "target": 180
+    },
+    {
+      "run": 1,
+      "hand": 8,
+      "player": 2,
+      "position": "BB",
+      "hole": [
+        "Ad",
+        "Kd"
+      ],
+      "board": [],
+      "street": "preflop",
+      "pot": 240,
+      "to_call": 120,
+      "stack": 903,
+      "bet": 60,
+      "action": "raise:360",
+      "native": [
+        5,
+        0,
+        252
+      ],
+      "target": 432
+    },
+    {
+      "run": 1,
+      "hand": 8,
+      "player": 1,
+      "position": "SB",
+      "hole": [
+        "Ac",
+        "9h"
+      ],
+      "board": [],
+      "street": "preflop",
+      "pot": 540,
+      "to_call": 180,
+      "stack": 902,
+      "bet": 180,
+      "action": "raise:1080",
+      "native": [
+        5,
+        0,
+        720
+      ],
+      "target": 1080
+    },
+    {
+      "run": 1,
+      "hand": 8,
+      "player": 2,
+      "position": "BB",
+      "hole": [
+        "Ad",
+        "Kd"
+      ],
+      "board": [],
+      "street": "preflop",
+      "pot": 1440,
+      "to_call": 603,
+      "stack": 603,
+      "bet": 360,
+      "action": "call",
+      "native": [
+        5,
+        0,
+        10
+      ],
+      "target": 963
+    },
+    {
+      "run": 4,
+      "hand": 20,
+      "player": 3,
+      "position": "UTG",
+      "hole": [
+        "Th",
+        "Jh"
+      ],
+      "board": [],
+      "street": "preflop",
+      "pot": 15,
+      "to_call": 10,
+      "stack": 1275,
+      "bet": 0,
+      "action": "raise:35",
+      "native": [
+        5,
+        0,
+        27
+      ],
+      "target": 37
+    },
+    {
+      "run": 4,
+      "hand": 20,
+      "player": 4,
+      "position": "HJ",
+      "hole": [
+        "8h",
+        "7d"
+      ],
+      "board": [],
+      "street": "preflop",
+      "pot": 50,
+      "to_call": 35,
+      "stack": 528,
+      "bet": 0,
+      "action": "fold",
+      "native": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "run": 4,
+      "hand": 20,
+      "player": 5,
+      "position": "CO",
+      "hole": [
+        "6s",
+        "Jc"
+      ],
+      "board": [],
+      "street": "preflop",
+      "pot": 50,
+      "to_call": 35,
+      "stack": 1155,
+      "bet": 0,
+      "action": "fold",
+      "native": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "run": 4,
+      "hand": 20,
+      "player": 0,
+      "position": "BTN",
+      "hole": [
+        "3h",
+        "5s"
+      ],
+      "board": [],
+      "street": "preflop",
+      "pot": 50,
+      "to_call": 35,
+      "stack": 1192,
+      "bet": 0,
+      "action": "call"
+    },
+    {
+      "run": 4,
+      "hand": 20,
+      "player": 1,
+      "position": "SB",
+      "hole": [
+        "4s",
+        "3s"
+      ],
+      "board": [],
+      "street": "preflop",
+      "pot": 85,
+      "to_call": 30,
+      "stack": 915,
+      "bet": 5,
+      "action": "fold",
+      "native": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "run": 4,
+      "hand": 20,
+      "player": 2,
+      "position": "BB",
+      "hole": [
+        "9s",
+        "2c"
+      ],
+      "board": [],
+      "street": "preflop",
+      "pot": 85,
+      "to_call": 25,
+      "stack": 920,
+      "bet": 10,
+      "action": "fold",
+      "native": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "run": 4,
+      "hand": 20,
+      "player": 3,
+      "position": "UTG",
+      "hole": [
+        "Th",
+        "Jh"
+      ],
+      "board": [
+        "4c",
+        "Tc",
+        "Ts"
+      ],
+      "street": "flop",
+      "pot": 85,
+      "to_call": 0,
+      "stack": 1240,
+      "bet": 0,
+      "action": "raise:42",
+      "native": [
+        4,
+        58,
+        0
+      ],
+      "target": 58
+    },
+    {
+      "run": 4,
+      "hand": 20,
+      "player": 0,
+      "position": "BTN",
+      "hole": [
+        "3h",
+        "5s"
+      ],
+      "board": [
+        "4c",
+        "Tc",
+        "Ts"
+      ],
+      "street": "flop",
+      "pot": 127,
+      "to_call": 42,
+      "stack": 1157,
+      "bet": 0,
+      "action": "call"
+    },
+    {
+      "run": 4,
+      "hand": 20,
+      "player": 3,
+      "position": "UTG",
+      "hole": [
+        "Th",
+        "Jh"
+      ],
+      "board": [
+        "4c",
+        "Tc",
+        "Ts",
+        "9d"
+      ],
+      "street": "turn",
+      "pot": 169,
+      "to_call": 0,
+      "stack": 1198,
+      "bet": 0,
+      "action": "raise:84",
+      "native": [
+        4,
+        116,
+        0
+      ],
+      "target": 116
+    },
+    {
+      "run": 4,
+      "hand": 20,
+      "player": 0,
+      "position": "BTN",
+      "hole": [
+        "3h",
+        "5s"
+      ],
+      "board": [
+        "4c",
+        "Tc",
+        "Ts",
+        "9d"
+      ],
+      "street": "turn",
+      "pot": 253,
+      "to_call": 84,
+      "stack": 1115,
+      "bet": 0,
+      "action": "fold"
+    }
+  ],
+  "live_hand_4": {
+    "table_id": "28806ca653e9",
+    "board": [
+      "Th",
+      "Ks",
+      "3c",
+      "9h",
+      "2h"
+    ],
+    "players": [
+      {
+        "seat": 3,
+        "name": "Player 4",
+        "cards": [
+          "Ah",
+          "7h"
+        ],
+        "position": "SB"
+      },
+      {
+        "seat": 4,
+        "name": "Player 5",
+        "cards": [
+          "9c",
+          "Qh"
+        ],
+        "position": "BB"
+      }
+    ],
+    "history": [
+      {
+        "id": "e35",
+        "hand": 4,
+        "street": "preflop",
+        "text": "Hand 4 begins. Blinds 5/10.",
+        "player": null,
+        "action": null,
+        "amount": 0
+      },
+      {
+        "id": "e36",
+        "hand": 4,
+        "street": "preflop",
+        "text": "Player 6 folds.",
+        "player": 5,
+        "action": "fold",
+        "amount": 0
+      },
+      {
+        "id": "e37",
+        "hand": 4,
+        "street": "preflop",
+        "text": "Range Agent folds.",
+        "player": 0,
+        "action": "fold",
+        "amount": 0
+      },
+      {
+        "id": "e38",
+        "hand": 4,
+        "street": "preflop",
+        "text": "Player 2 folds.",
+        "player": 1,
+        "action": "fold",
+        "amount": 0
+      },
+      {
+        "id": "e39",
+        "hand": 4,
+        "street": "preflop",
+        "text": "Player 3 folds.",
+        "player": 2,
+        "action": "fold",
+        "amount": 0
+      },
+      {
+        "id": "e40",
+        "hand": 4,
+        "street": "preflop",
+        "text": "Player 4 raises to 30.",
+        "player": 3,
+        "action": "raise:30",
+        "amount": 30
+      },
+      {
+        "id": "e41",
+        "hand": 4,
+        "street": "preflop",
+        "text": "Player 5 calls 20.",
+        "player": 4,
+        "action": "call",
+        "amount": 20
+      },
+      {
+        "id": "e42",
+        "hand": 4,
+        "street": "flop",
+        "text": "Player 4 checks.",
+        "player": 3,
+        "action": "check",
+        "amount": 0
+      },
+      {
+        "id": "e43",
+        "hand": 4,
+        "street": "flop",
+        "text": "Player 5 checks.",
+        "player": 4,
+        "action": "check",
+        "amount": 0
+      },
+      {
+        "id": "e44",
+        "hand": 4,
+        "street": "turn",
+        "text": "Player 4 checks.",
+        "player": 3,
+        "action": "check",
+        "amount": 0
+      },
+      {
+        "id": "e45",
+        "hand": 4,
+        "street": "turn",
+        "text": "Player 5 checks.",
+        "player": 4,
+        "action": "check",
+        "amount": 0
+      },
+      {
+        "id": "e46",
+        "hand": 4,
+        "street": "river",
+        "text": "Player 4 raises to 30.",
+        "player": 3,
+        "action": "raise:30",
+        "amount": 30
+      },
+      {
+        "id": "e47",
+        "hand": 4,
+        "street": "river",
+        "text": "Player 5 calls 30.",
+        "player": 4,
+        "action": "call",
+        "amount": 30
+      },
+      {
+        "id": "e48",
+        "hand": 4,
+        "street": "showdown",
+        "text": "Player 4 +60",
+        "player": null,
+        "action": null,
+        "amount": 0
+      }
+    ]
+  }
+}

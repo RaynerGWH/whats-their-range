@@ -1,6 +1,6 @@
 # Shared project context
 
-Revision: 13. Updated: 2026-10-25 18:36 Asia/Singapore.
+Revision: 14. Updated: 2026-10-25 18:52 Asia/Singapore.
 
 This is the current project brief and decision log for every coding chat and worktree. Read it before starting or resuming work. The integration chat maintains it from Rayner's decisions and verified branch evidence. The local canonical checkout is identified in [shared context access](shared-context.md).
 
@@ -25,6 +25,7 @@ Rayner's Garrett Edelstein reference expresses the desired depth of player-like 
 - Deliver this in two steps: Stage 2A makes complete games playable against PokerTH through the existing hero decision interface; Stage 2B implements the fuller strategy/tool loop and initial genuine solver access. Rayner explicitly requested the environment first, then strategy development.
 - Make meaningful local commits during development. The integration chat may merge completed, reviewed milestones into local `main` after their checks pass. Remote pushes and deployment remain separate actions.
 - Protect evaluation from both hidden-state leakage and shortcuts based on knowing the simulator's opponent policies. Opponent adjustments should be supported by permitted observations; successful play against recognizable scripts does not establish general poker skill.
+- Judge simulation behavior across recurring situations and a meaningful sample. An isolated unusual or losing action does not establish that PokerTH is inaccurate. Imperfect opponents are useful for this side project; keep legality, adapter fidelity and strategic quality separate.
 
 Detailed design targets and proposed tool families are in [agent direction](agent-direction.md). That document distinguishes implemented behavior from future work.
 
@@ -61,6 +62,8 @@ The [roadmap](roadmap.md) records this sequence, completion evidence, opponent-m
 
 The roadmap also records an [opponent reuse shortlist](roadmap.md#reuse-candidates), researched after Rayner raised existing bot libraries and requested reputation checks. The [QuantPlay assessment](research/quantplay.md) found sparse independent feedback and passed two upstream smoke-test modules at `d1b4ca2`. The subsequent [PokerTH assessment](research/pokerth.md) found a stronger community history and a separable AI engine 4 interface. Stage 2A now vendors release `0a7dceb`, with a reproducible native build and a tested adapter in local main. Its discrete raise mapping, public-statistic definitions and RNG differ from desktop PokerTH and are documented. Human realism, strategic strength and solver agreement remain unverified.
 
+The subsequent [behavior review](review/pokerth-behavior.md) ran a live game and sampled 150 hands across six 100-BB games, checking 1,054 native decisions without illegal actions or chip-conservation failures. It records a plausible live hand, sizing changes, a position shortcut and descriptive action frequencies. Rayner clarified that one unusual bluff is not grounds to dismiss the simulator. These observations remain review notes and proposed refinements, not a rejection of PokerTH or a new blocker for Stage 2B. No opponent policy was changed.
+
 Still to decide:
 
 - The first useful tool set, its input/output contracts and evidence representation.
@@ -95,6 +98,7 @@ All entries below were accepted through Rayner's discussion in the integration c
 | D010 | Rayner confirmed combining PokerKit with PokerTH's opponent logic for the agent's simulated games | Preserve PokerKit as the game authority and adapt PokerTH decisions to its observations and legal actions; keep the LLM hero and a separate future solver tool distinct |
 | D011 | Rayner directed the backend agent to implement the playable environment before developing the fuller strategy | Assign Stage 2A to the existing backend checkout; preserve the current hero interface and defer new strategy/solver work to Stage 2B, refining D008's sequencing |
 | D012 | Rayner authorized commits during development and merges to main once work is solid and complete | Use coherent local commits; integration reviews and validates completed deliveries before merging into local main, without an additional permission round |
+| D013 | Rayner clarified during live review that a single scenario should not be used to call the simulation inaccurate | Evaluate recurring behavior across a meaningful sample; separate mechanical validity, adapter fidelity and strategic judgment; do not reject PokerTH or block strategy work on an isolated unusual action |
 
 ## Keeping this current
 
