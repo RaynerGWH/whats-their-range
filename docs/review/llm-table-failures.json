@@ -1,0 +1,1862 @@
+[
+  {
+    "schema_version": "llm-benchmark-report-v1",
+    "created_at": "2026-10-25T11:45:58.979879+00:00",
+    "runtime": {
+      "python": "3.12.14",
+      "pokerkit": "0.7.7",
+      "httpx": "0.28.1",
+      "langgraph": "1.2.17",
+      "pydantic": "2.14.1"
+    },
+    "mocked": true,
+    "mock_failure": "http",
+    "purpose": "Engineering evidence only; no inference about model strength or chat effects",
+    "manifest": {
+      "schema_version": "llm-benchmark-v1",
+      "name": "Six-seat mocked engineering comparison",
+      "table": {
+        "name": "The opening table",
+        "seed": 42,
+        "stack_bb": 10,
+        "hands_per_level": 2,
+        "payouts": "70/30",
+        "mode": "heuristic",
+        "opponents": "llm",
+        "player_count": 6,
+        "hero_seat": 0,
+        "hero_control": "llm",
+        "seat_configs": [
+          {
+            "seat": 0,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 1,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 2,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 3,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 4,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 5,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          }
+        ],
+        "llm_limits": {
+          "max_calls_per_player": 100,
+          "max_calls_total": 400,
+          "max_output_tokens": 600,
+          "max_output_tokens_per_player": 60000,
+          "max_output_tokens_total": 240000,
+          "deadline_seconds": 0.05,
+          "max_input_chars": 24000,
+          "max_message_chars": 240,
+          "chat_history_limit": 40,
+          "memory_turns": 8
+        },
+        "opponent_seed": null,
+        "personality_seed": null,
+        "hero_seed": null,
+        "model": "mock/control",
+        "pace": 1.2
+      },
+      "seeds": [
+        {
+          "split": "development",
+          "deck": 7,
+          "policy": 42
+        }
+      ],
+      "rotations": [
+        0
+      ],
+      "presets": [
+        "same_model"
+      ],
+      "swap_model": "mock/variant",
+      "stopping": {
+        "max_hands": 100,
+        "max_actions": 1000,
+        "timeout_seconds": 30.0
+      }
+    },
+    "manifest_sha256": "d011a3ca3214754a41d861bd080470b199030e69ab918528717085639feab22e",
+    "source_sha256": "f32a915169532ba57095e97238c46fa3b990ff95348e3708927067ec1cafcc8f",
+    "summary": [
+      {
+        "preset": "same_model",
+        "split": "development",
+        "runs": 1,
+        "statuses": {
+          "completed_with_fallbacks": 1
+        },
+        "independent_seed_sets": 1,
+        "complete_provider_only_seed_sets": 0,
+        "hero_prize_mean_complete_provider_only": null,
+        "approximate_95pct_normal_interval": null,
+        "uncertainty_note": "Seed-cluster approximation; small samples are unreliable. Failures and fallbacks are retained but excluded from provider-only prize estimates."
+      }
+    ],
+    "review_scenario": "http",
+    "review_format": "Compact derivative. Reconstruct each resolved configuration with expand(manifest); full action/usage records remain in the full report.",
+    "player_versions_by_preset": {
+      "same_model": [
+        {
+          "seat": 0,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 1,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 2,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 3,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 4,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 5,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        }
+      ]
+    },
+    "results": [
+      {
+        "run": 0,
+        "split": "development",
+        "seed_set": {
+          "split": "development",
+          "deck": 7,
+          "policy": 42
+        },
+        "preset": "same_model",
+        "rotation": 0,
+        "status": "completed_with_fallbacks",
+        "completed": true,
+        "actions": 78,
+        "hands": 6,
+        "outcomes": [
+          {
+            "seat": 0,
+            "place": 3,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 1,
+            "place": 5,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 2,
+            "place": 2,
+            "prize": 30.0,
+            "stack": 0
+          },
+          {
+            "seat": 3,
+            "place": 5,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 4,
+            "place": 1,
+            "prize": 70,
+            "stack": 600
+          },
+          {
+            "seat": 5,
+            "place": 4,
+            "prize": 0.0,
+            "stack": 0
+          }
+        ],
+        "provisional_outcomes": [
+          {
+            "seat": 0,
+            "place": 3,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 1,
+            "place": 5,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 2,
+            "place": 2,
+            "prize": 30.0,
+            "stack": 0
+          },
+          {
+            "seat": 3,
+            "place": 5,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 4,
+            "place": 1,
+            "prize": 70,
+            "stack": 600
+          },
+          {
+            "seat": 5,
+            "place": 4,
+            "prize": 0.0,
+            "stack": 0
+          }
+        ],
+        "fallback_reasons": {
+          "Model request or response validation failed": 1
+        },
+        "rejected_actions": 0,
+        "duration_seconds": 0.741,
+        "usage_complete": true,
+        "error": null,
+        "chip_conservation": true,
+        "unsettled_pot": 0,
+        "outcome_sha256": "49efd0882fc285c619e819466e55f5e2eb443779072575871fbe2628722dedac",
+        "config_sha256": "65f5e8ccabbbfe2635fdc2a3231ecf4b6fe97fe7c4f5bacf4dcc3270359e091c",
+        "hero_seat": 0,
+        "usage_total": {
+          "attempts": 78,
+          "reserved_output_tokens": 46800,
+          "fallbacks": 1,
+          "budget_exhausted": false,
+          "input_tokens": null,
+          "known_input_tokens": 770,
+          "missing_input_tokens_attempts": 1,
+          "output_tokens": null,
+          "known_output_tokens": 385,
+          "missing_output_tokens_attempts": 1,
+          "cost_usd": null,
+          "known_cost_usd": 0.0077,
+          "missing_cost_usd_attempts": 1
+        },
+        "attempts_by_player": {
+          "0": 18,
+          "1": 9,
+          "2": 15,
+          "3": 9,
+          "4": 18,
+          "5": 9
+        },
+        "fallbacks_by_player": {
+          "0": 0,
+          "1": 0,
+          "2": 1,
+          "3": 0,
+          "4": 0,
+          "5": 0
+        },
+        "accepted_actions_sha256": "47bc42f3452306611f22def77b3745fbd12497c8c65f52ef5f6d62bc2212edfb",
+        "chat_sha256": "e7e571d51f4714de97d44fe8b27186a2e8a5ccfd641d97b4eb98d68f6ee3b74c",
+        "chat_messages": 77,
+        "accepted_actions_legal": true,
+        "mean_latency_ms": 6.9580769230769235,
+        "max_latency_ms": 26.155
+      }
+    ]
+  },
+  {
+    "schema_version": "llm-benchmark-report-v1",
+    "created_at": "2026-10-25T11:46:00.115201+00:00",
+    "runtime": {
+      "python": "3.12.14",
+      "pokerkit": "0.7.7",
+      "httpx": "0.28.1",
+      "langgraph": "1.2.17",
+      "pydantic": "2.14.1"
+    },
+    "mocked": true,
+    "mock_failure": "invalid",
+    "purpose": "Engineering evidence only; no inference about model strength or chat effects",
+    "manifest": {
+      "schema_version": "llm-benchmark-v1",
+      "name": "Six-seat mocked engineering comparison",
+      "table": {
+        "name": "The opening table",
+        "seed": 42,
+        "stack_bb": 10,
+        "hands_per_level": 2,
+        "payouts": "70/30",
+        "mode": "heuristic",
+        "opponents": "llm",
+        "player_count": 6,
+        "hero_seat": 0,
+        "hero_control": "llm",
+        "seat_configs": [
+          {
+            "seat": 0,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 1,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 2,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 3,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 4,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 5,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          }
+        ],
+        "llm_limits": {
+          "max_calls_per_player": 100,
+          "max_calls_total": 400,
+          "max_output_tokens": 600,
+          "max_output_tokens_per_player": 60000,
+          "max_output_tokens_total": 240000,
+          "deadline_seconds": 0.05,
+          "max_input_chars": 24000,
+          "max_message_chars": 240,
+          "chat_history_limit": 40,
+          "memory_turns": 8
+        },
+        "opponent_seed": null,
+        "personality_seed": null,
+        "hero_seed": null,
+        "model": "mock/control",
+        "pace": 1.2
+      },
+      "seeds": [
+        {
+          "split": "development",
+          "deck": 7,
+          "policy": 42
+        }
+      ],
+      "rotations": [
+        0
+      ],
+      "presets": [
+        "same_model"
+      ],
+      "swap_model": "mock/variant",
+      "stopping": {
+        "max_hands": 100,
+        "max_actions": 1000,
+        "timeout_seconds": 30.0
+      }
+    },
+    "manifest_sha256": "d011a3ca3214754a41d861bd080470b199030e69ab918528717085639feab22e",
+    "source_sha256": "f32a915169532ba57095e97238c46fa3b990ff95348e3708927067ec1cafcc8f",
+    "summary": [
+      {
+        "preset": "same_model",
+        "split": "development",
+        "runs": 1,
+        "statuses": {
+          "completed_with_fallbacks": 1
+        },
+        "independent_seed_sets": 1,
+        "complete_provider_only_seed_sets": 0,
+        "hero_prize_mean_complete_provider_only": null,
+        "approximate_95pct_normal_interval": null,
+        "uncertainty_note": "Seed-cluster approximation; small samples are unreliable. Failures and fallbacks are retained but excluded from provider-only prize estimates."
+      }
+    ],
+    "review_scenario": "invalid",
+    "review_format": "Compact derivative. Reconstruct each resolved configuration with expand(manifest); full action/usage records remain in the full report.",
+    "player_versions_by_preset": {
+      "same_model": [
+        {
+          "seat": 0,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 1,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 2,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 3,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 4,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 5,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        }
+      ]
+    },
+    "results": [
+      {
+        "run": 0,
+        "split": "development",
+        "seed_set": {
+          "split": "development",
+          "deck": 7,
+          "policy": 42
+        },
+        "preset": "same_model",
+        "rotation": 0,
+        "status": "completed_with_fallbacks",
+        "completed": true,
+        "actions": 78,
+        "hands": 6,
+        "outcomes": [
+          {
+            "seat": 0,
+            "place": 3,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 1,
+            "place": 5,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 2,
+            "place": 2,
+            "prize": 30.0,
+            "stack": 0
+          },
+          {
+            "seat": 3,
+            "place": 5,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 4,
+            "place": 1,
+            "prize": 70,
+            "stack": 600
+          },
+          {
+            "seat": 5,
+            "place": 4,
+            "prize": 0.0,
+            "stack": 0
+          }
+        ],
+        "provisional_outcomes": [
+          {
+            "seat": 0,
+            "place": 3,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 1,
+            "place": 5,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 2,
+            "place": 2,
+            "prize": 30.0,
+            "stack": 0
+          },
+          {
+            "seat": 3,
+            "place": 5,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 4,
+            "place": 1,
+            "prize": 70,
+            "stack": 600
+          },
+          {
+            "seat": 5,
+            "place": 4,
+            "prize": 0.0,
+            "stack": 0
+          }
+        ],
+        "fallback_reasons": {
+          "Model request or response validation failed": 1
+        },
+        "rejected_actions": 0,
+        "duration_seconds": 0.733,
+        "usage_complete": true,
+        "error": null,
+        "chip_conservation": true,
+        "unsettled_pot": 0,
+        "outcome_sha256": "df145941b92753c7acde665f89153b9cdb7591c1ec968e313d6490119d3e8e6c",
+        "config_sha256": "65f5e8ccabbbfe2635fdc2a3231ecf4b6fe97fe7c4f5bacf4dcc3270359e091c",
+        "hero_seat": 0,
+        "usage_total": {
+          "attempts": 78,
+          "reserved_output_tokens": 46800,
+          "fallbacks": 1,
+          "budget_exhausted": false,
+          "input_tokens": 780,
+          "known_input_tokens": 780,
+          "missing_input_tokens_attempts": 0,
+          "output_tokens": 390,
+          "known_output_tokens": 390,
+          "missing_output_tokens_attempts": 0,
+          "cost_usd": 0.0078000000000000005,
+          "known_cost_usd": 0.0078000000000000005,
+          "missing_cost_usd_attempts": 0
+        },
+        "attempts_by_player": {
+          "0": 18,
+          "1": 9,
+          "2": 15,
+          "3": 9,
+          "4": 18,
+          "5": 9
+        },
+        "fallbacks_by_player": {
+          "0": 0,
+          "1": 0,
+          "2": 1,
+          "3": 0,
+          "4": 0,
+          "5": 0
+        },
+        "accepted_actions_sha256": "47bc42f3452306611f22def77b3745fbd12497c8c65f52ef5f6d62bc2212edfb",
+        "chat_sha256": "e7e571d51f4714de97d44fe8b27186a2e8a5ccfd641d97b4eb98d68f6ee3b74c",
+        "chat_messages": 77,
+        "accepted_actions_legal": true,
+        "mean_latency_ms": 6.8808974358974355,
+        "max_latency_ms": 26.023
+      }
+    ]
+  },
+  {
+    "schema_version": "llm-benchmark-report-v1",
+    "created_at": "2026-10-25T11:46:01.282223+00:00",
+    "runtime": {
+      "python": "3.12.14",
+      "pokerkit": "0.7.7",
+      "httpx": "0.28.1",
+      "langgraph": "1.2.17",
+      "pydantic": "2.14.1"
+    },
+    "mocked": true,
+    "mock_failure": "timeout",
+    "purpose": "Engineering evidence only; no inference about model strength or chat effects",
+    "manifest": {
+      "schema_version": "llm-benchmark-v1",
+      "name": "Six-seat mocked engineering comparison",
+      "table": {
+        "name": "The opening table",
+        "seed": 42,
+        "stack_bb": 10,
+        "hands_per_level": 2,
+        "payouts": "70/30",
+        "mode": "heuristic",
+        "opponents": "llm",
+        "player_count": 6,
+        "hero_seat": 0,
+        "hero_control": "llm",
+        "seat_configs": [
+          {
+            "seat": 0,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 1,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 2,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 3,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 4,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 5,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          }
+        ],
+        "llm_limits": {
+          "max_calls_per_player": 100,
+          "max_calls_total": 400,
+          "max_output_tokens": 600,
+          "max_output_tokens_per_player": 60000,
+          "max_output_tokens_total": 240000,
+          "deadline_seconds": 0.05,
+          "max_input_chars": 24000,
+          "max_message_chars": 240,
+          "chat_history_limit": 40,
+          "memory_turns": 8
+        },
+        "opponent_seed": null,
+        "personality_seed": null,
+        "hero_seed": null,
+        "model": "mock/control",
+        "pace": 1.2
+      },
+      "seeds": [
+        {
+          "split": "development",
+          "deck": 7,
+          "policy": 42
+        }
+      ],
+      "rotations": [
+        0
+      ],
+      "presets": [
+        "same_model"
+      ],
+      "swap_model": "mock/variant",
+      "stopping": {
+        "max_hands": 100,
+        "max_actions": 1000,
+        "timeout_seconds": 30.0
+      }
+    },
+    "manifest_sha256": "d011a3ca3214754a41d861bd080470b199030e69ab918528717085639feab22e",
+    "source_sha256": "f32a915169532ba57095e97238c46fa3b990ff95348e3708927067ec1cafcc8f",
+    "summary": [
+      {
+        "preset": "same_model",
+        "split": "development",
+        "runs": 1,
+        "statuses": {
+          "completed_with_fallbacks": 1
+        },
+        "independent_seed_sets": 1,
+        "complete_provider_only_seed_sets": 0,
+        "hero_prize_mean_complete_provider_only": null,
+        "approximate_95pct_normal_interval": null,
+        "uncertainty_note": "Seed-cluster approximation; small samples are unreliable. Failures and fallbacks are retained but excluded from provider-only prize estimates."
+      }
+    ],
+    "review_scenario": "timeout",
+    "review_format": "Compact derivative. Reconstruct each resolved configuration with expand(manifest); full action/usage records remain in the full report.",
+    "player_versions_by_preset": {
+      "same_model": [
+        {
+          "seat": 0,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 1,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 2,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 3,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 4,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 5,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        }
+      ]
+    },
+    "results": [
+      {
+        "run": 0,
+        "split": "development",
+        "seed_set": {
+          "split": "development",
+          "deck": 7,
+          "policy": 42
+        },
+        "preset": "same_model",
+        "rotation": 0,
+        "status": "completed_with_fallbacks",
+        "completed": true,
+        "actions": 78,
+        "hands": 6,
+        "outcomes": [
+          {
+            "seat": 0,
+            "place": 3,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 1,
+            "place": 5,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 2,
+            "place": 2,
+            "prize": 30.0,
+            "stack": 0
+          },
+          {
+            "seat": 3,
+            "place": 5,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 4,
+            "place": 1,
+            "prize": 70,
+            "stack": 600
+          },
+          {
+            "seat": 5,
+            "place": 4,
+            "prize": 0.0,
+            "stack": 0
+          }
+        ],
+        "provisional_outcomes": [
+          {
+            "seat": 0,
+            "place": 3,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 1,
+            "place": 5,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 2,
+            "place": 2,
+            "prize": 30.0,
+            "stack": 0
+          },
+          {
+            "seat": 3,
+            "place": 5,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 4,
+            "place": 1,
+            "prize": 70,
+            "stack": 600
+          },
+          {
+            "seat": 5,
+            "place": 4,
+            "prize": 0.0,
+            "stack": 0
+          }
+        ],
+        "fallback_reasons": {
+          "Model deadline exceeded": 1
+        },
+        "rejected_actions": 0,
+        "duration_seconds": 0.784,
+        "usage_complete": true,
+        "error": null,
+        "chip_conservation": true,
+        "unsettled_pot": 0,
+        "outcome_sha256": "38eb5e2a5f0ef27d825d212015c18a2af312e6c8f49be9280a7bcb8cc4190a36",
+        "config_sha256": "65f5e8ccabbbfe2635fdc2a3231ecf4b6fe97fe7c4f5bacf4dcc3270359e091c",
+        "hero_seat": 0,
+        "usage_total": {
+          "attempts": 78,
+          "reserved_output_tokens": 46800,
+          "fallbacks": 1,
+          "budget_exhausted": false,
+          "input_tokens": null,
+          "known_input_tokens": 770,
+          "missing_input_tokens_attempts": 1,
+          "output_tokens": null,
+          "known_output_tokens": 385,
+          "missing_output_tokens_attempts": 1,
+          "cost_usd": null,
+          "known_cost_usd": 0.0077,
+          "missing_cost_usd_attempts": 1
+        },
+        "attempts_by_player": {
+          "0": 18,
+          "1": 9,
+          "2": 15,
+          "3": 9,
+          "4": 18,
+          "5": 9
+        },
+        "fallbacks_by_player": {
+          "0": 0,
+          "1": 0,
+          "2": 1,
+          "3": 0,
+          "4": 0,
+          "5": 0
+        },
+        "accepted_actions_sha256": "53e7863db4309670d7ef2bae1bd76c97a773ecb68759a10842c6c46be4fa57df",
+        "chat_sha256": "e7e571d51f4714de97d44fe8b27186a2e8a5ccfd641d97b4eb98d68f6ee3b74c",
+        "chat_messages": 77,
+        "accepted_actions_legal": true,
+        "mean_latency_ms": 7.555551282051282,
+        "max_latency_ms": 79.452
+      }
+    ]
+  },
+  {
+    "schema_version": "llm-benchmark-report-v1",
+    "created_at": "2026-10-25T11:46:02.325124+00:00",
+    "runtime": {
+      "python": "3.12.14",
+      "pokerkit": "0.7.7",
+      "httpx": "0.28.1",
+      "langgraph": "1.2.17",
+      "pydantic": "2.14.1"
+    },
+    "mocked": true,
+    "mock_failure": "missing_usage",
+    "purpose": "Engineering evidence only; no inference about model strength or chat effects",
+    "manifest": {
+      "schema_version": "llm-benchmark-v1",
+      "name": "Six-seat mocked engineering comparison",
+      "table": {
+        "name": "The opening table",
+        "seed": 42,
+        "stack_bb": 10,
+        "hands_per_level": 2,
+        "payouts": "70/30",
+        "mode": "heuristic",
+        "opponents": "llm",
+        "player_count": 6,
+        "hero_seat": 0,
+        "hero_control": "llm",
+        "seat_configs": [
+          {
+            "seat": 0,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 1,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 2,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 3,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 4,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 5,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          }
+        ],
+        "llm_limits": {
+          "max_calls_per_player": 100,
+          "max_calls_total": 400,
+          "max_output_tokens": 600,
+          "max_output_tokens_per_player": 60000,
+          "max_output_tokens_total": 240000,
+          "deadline_seconds": 0.05,
+          "max_input_chars": 24000,
+          "max_message_chars": 240,
+          "chat_history_limit": 40,
+          "memory_turns": 8
+        },
+        "opponent_seed": null,
+        "personality_seed": null,
+        "hero_seed": null,
+        "model": "mock/control",
+        "pace": 1.2
+      },
+      "seeds": [
+        {
+          "split": "development",
+          "deck": 7,
+          "policy": 42
+        }
+      ],
+      "rotations": [
+        0
+      ],
+      "presets": [
+        "same_model"
+      ],
+      "swap_model": "mock/variant",
+      "stopping": {
+        "max_hands": 100,
+        "max_actions": 1000,
+        "timeout_seconds": 30.0
+      }
+    },
+    "manifest_sha256": "d011a3ca3214754a41d861bd080470b199030e69ab918528717085639feab22e",
+    "source_sha256": "f32a915169532ba57095e97238c46fa3b990ff95348e3708927067ec1cafcc8f",
+    "summary": [
+      {
+        "preset": "same_model",
+        "split": "development",
+        "runs": 1,
+        "statuses": {
+          "completed": 1
+        },
+        "independent_seed_sets": 1,
+        "complete_provider_only_seed_sets": 1,
+        "hero_prize_mean_complete_provider_only": 0.0,
+        "approximate_95pct_normal_interval": null,
+        "uncertainty_note": "Seed-cluster approximation; small samples are unreliable. Failures and fallbacks are retained but excluded from provider-only prize estimates."
+      }
+    ],
+    "review_scenario": "missing_usage",
+    "review_format": "Compact derivative. Reconstruct each resolved configuration with expand(manifest); full action/usage records remain in the full report.",
+    "player_versions_by_preset": {
+      "same_model": [
+        {
+          "seat": 0,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 1,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 2,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 3,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 4,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 5,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        }
+      ]
+    },
+    "results": [
+      {
+        "run": 0,
+        "split": "development",
+        "seed_set": {
+          "split": "development",
+          "deck": 7,
+          "policy": 42
+        },
+        "preset": "same_model",
+        "rotation": 0,
+        "status": "completed",
+        "completed": true,
+        "actions": 72,
+        "hands": 6,
+        "outcomes": [
+          {
+            "seat": 0,
+            "place": 3,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 1,
+            "place": 4,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 2,
+            "place": 2,
+            "prize": 30.0,
+            "stack": 0
+          },
+          {
+            "seat": 3,
+            "place": 4,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 4,
+            "place": 1,
+            "prize": 70,
+            "stack": 600
+          },
+          {
+            "seat": 5,
+            "place": 4,
+            "prize": 0.0,
+            "stack": 0
+          }
+        ],
+        "provisional_outcomes": [
+          {
+            "seat": 0,
+            "place": 3,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 1,
+            "place": 4,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 2,
+            "place": 2,
+            "prize": 30.0,
+            "stack": 0
+          },
+          {
+            "seat": 3,
+            "place": 4,
+            "prize": 0.0,
+            "stack": 0
+          },
+          {
+            "seat": 4,
+            "place": 1,
+            "prize": 70,
+            "stack": 600
+          },
+          {
+            "seat": 5,
+            "place": 4,
+            "prize": 0.0,
+            "stack": 0
+          }
+        ],
+        "fallback_reasons": {},
+        "rejected_actions": 0,
+        "duration_seconds": 0.6572,
+        "usage_complete": true,
+        "error": null,
+        "chip_conservation": true,
+        "unsettled_pot": 0,
+        "outcome_sha256": "485a9a728c00112a20586338d9dd18c4354eed7c793276785529fb2644ec0b8e",
+        "config_sha256": "65f5e8ccabbbfe2635fdc2a3231ecf4b6fe97fe7c4f5bacf4dcc3270359e091c",
+        "hero_seat": 0,
+        "usage_total": {
+          "attempts": 72,
+          "reserved_output_tokens": 43200,
+          "fallbacks": 0,
+          "budget_exhausted": false,
+          "input_tokens": null,
+          "known_input_tokens": null,
+          "missing_input_tokens_attempts": 72,
+          "output_tokens": null,
+          "known_output_tokens": null,
+          "missing_output_tokens_attempts": 72,
+          "cost_usd": null,
+          "known_cost_usd": null,
+          "missing_cost_usd_attempts": 72
+        },
+        "attempts_by_player": {
+          "0": 9,
+          "1": 9,
+          "2": 18,
+          "3": 9,
+          "4": 18,
+          "5": 9
+        },
+        "fallbacks_by_player": {
+          "0": 0,
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 0
+        },
+        "accepted_actions_sha256": "65fa88333bf49f6025ada8aab9ec417bd8e3b00cf95dc426583327b9242f7250",
+        "chat_sha256": "3ca4a3c84bc9d424ce6c8f18570609bed2eda84ff557543c200713ad907862fd",
+        "chat_messages": 72,
+        "accepted_actions_legal": true,
+        "mean_latency_ms": 6.639138888888889,
+        "max_latency_ms": 19.263
+      }
+    ]
+  },
+  {
+    "schema_version": "llm-benchmark-report-v1",
+    "created_at": "2026-10-25T11:46:02.752425+00:00",
+    "runtime": {
+      "python": "3.12.14",
+      "pokerkit": "0.7.7",
+      "httpx": "0.28.1",
+      "langgraph": "1.2.17",
+      "pydantic": "2.14.1"
+    },
+    "mocked": true,
+    "mock_failure": null,
+    "purpose": "Engineering evidence only; no inference about model strength or chat effects",
+    "manifest": {
+      "schema_version": "llm-benchmark-v1",
+      "name": "Six-seat mocked engineering comparison",
+      "table": {
+        "name": "The opening table",
+        "seed": 42,
+        "stack_bb": 10,
+        "hands_per_level": 2,
+        "payouts": "70/30",
+        "mode": "heuristic",
+        "opponents": "llm",
+        "player_count": 6,
+        "hero_seat": 0,
+        "hero_control": "llm",
+        "seat_configs": [
+          {
+            "seat": 0,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 1,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 2,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 3,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 4,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 5,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          }
+        ],
+        "llm_limits": {
+          "max_calls_per_player": 100,
+          "max_calls_total": 1,
+          "max_output_tokens": 600,
+          "max_output_tokens_per_player": 60000,
+          "max_output_tokens_total": 240000,
+          "deadline_seconds": 0.05,
+          "max_input_chars": 24000,
+          "max_message_chars": 240,
+          "chat_history_limit": 40,
+          "memory_turns": 8
+        },
+        "opponent_seed": null,
+        "personality_seed": null,
+        "hero_seed": null,
+        "model": "mock/control",
+        "pace": 1.2
+      },
+      "seeds": [
+        {
+          "split": "development",
+          "deck": 7,
+          "policy": 42
+        }
+      ],
+      "rotations": [
+        0
+      ],
+      "presets": [
+        "same_model"
+      ],
+      "swap_model": "mock/variant",
+      "stopping": {
+        "max_hands": 100,
+        "max_actions": 1000,
+        "timeout_seconds": 30.0
+      }
+    },
+    "manifest_sha256": "e3c70e9cbcdd78e02ad26a254e310c1b498f0c4c7d967374d38132c0c93c5ce7",
+    "source_sha256": "f32a915169532ba57095e97238c46fa3b990ff95348e3708927067ec1cafcc8f",
+    "summary": [
+      {
+        "preset": "same_model",
+        "split": "development",
+        "runs": 1,
+        "statuses": {
+          "budget_exhausted": 1
+        },
+        "independent_seed_sets": 1,
+        "complete_provider_only_seed_sets": 0,
+        "hero_prize_mean_complete_provider_only": null,
+        "approximate_95pct_normal_interval": null,
+        "uncertainty_note": "Seed-cluster approximation; small samples are unreliable. Failures and fallbacks are retained but excluded from provider-only prize estimates."
+      }
+    ],
+    "review_scenario": "budget",
+    "review_format": "Compact derivative. Reconstruct each resolved configuration with expand(manifest); full action/usage records remain in the full report.",
+    "player_versions_by_preset": {
+      "same_model": [
+        {
+          "seat": 0,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 1,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 2,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 3,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 4,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 5,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        }
+      ]
+    },
+    "results": [
+      {
+        "run": 0,
+        "split": "development",
+        "seed_set": {
+          "split": "development",
+          "deck": 7,
+          "policy": 42
+        },
+        "preset": "same_model",
+        "rotation": 0,
+        "status": "budget_exhausted",
+        "completed": false,
+        "actions": 2,
+        "hands": 1,
+        "outcomes": null,
+        "provisional_outcomes": [
+          {
+            "seat": 0,
+            "place": null,
+            "prize": 0.0,
+            "stack": 95
+          },
+          {
+            "seat": 1,
+            "place": null,
+            "prize": 0.0,
+            "stack": 90
+          },
+          {
+            "seat": 2,
+            "place": null,
+            "prize": 0.0,
+            "stack": 90
+          },
+          {
+            "seat": 3,
+            "place": null,
+            "prize": 0.0,
+            "stack": 90
+          },
+          {
+            "seat": 4,
+            "place": null,
+            "prize": 0.0,
+            "stack": 100
+          },
+          {
+            "seat": 5,
+            "place": null,
+            "prize": 0.0,
+            "stack": 100
+          }
+        ],
+        "fallback_reasons": {
+          "Provider budget exhausted": 1
+        },
+        "rejected_actions": 0,
+        "duration_seconds": 0.027,
+        "usage_complete": true,
+        "error": null,
+        "chip_conservation": true,
+        "unsettled_pot": 35,
+        "outcome_sha256": "6871866ed32ea03afaa0e7e333793e75d097e75b5e51b0a2caba447e397e23a9",
+        "config_sha256": "02f7d10dd9d3540c426225beba3b42b464c4b615c21658c75e957ac58f55b92d",
+        "hero_seat": 0,
+        "usage_total": {
+          "attempts": 1,
+          "reserved_output_tokens": 600,
+          "fallbacks": 1,
+          "budget_exhausted": true,
+          "input_tokens": 10,
+          "known_input_tokens": 10,
+          "missing_input_tokens_attempts": 0,
+          "output_tokens": 5,
+          "known_output_tokens": 5,
+          "missing_output_tokens_attempts": 0,
+          "cost_usd": 0.0001,
+          "known_cost_usd": 0.0001,
+          "missing_cost_usd_attempts": 0
+        },
+        "attempts_by_player": {
+          "0": 0,
+          "1": 0,
+          "2": 1,
+          "3": 0,
+          "4": 0,
+          "5": 0
+        },
+        "fallbacks_by_player": {
+          "0": 0,
+          "1": 0,
+          "2": 0,
+          "3": 1,
+          "4": 0,
+          "5": 0
+        },
+        "accepted_actions_sha256": "4affc6866aec3c3dfb677f0c78abdf2ab70320aa5e1868de974acf418ced0dad",
+        "chat_sha256": "dd16bf03e81506e104fb8229e8a1f946aa8fd2a82e7ffe16c329d27739a5ba98",
+        "chat_messages": 1,
+        "accepted_actions_legal": true,
+        "mean_latency_ms": 12.9255,
+        "max_latency_ms": 24.403
+      }
+    ]
+  },
+  {
+    "schema_version": "llm-benchmark-report-v1",
+    "created_at": "2026-10-25T11:46:03.251938+00:00",
+    "runtime": {
+      "python": "3.12.14",
+      "pokerkit": "0.7.7",
+      "httpx": "0.28.1",
+      "langgraph": "1.2.17",
+      "pydantic": "2.14.1"
+    },
+    "mocked": true,
+    "mock_failure": "timeout",
+    "purpose": "Engineering evidence only; no inference about model strength or chat effects",
+    "manifest": {
+      "schema_version": "llm-benchmark-v1",
+      "name": "Six-seat mocked engineering comparison",
+      "table": {
+        "name": "The opening table",
+        "seed": 42,
+        "stack_bb": 10,
+        "hands_per_level": 2,
+        "payouts": "70/30",
+        "mode": "heuristic",
+        "opponents": "llm",
+        "player_count": 6,
+        "hero_seat": 0,
+        "hero_control": "llm",
+        "seat_configs": [
+          {
+            "seat": 0,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 1,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 2,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 3,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 4,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          },
+          {
+            "seat": 5,
+            "name": "",
+            "model": "",
+            "instruction_profile": "free_play",
+            "harness": "baseline",
+            "chat_enabled": true,
+            "temperature": 1.0
+          }
+        ],
+        "llm_limits": {
+          "max_calls_per_player": 100,
+          "max_calls_total": 400,
+          "max_output_tokens": 600,
+          "max_output_tokens_per_player": 60000,
+          "max_output_tokens_total": 240000,
+          "deadline_seconds": 10.0,
+          "max_input_chars": 24000,
+          "max_message_chars": 240,
+          "chat_history_limit": 40,
+          "memory_turns": 8
+        },
+        "opponent_seed": null,
+        "personality_seed": null,
+        "hero_seed": null,
+        "model": "mock/control",
+        "pace": 1.2
+      },
+      "seeds": [
+        {
+          "split": "development",
+          "deck": 7,
+          "policy": 42
+        }
+      ],
+      "rotations": [
+        0
+      ],
+      "presets": [
+        "same_model"
+      ],
+      "swap_model": "mock/variant",
+      "stopping": {
+        "max_hands": 100,
+        "max_actions": 1000,
+        "timeout_seconds": 0.1
+      }
+    },
+    "manifest_sha256": "0ddc3537fd73ea1fd7d18dab1c1d8cedcaad2321ca87722a45de9a1e4d9c8685",
+    "source_sha256": "f32a915169532ba57095e97238c46fa3b990ff95348e3708927067ec1cafcc8f",
+    "summary": [
+      {
+        "preset": "same_model",
+        "split": "development",
+        "runs": 1,
+        "statuses": {
+          "timeout": 1
+        },
+        "independent_seed_sets": 1,
+        "complete_provider_only_seed_sets": 0,
+        "hero_prize_mean_complete_provider_only": null,
+        "approximate_95pct_normal_interval": null,
+        "uncertainty_note": "Seed-cluster approximation; small samples are unreliable. Failures and fallbacks are retained but excluded from provider-only prize estimates."
+      }
+    ],
+    "review_scenario": "run_timeout",
+    "review_format": "Compact derivative. Reconstruct each resolved configuration with expand(manifest); full action/usage records remain in the full report.",
+    "player_versions_by_preset": {
+      "same_model": [
+        {
+          "seat": 0,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 1,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 2,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 3,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 4,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        },
+        {
+          "seat": 5,
+          "prompt_version": "free_play-v1",
+          "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+          "harness_version": "baseline-v1"
+        }
+      ]
+    },
+    "results": [
+      {
+        "run": 0,
+        "split": "development",
+        "seed_set": {
+          "split": "development",
+          "deck": 7,
+          "policy": 42
+        },
+        "preset": "same_model",
+        "rotation": 0,
+        "status": "timeout",
+        "completed": false,
+        "actions": 0,
+        "hands": 1,
+        "outcomes": null,
+        "provisional_outcomes": [
+          {
+            "seat": 0,
+            "place": null,
+            "prize": 0.0,
+            "stack": 95
+          },
+          {
+            "seat": 1,
+            "place": null,
+            "prize": 0.0,
+            "stack": 90
+          },
+          {
+            "seat": 2,
+            "place": null,
+            "prize": 0.0,
+            "stack": 100
+          },
+          {
+            "seat": 3,
+            "place": null,
+            "prize": 0.0,
+            "stack": 100
+          },
+          {
+            "seat": 4,
+            "place": null,
+            "prize": 0.0,
+            "stack": 100
+          },
+          {
+            "seat": 5,
+            "place": null,
+            "prize": 0.0,
+            "stack": 100
+          }
+        ],
+        "fallback_reasons": {},
+        "rejected_actions": 0,
+        "duration_seconds": 0.1017,
+        "usage_complete": true,
+        "error": null,
+        "chip_conservation": true,
+        "unsettled_pot": 15,
+        "outcome_sha256": "bccd9e531568848ab7a6e161be8dcd618cb9e18a4f8479384a906d0bd3e1d616",
+        "config_sha256": "e703f32584a9ce68efbe27547760b9b64b4af42858165d33e254ef5f905c278b",
+        "hero_seat": 0,
+        "usage_total": {
+          "attempts": 1,
+          "reserved_output_tokens": 600,
+          "fallbacks": 0,
+          "budget_exhausted": false,
+          "input_tokens": null,
+          "known_input_tokens": null,
+          "missing_input_tokens_attempts": 1,
+          "output_tokens": null,
+          "known_output_tokens": null,
+          "missing_output_tokens_attempts": 1,
+          "cost_usd": null,
+          "known_cost_usd": null,
+          "missing_cost_usd_attempts": 1
+        },
+        "attempts_by_player": {
+          "0": 0,
+          "1": 0,
+          "2": 1,
+          "3": 0,
+          "4": 0,
+          "5": 0
+        },
+        "fallbacks_by_player": {
+          "0": 0,
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 0
+        },
+        "accepted_actions_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "chat_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "chat_messages": 0,
+        "accepted_actions_legal": true,
+        "mean_latency_ms": null,
+        "max_latency_ms": null
+      }
+    ]
+  }
+]
