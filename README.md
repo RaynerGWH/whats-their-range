@@ -83,6 +83,7 @@ The shared access token is a development deployment gate, not a multi-user auth 
 ## Checks
 
 ```sh
+python3 scripts/build_pokerth.py
 npm run build
 cd apps/api
 uv run pytest

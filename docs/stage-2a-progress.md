@@ -22,3 +22,10 @@ Native milestone committed as `6f3b965`. Worker/evaluation adapter and UI select
 implemented. Nineteen native tests pass, including complete two-worker games with
 heuristic and mocked-provider heroes, real PokerTH opponents, controls and replay.
 Remaining: combined checks, recorded smoke set, browser QA and final delivery report.
+
+Stage 2A is complete. Final implementation/evidence revision: `c2131d4`.
+Final checks: 128 API tests passed, one optional PostgreSQL skip; 16 frontend
+tests, TypeScript and production build passed. Recorded 20 native tournaments,
+all complete, all ten repeat pairs matching. Two additional UI-created games
+completed and replay/traces survived restart. Both QA servers and browser closed.
+See `docs/stage-2a.md` for the full delivery. Stage 2B is not implemented here.
