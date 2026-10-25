@@ -37,6 +37,8 @@ The current discrete action menu offers check/call/fold and several legal raise-
 
 ## Next strategy experiments
 
+The target is an LLM-led poker agent with callable tools for evidence, calculations, strategy references and competing hypotheses. Strategy analysis runs inside the backend; the LLM owns final poker decisions, subject to legal-action and state-version enforcement. See [poker agent direction](agent-direction.md) for the clarified design and the distinction from current functionality.
+
 1. Define and test opponent range priors and action-likelihood updates.
 2. Add ICM-aware all-in response calculations with explicit equity/range uncertainty and pot eligibility.
 3. Add bounded parallel hypotheses, future-street scenarios and a defensive critique.

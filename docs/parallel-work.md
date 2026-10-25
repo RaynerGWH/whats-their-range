@@ -2,6 +2,8 @@
 
 Four Codex chats start from the same committed skeleton. This file is the shared integration agreement for their first milestones. These are coding agents working on the repository, separate from the poker agents simulated by the application.
 
+For current project direction and decisions, read [shared context access](shared-context.md) before using the original assignments below. Keep these first-milestone contracts and ownership boundaries intact until an explicit integration change is agreed.
+
 ## Ownership
 
 | Chat | Branch | Owns | First milestone |
