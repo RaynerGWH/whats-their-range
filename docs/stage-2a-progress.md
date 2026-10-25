@@ -1,0 +1,19 @@
+# Active task: Stage 2A
+
+Implement actual PokerTH engine 4 opponents in the PokerKit application on
+`feat/pokerth-opponents`, based on Stage 1 commit
+`01f3a8120790fbdad4d8589962be6d90fcb7d8b7`.
+
+The earlier leakage question is resolved. Continue implementation through native
+build, permitted-observation adapter, workers, evaluation, minimal UI wiring,
+complete real games, tests and `docs/stage-2a.md`. Preserve the existing hero
+`Agent.decide` interface. Do not stop at an explanation or plan.
+
+Canonical brief: `/Users/rayner/Documents/ChatGPT/whats-their-range/docs/tasks/stage-2a.md`.
+Shared context revision: 12. PokerTH revision:
+`0a7dceb575d8b9dfcbd7c46ec7a90482cbdb40ba` (v2.1.10).
+
+No paid calls, remote pushes, deployments, other-checkout edits, main merges,
+extra agents, cross-chat messages or automation. Use isolated ports 8012/5175.
+
+Progress: branch created; inspecting native source and application contracts.
