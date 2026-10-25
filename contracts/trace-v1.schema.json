@@ -1,0 +1,237 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:wtr:trace:v1",
+  "title": "TraceRecord",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "trace_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "table_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "hand": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "state_version": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "running",
+        "completed",
+        "error",
+        "cancelled"
+      ]
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ended_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "duration_ms": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "langsmith_url": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri"
+    },
+    "spans": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/TraceSpan"
+      }
+    },
+    "metadata": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema_version",
+    "trace_id",
+    "table_id",
+    "hand",
+    "state_version",
+    "status",
+    "started_at",
+    "ended_at",
+    "duration_ms",
+    "langsmith_url",
+    "spans",
+    "metadata"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "TraceSpan": {
+      "type": "object",
+      "properties": {
+        "span_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "parent_span_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "chain",
+            "tool",
+            "llm",
+            "retriever"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "running",
+            "completed",
+            "error",
+            "cancelled"
+          ]
+        },
+        "started_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ended_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "start_offset_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "duration_ms": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "inputs": {
+          "type": "object"
+        },
+        "outputs": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "model": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "usage": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "input_tokens": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "output_tokens": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "cost_usd": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            }
+          },
+          "required": [
+            "input_tokens",
+            "output_tokens",
+            "cost_usd"
+          ],
+          "additionalProperties": false
+        },
+        "error": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "code": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "code",
+            "message"
+          ],
+          "additionalProperties": false
+        },
+        "metadata": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "span_id",
+        "parent_span_id",
+        "name",
+        "kind",
+        "status",
+        "started_at",
+        "ended_at",
+        "start_offset_ms",
+        "duration_ms",
+        "inputs",
+        "outputs",
+        "model",
+        "usage",
+        "error",
+        "metadata"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

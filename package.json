@@ -1,0 +1,20 @@
+{
+  "name": "whats-their-range",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/web"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w apps/web",
+    "build": "npm run build -w apps/web",
+    "check": "npm run check -w apps/web",
+    "format": "prettier --write apps/web/src apps/web/*.json apps/web/*.ts package.json docs README.md"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.10"
+  }
+}

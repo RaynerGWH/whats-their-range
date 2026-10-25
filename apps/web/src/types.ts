@@ -1,0 +1,104 @@
+export type Config = {
+  name: string;
+  seed: number;
+  stack_bb: number;
+  hands_per_level: number;
+  payouts: "70/30" | "winner-take-all";
+  mode: "heuristic" | "openrouter";
+  model: string;
+  pace: number;
+};
+export type Event = {
+  id: string;
+  hand: number;
+  street: string;
+  text: string;
+  player: number | null;
+  action: string | null;
+  amount: number;
+};
+export type Stats = {
+  actions: number;
+  raises: number;
+  calls: number;
+  folds: number;
+};
+export type Player = {
+  seat: number;
+  name: string;
+  stack: number;
+  bet: number;
+  cards: string[];
+  active: boolean;
+  eliminated: boolean;
+  position: string;
+  last_action: string | null;
+  stats: Stats;
+  prize: number;
+  place: number | null;
+};
+export type Evidence = Stats & {
+  seat: number;
+  name: string;
+  recent_actions: Event[];
+};
+export type Decision = {
+  action: string;
+  source: string;
+  model: string | null;
+  summary: string;
+  uncertainty: string;
+  evidence_ids: string[];
+  metrics: {
+    equity: number;
+    standard_error: number;
+    samples: number;
+    pot_odds_reference: number;
+    icm_at_hand_start: number;
+    assumption: string;
+    limitation: string;
+  };
+  evidence: Evidence[];
+  observation: Record<string, unknown>;
+  latency_ms: number;
+  state_version: number;
+  hand: number;
+  street: string;
+  event_id: string;
+  fallback: string | null;
+  calls: number;
+  usage: { prompt_tokens?: number; completion_tokens?: number; cost?: number };
+};
+export type Table = {
+  id: string;
+  config: Config;
+  status: string;
+  phase: string;
+  version: number;
+  hand: number;
+  street: string;
+  level: number;
+  small_blind: number;
+  big_blind: number;
+  hands_to_level: number;
+  button: number;
+  actor: number | null;
+  players: Player[];
+  board: string[];
+  pot: number;
+  remaining: number;
+  history: Event[];
+  decision: Decision | null;
+  series: { hand: number; stack: number }[];
+  icm: Record<string, number>;
+  icm_basis: string;
+  agent_decisions: number;
+};
+export type ServerConfig = {
+  openrouter_configured: boolean;
+  default_model: string;
+  tracing: boolean;
+  storage: string;
+  max_tables: number;
+  agent_call_limit: number;
+};
