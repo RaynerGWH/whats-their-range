@@ -43,6 +43,8 @@ export type Evidence = Stats & {
   recent_actions: Event[];
 };
 export type Decision = {
+  trace_id?: string | null;
+  langsmith_url?: string | null;
   action: string;
   source: string;
   model: string | null;
@@ -70,6 +72,7 @@ export type Decision = {
   usage: { prompt_tokens?: number; completion_tokens?: number; cost?: number };
 };
 export type Table = {
+  active_trace_id?: string | null;
   id: string;
   config: Config;
   status: string;

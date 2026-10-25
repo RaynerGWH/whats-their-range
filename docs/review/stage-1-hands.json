@@ -1,0 +1,3343 @@
+{
+  "review_status": "Pending Rayner review. No strategic approval or solver answer key.",
+  "basis": "Legal scripted play for discussion; candidate labels are dormant heuristic hypotheses, not live model decisions.",
+  "cases": [
+    {
+      "case_id": "review-01",
+      "observation": {
+        "table_id": "00000000000000000000000000000001",
+        "hand": 1,
+        "version": 5,
+        "player": 0,
+        "position": "SB",
+        "hole": [
+          "4d",
+          "6c"
+        ],
+        "board": [],
+        "street": "preflop",
+        "pot": 55,
+        "to_call": 5,
+        "big_blind": 10,
+        "hand_start_stacks": [
+          500,
+          500,
+          500,
+          500,
+          500,
+          500
+        ],
+        "payouts": [
+          70,
+          30
+        ],
+        "players": [
+          {
+            "seat": 0,
+            "stack": 495,
+            "bet": 5,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 490,
+            "bet": 10,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 2,
+            "stack": 490,
+            "bet": 10,
+            "active": true,
+            "position": "UTG"
+          },
+          {
+            "seat": 3,
+            "stack": 490,
+            "bet": 10,
+            "active": true,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 490,
+            "bet": 10,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 490,
+            "bet": 10,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal": [
+          {
+            "key": "fold",
+            "kind": "fold",
+            "amount": 0
+          },
+          {
+            "key": "call",
+            "kind": "call",
+            "amount": 5
+          },
+          {
+            "key": "raise:20",
+            "kind": "raise",
+            "amount": 20
+          },
+          {
+            "key": "raise:40",
+            "kind": "raise",
+            "amount": 40
+          },
+          {
+            "key": "raise:70",
+            "kind": "raise",
+            "amount": 70
+          },
+          {
+            "key": "raise:500",
+            "kind": "raise",
+            "amount": 500
+          }
+        ],
+        "history": [
+          {
+            "id": "e2",
+            "hand": 1,
+            "street": "preflop",
+            "player": 2,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 3 calls 10."
+          },
+          {
+            "id": "e3",
+            "hand": 1,
+            "street": "preflop",
+            "player": 3,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 4 calls 10."
+          },
+          {
+            "id": "e4",
+            "hand": 1,
+            "street": "preflop",
+            "player": 4,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 5 calls 10."
+          },
+          {
+            "id": "e5",
+            "hand": 1,
+            "street": "preflop",
+            "player": 5,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 6 calls 10."
+          }
+        ],
+        "opponents": [
+          {
+            "seat": 1,
+            "name": "Player 2",
+            "actions": 0,
+            "raises": 0,
+            "folds": 0,
+            "calls": 0,
+            "recent_actions": []
+          },
+          {
+            "seat": 2,
+            "name": "Player 3",
+            "actions": 1,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e2",
+                "hand": 1,
+                "street": "preflop",
+                "player": 2,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 3 calls 10."
+              }
+            ]
+          },
+          {
+            "seat": 3,
+            "name": "Player 4",
+            "actions": 1,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e3",
+                "hand": 1,
+                "street": "preflop",
+                "player": 3,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 4 calls 10."
+              }
+            ]
+          },
+          {
+            "seat": 4,
+            "name": "Player 5",
+            "actions": 1,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e4",
+                "hand": 1,
+                "street": "preflop",
+                "player": 4,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 5 calls 10."
+              }
+            ]
+          },
+          {
+            "seat": 5,
+            "name": "Player 6",
+            "actions": 1,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e5",
+                "hand": 1,
+                "street": "preflop",
+                "player": 5,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 6 calls 10."
+              }
+            ]
+          }
+        ]
+      },
+      "metrics": {
+        "equity": 0.1458,
+        "standard_error": 0.0515,
+        "samples": 48,
+        "pot_odds_reference": 0.08333333333333333,
+        "icm_at_hand_start": 16.67,
+        "assumption": "Uniform random opponent hands; no inferred ranges or future betting.",
+        "limitation": "Pot odds omit side-pot eligibility. ICM is descriptive, not an ICM strategy solver."
+      },
+      "candidate_hypotheses": [
+        {
+          "action": "fold",
+          "intent": "fold",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version."
+          ]
+        },
+        {
+          "action": "call",
+          "intent": "call",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version."
+          ]
+        }
+      ],
+      "limitations": [
+        "No calibrated opponent ranges or response probabilities are available.",
+        "Candidate intents are heuristic hypotheses, not solved action values or frequencies.",
+        "ICM at hand start is descriptive; tournament action values are not modeled.",
+        "The observation has no pot eligibility map; full-pot calculations are conditional.",
+        "Bounded evidence: 4 distinct public opponent actions; counts lack matched opportunities and do not establish a tendency.",
+        "Multiway pot: joint responses are unknown; do not multiply assumed individual fold rates.",
+        "Raise intents are omitted where visible features do not support this module's limited classification.",
+        "Position is a seat label; remaining action order and future responses are not reconstructed."
+      ],
+      "discussion_points": [
+        "Which public actions support a range hypothesis, and which reads remain unsupported?",
+        "Which legal size or passive action would you compare, and what response assumptions does that require?",
+        "What next-street observations would change the plan, without assuming a future card?"
+      ]
+    },
+    {
+      "case_id": "review-02",
+      "observation": {
+        "table_id": "00000000000000000000000000000001",
+        "hand": 1,
+        "version": 7,
+        "player": 0,
+        "position": "SB",
+        "hole": [
+          "4d",
+          "6c"
+        ],
+        "board": [
+          "9d",
+          "9s",
+          "Qs"
+        ],
+        "street": "flop",
+        "pot": 60,
+        "to_call": 0,
+        "big_blind": 10,
+        "hand_start_stacks": [
+          500,
+          500,
+          500,
+          500,
+          500,
+          500
+        ],
+        "payouts": [
+          70,
+          30
+        ],
+        "players": [
+          {
+            "seat": 0,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 2,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "UTG"
+          },
+          {
+            "seat": 3,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal": [
+          {
+            "key": "check",
+            "kind": "call",
+            "amount": 0
+          },
+          {
+            "key": "raise:10",
+            "kind": "raise",
+            "amount": 10
+          },
+          {
+            "key": "raise:30",
+            "kind": "raise",
+            "amount": 30
+          },
+          {
+            "key": "raise:60",
+            "kind": "raise",
+            "amount": 60
+          },
+          {
+            "key": "raise:490",
+            "kind": "raise",
+            "amount": 490
+          }
+        ],
+        "history": [
+          {
+            "id": "e2",
+            "hand": 1,
+            "street": "preflop",
+            "player": 2,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 3 calls 10."
+          },
+          {
+            "id": "e3",
+            "hand": 1,
+            "street": "preflop",
+            "player": 3,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 4 calls 10."
+          },
+          {
+            "id": "e4",
+            "hand": 1,
+            "street": "preflop",
+            "player": 4,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 5 calls 10."
+          },
+          {
+            "id": "e5",
+            "hand": 1,
+            "street": "preflop",
+            "player": 5,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 6 calls 10."
+          },
+          {
+            "id": "e6",
+            "hand": 1,
+            "street": "preflop",
+            "player": 0,
+            "action": "call",
+            "amount": 5,
+            "text": "Player 1 calls 5."
+          },
+          {
+            "id": "e7",
+            "hand": 1,
+            "street": "preflop",
+            "player": 1,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 2 checks."
+          }
+        ],
+        "opponents": [
+          {
+            "seat": 1,
+            "name": "Player 2",
+            "actions": 1,
+            "raises": 0,
+            "folds": 0,
+            "calls": 0,
+            "recent_actions": [
+              {
+                "id": "e7",
+                "hand": 1,
+                "street": "preflop",
+                "player": 1,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 2 checks."
+              }
+            ]
+          },
+          {
+            "seat": 2,
+            "name": "Player 3",
+            "actions": 1,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e2",
+                "hand": 1,
+                "street": "preflop",
+                "player": 2,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 3 calls 10."
+              }
+            ]
+          },
+          {
+            "seat": 3,
+            "name": "Player 4",
+            "actions": 1,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e3",
+                "hand": 1,
+                "street": "preflop",
+                "player": 3,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 4 calls 10."
+              }
+            ]
+          },
+          {
+            "seat": 4,
+            "name": "Player 5",
+            "actions": 1,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e4",
+                "hand": 1,
+                "street": "preflop",
+                "player": 4,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 5 calls 10."
+              }
+            ]
+          },
+          {
+            "seat": 5,
+            "name": "Player 6",
+            "actions": 1,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e5",
+                "hand": 1,
+                "street": "preflop",
+                "player": 5,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 6 calls 10."
+              }
+            ]
+          }
+        ]
+      },
+      "metrics": {
+        "equity": 0.0,
+        "standard_error": 0.0,
+        "samples": 48,
+        "pot_odds_reference": 0,
+        "icm_at_hand_start": 16.67,
+        "assumption": "Uniform random opponent hands; no inferred ranges or future betting.",
+        "limitation": "Pot odds omit side-pot eligibility. ICM is descriptive, not an ICM strategy solver."
+      },
+      "candidate_hypotheses": [
+        {
+          "action": "check",
+          "intent": "check",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version."
+          ]
+        },
+        {
+          "action": "raise:10",
+          "intent": "bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Fold pressure is hypothetical. Zero showdown return is a comparison model, not a claim that these cards have no equity."
+          ]
+        },
+        {
+          "action": "raise:30",
+          "intent": "bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Fold pressure is hypothetical. Zero showdown return is a comparison model, not a claim that these cards have no equity."
+          ]
+        },
+        {
+          "action": "raise:60",
+          "intent": "bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Fold pressure is hypothetical. Zero showdown return is a comparison model, not a claim that these cards have no equity."
+          ]
+        },
+        {
+          "action": "raise:490",
+          "intent": "bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Fold pressure is hypothetical. Zero showdown return is a comparison model, not a claim that these cards have no equity."
+          ]
+        }
+      ],
+      "limitations": [
+        "No calibrated opponent ranges or response probabilities are available.",
+        "Candidate intents are heuristic hypotheses, not solved action values or frequencies.",
+        "ICM at hand start is descriptive; tournament action values are not modeled.",
+        "The observation has no pot eligibility map; full-pot calculations are conditional.",
+        "Bounded evidence: 5 distinct public opponent actions; counts lack matched opportunities and do not establish a tendency.",
+        "Multiway pot: joint responses are unknown; do not multiply assumed individual fold rates.",
+        "Position is a seat label; remaining action order and future responses are not reconstructed."
+      ],
+      "discussion_points": [
+        "Which public actions support a range hypothesis, and which reads remain unsupported?",
+        "Which legal size or passive action would you compare, and what response assumptions does that require?",
+        "What next-street observations would change the plan, without assuming a future card?"
+      ]
+    },
+    {
+      "case_id": "review-03",
+      "observation": {
+        "table_id": "00000000000000000000000000000001",
+        "hand": 1,
+        "version": 13,
+        "player": 0,
+        "position": "SB",
+        "hole": [
+          "4d",
+          "6c"
+        ],
+        "board": [
+          "9d",
+          "9s",
+          "Qs",
+          "9c"
+        ],
+        "street": "turn",
+        "pot": 60,
+        "to_call": 0,
+        "big_blind": 10,
+        "hand_start_stacks": [
+          500,
+          500,
+          500,
+          500,
+          500,
+          500
+        ],
+        "payouts": [
+          70,
+          30
+        ],
+        "players": [
+          {
+            "seat": 0,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 2,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "UTG"
+          },
+          {
+            "seat": 3,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal": [
+          {
+            "key": "check",
+            "kind": "call",
+            "amount": 0
+          },
+          {
+            "key": "raise:10",
+            "kind": "raise",
+            "amount": 10
+          },
+          {
+            "key": "raise:30",
+            "kind": "raise",
+            "amount": 30
+          },
+          {
+            "key": "raise:60",
+            "kind": "raise",
+            "amount": 60
+          },
+          {
+            "key": "raise:490",
+            "kind": "raise",
+            "amount": 490
+          }
+        ],
+        "history": [
+          {
+            "id": "e2",
+            "hand": 1,
+            "street": "preflop",
+            "player": 2,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 3 calls 10."
+          },
+          {
+            "id": "e3",
+            "hand": 1,
+            "street": "preflop",
+            "player": 3,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 4 calls 10."
+          },
+          {
+            "id": "e4",
+            "hand": 1,
+            "street": "preflop",
+            "player": 4,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 5 calls 10."
+          },
+          {
+            "id": "e5",
+            "hand": 1,
+            "street": "preflop",
+            "player": 5,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 6 calls 10."
+          },
+          {
+            "id": "e6",
+            "hand": 1,
+            "street": "preflop",
+            "player": 0,
+            "action": "call",
+            "amount": 5,
+            "text": "Player 1 calls 5."
+          },
+          {
+            "id": "e7",
+            "hand": 1,
+            "street": "preflop",
+            "player": 1,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 2 checks."
+          },
+          {
+            "id": "e8",
+            "hand": 1,
+            "street": "flop",
+            "player": 0,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 1 checks."
+          },
+          {
+            "id": "e9",
+            "hand": 1,
+            "street": "flop",
+            "player": 1,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 2 checks."
+          },
+          {
+            "id": "e10",
+            "hand": 1,
+            "street": "flop",
+            "player": 2,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 3 checks."
+          },
+          {
+            "id": "e11",
+            "hand": 1,
+            "street": "flop",
+            "player": 3,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 4 checks."
+          },
+          {
+            "id": "e12",
+            "hand": 1,
+            "street": "flop",
+            "player": 4,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 5 checks."
+          },
+          {
+            "id": "e13",
+            "hand": 1,
+            "street": "flop",
+            "player": 5,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 6 checks."
+          }
+        ],
+        "opponents": [
+          {
+            "seat": 1,
+            "name": "Player 2",
+            "actions": 2,
+            "raises": 0,
+            "folds": 0,
+            "calls": 0,
+            "recent_actions": [
+              {
+                "id": "e7",
+                "hand": 1,
+                "street": "preflop",
+                "player": 1,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 2 checks."
+              },
+              {
+                "id": "e9",
+                "hand": 1,
+                "street": "flop",
+                "player": 1,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 2 checks."
+              }
+            ]
+          },
+          {
+            "seat": 2,
+            "name": "Player 3",
+            "actions": 2,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e2",
+                "hand": 1,
+                "street": "preflop",
+                "player": 2,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 3 calls 10."
+              },
+              {
+                "id": "e10",
+                "hand": 1,
+                "street": "flop",
+                "player": 2,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 3 checks."
+              }
+            ]
+          },
+          {
+            "seat": 3,
+            "name": "Player 4",
+            "actions": 2,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e3",
+                "hand": 1,
+                "street": "preflop",
+                "player": 3,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 4 calls 10."
+              },
+              {
+                "id": "e11",
+                "hand": 1,
+                "street": "flop",
+                "player": 3,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 4 checks."
+              }
+            ]
+          },
+          {
+            "seat": 4,
+            "name": "Player 5",
+            "actions": 2,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e4",
+                "hand": 1,
+                "street": "preflop",
+                "player": 4,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 5 calls 10."
+              },
+              {
+                "id": "e12",
+                "hand": 1,
+                "street": "flop",
+                "player": 4,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 5 checks."
+              }
+            ]
+          },
+          {
+            "seat": 5,
+            "name": "Player 6",
+            "actions": 2,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e5",
+                "hand": 1,
+                "street": "preflop",
+                "player": 5,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 6 calls 10."
+              },
+              {
+                "id": "e13",
+                "hand": 1,
+                "street": "flop",
+                "player": 5,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 6 checks."
+              }
+            ]
+          }
+        ]
+      },
+      "metrics": {
+        "equity": 0.0451,
+        "standard_error": 0.0252,
+        "samples": 48,
+        "pot_odds_reference": 0,
+        "icm_at_hand_start": 16.67,
+        "assumption": "Uniform random opponent hands; no inferred ranges or future betting.",
+        "limitation": "Pot odds omit side-pot eligibility. ICM is descriptive, not an ICM strategy solver."
+      },
+      "candidate_hypotheses": [
+        {
+          "action": "check",
+          "intent": "check",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version."
+          ]
+        },
+        {
+          "action": "raise:10",
+          "intent": "bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Fold pressure is hypothetical. Zero showdown return is a comparison model, not a claim that these cards have no equity."
+          ]
+        },
+        {
+          "action": "raise:30",
+          "intent": "bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Fold pressure is hypothetical. Zero showdown return is a comparison model, not a claim that these cards have no equity."
+          ]
+        },
+        {
+          "action": "raise:60",
+          "intent": "bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Fold pressure is hypothetical. Zero showdown return is a comparison model, not a claim that these cards have no equity."
+          ]
+        },
+        {
+          "action": "raise:490",
+          "intent": "bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Fold pressure is hypothetical. Zero showdown return is a comparison model, not a claim that these cards have no equity."
+          ]
+        }
+      ],
+      "limitations": [
+        "No calibrated opponent ranges or response probabilities are available.",
+        "Candidate intents are heuristic hypotheses, not solved action values or frequencies.",
+        "ICM at hand start is descriptive; tournament action values are not modeled.",
+        "The observation has no pot eligibility map; full-pot calculations are conditional.",
+        "Bounded evidence: 10 distinct public opponent actions; counts lack matched opportunities and do not establish a tendency.",
+        "Multiway pot: joint responses are unknown; do not multiply assumed individual fold rates.",
+        "Position is a seat label; remaining action order and future responses are not reconstructed."
+      ],
+      "discussion_points": [
+        "Which public actions support a range hypothesis, and which reads remain unsupported?",
+        "Which legal size or passive action would you compare, and what response assumptions does that require?",
+        "What next-street observations would change the plan, without assuming a future card?"
+      ]
+    },
+    {
+      "case_id": "review-04",
+      "observation": {
+        "table_id": "00000000000000000000000000000001",
+        "hand": 1,
+        "version": 19,
+        "player": 0,
+        "position": "SB",
+        "hole": [
+          "4d",
+          "6c"
+        ],
+        "board": [
+          "9d",
+          "9s",
+          "Qs",
+          "9c",
+          "8h"
+        ],
+        "street": "river",
+        "pot": 60,
+        "to_call": 0,
+        "big_blind": 10,
+        "hand_start_stacks": [
+          500,
+          500,
+          500,
+          500,
+          500,
+          500
+        ],
+        "payouts": [
+          70,
+          30
+        ],
+        "players": [
+          {
+            "seat": 0,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 2,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "UTG"
+          },
+          {
+            "seat": 3,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal": [
+          {
+            "key": "check",
+            "kind": "call",
+            "amount": 0
+          },
+          {
+            "key": "raise:10",
+            "kind": "raise",
+            "amount": 10
+          },
+          {
+            "key": "raise:30",
+            "kind": "raise",
+            "amount": 30
+          },
+          {
+            "key": "raise:60",
+            "kind": "raise",
+            "amount": 60
+          },
+          {
+            "key": "raise:490",
+            "kind": "raise",
+            "amount": 490
+          }
+        ],
+        "history": [
+          {
+            "id": "e2",
+            "hand": 1,
+            "street": "preflop",
+            "player": 2,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 3 calls 10."
+          },
+          {
+            "id": "e3",
+            "hand": 1,
+            "street": "preflop",
+            "player": 3,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 4 calls 10."
+          },
+          {
+            "id": "e4",
+            "hand": 1,
+            "street": "preflop",
+            "player": 4,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 5 calls 10."
+          },
+          {
+            "id": "e5",
+            "hand": 1,
+            "street": "preflop",
+            "player": 5,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 6 calls 10."
+          },
+          {
+            "id": "e6",
+            "hand": 1,
+            "street": "preflop",
+            "player": 0,
+            "action": "call",
+            "amount": 5,
+            "text": "Player 1 calls 5."
+          },
+          {
+            "id": "e7",
+            "hand": 1,
+            "street": "preflop",
+            "player": 1,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 2 checks."
+          },
+          {
+            "id": "e8",
+            "hand": 1,
+            "street": "flop",
+            "player": 0,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 1 checks."
+          },
+          {
+            "id": "e9",
+            "hand": 1,
+            "street": "flop",
+            "player": 1,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 2 checks."
+          },
+          {
+            "id": "e10",
+            "hand": 1,
+            "street": "flop",
+            "player": 2,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 3 checks."
+          },
+          {
+            "id": "e11",
+            "hand": 1,
+            "street": "flop",
+            "player": 3,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 4 checks."
+          },
+          {
+            "id": "e12",
+            "hand": 1,
+            "street": "flop",
+            "player": 4,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 5 checks."
+          },
+          {
+            "id": "e13",
+            "hand": 1,
+            "street": "flop",
+            "player": 5,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 6 checks."
+          },
+          {
+            "id": "e14",
+            "hand": 1,
+            "street": "turn",
+            "player": 0,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 1 checks."
+          },
+          {
+            "id": "e15",
+            "hand": 1,
+            "street": "turn",
+            "player": 1,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 2 checks."
+          },
+          {
+            "id": "e16",
+            "hand": 1,
+            "street": "turn",
+            "player": 2,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 3 checks."
+          },
+          {
+            "id": "e17",
+            "hand": 1,
+            "street": "turn",
+            "player": 3,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 4 checks."
+          },
+          {
+            "id": "e18",
+            "hand": 1,
+            "street": "turn",
+            "player": 4,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 5 checks."
+          },
+          {
+            "id": "e19",
+            "hand": 1,
+            "street": "turn",
+            "player": 5,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 6 checks."
+          }
+        ],
+        "opponents": [
+          {
+            "seat": 1,
+            "name": "Player 2",
+            "actions": 3,
+            "raises": 0,
+            "folds": 0,
+            "calls": 0,
+            "recent_actions": [
+              {
+                "id": "e7",
+                "hand": 1,
+                "street": "preflop",
+                "player": 1,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 2 checks."
+              },
+              {
+                "id": "e9",
+                "hand": 1,
+                "street": "flop",
+                "player": 1,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 2 checks."
+              },
+              {
+                "id": "e15",
+                "hand": 1,
+                "street": "turn",
+                "player": 1,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 2 checks."
+              }
+            ]
+          },
+          {
+            "seat": 2,
+            "name": "Player 3",
+            "actions": 3,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e2",
+                "hand": 1,
+                "street": "preflop",
+                "player": 2,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 3 calls 10."
+              },
+              {
+                "id": "e10",
+                "hand": 1,
+                "street": "flop",
+                "player": 2,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 3 checks."
+              },
+              {
+                "id": "e16",
+                "hand": 1,
+                "street": "turn",
+                "player": 2,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 3 checks."
+              }
+            ]
+          },
+          {
+            "seat": 3,
+            "name": "Player 4",
+            "actions": 3,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e3",
+                "hand": 1,
+                "street": "preflop",
+                "player": 3,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 4 calls 10."
+              },
+              {
+                "id": "e11",
+                "hand": 1,
+                "street": "flop",
+                "player": 3,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 4 checks."
+              },
+              {
+                "id": "e17",
+                "hand": 1,
+                "street": "turn",
+                "player": 3,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 4 checks."
+              }
+            ]
+          },
+          {
+            "seat": 4,
+            "name": "Player 5",
+            "actions": 3,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e4",
+                "hand": 1,
+                "street": "preflop",
+                "player": 4,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 5 calls 10."
+              },
+              {
+                "id": "e12",
+                "hand": 1,
+                "street": "flop",
+                "player": 4,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 5 checks."
+              },
+              {
+                "id": "e18",
+                "hand": 1,
+                "street": "turn",
+                "player": 4,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 5 checks."
+              }
+            ]
+          },
+          {
+            "seat": 5,
+            "name": "Player 6",
+            "actions": 3,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e5",
+                "hand": 1,
+                "street": "preflop",
+                "player": 5,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 6 calls 10."
+              },
+              {
+                "id": "e13",
+                "hand": 1,
+                "street": "flop",
+                "player": 5,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 6 checks."
+              },
+              {
+                "id": "e19",
+                "hand": 1,
+                "street": "turn",
+                "player": 5,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 6 checks."
+              }
+            ]
+          }
+        ]
+      },
+      "metrics": {
+        "equity": 0.0,
+        "standard_error": 0.0,
+        "samples": 48,
+        "pot_odds_reference": 0,
+        "icm_at_hand_start": 16.67,
+        "assumption": "Uniform random opponent hands; no inferred ranges or future betting.",
+        "limitation": "Pot odds omit side-pot eligibility. ICM is descriptive, not an ICM strategy solver."
+      },
+      "candidate_hypotheses": [
+        {
+          "action": "check",
+          "intent": "check",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version."
+          ]
+        },
+        {
+          "action": "raise:10",
+          "intent": "bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Fold pressure is hypothetical. Zero showdown return is a comparison model, not a claim that these cards have no equity."
+          ]
+        },
+        {
+          "action": "raise:30",
+          "intent": "bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Fold pressure is hypothetical. Zero showdown return is a comparison model, not a claim that these cards have no equity."
+          ]
+        },
+        {
+          "action": "raise:60",
+          "intent": "bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Fold pressure is hypothetical. Zero showdown return is a comparison model, not a claim that these cards have no equity."
+          ]
+        },
+        {
+          "action": "raise:490",
+          "intent": "bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Fold pressure is hypothetical. Zero showdown return is a comparison model, not a claim that these cards have no equity."
+          ]
+        }
+      ],
+      "limitations": [
+        "No calibrated opponent ranges or response probabilities are available.",
+        "Candidate intents are heuristic hypotheses, not solved action values or frequencies.",
+        "ICM at hand start is descriptive; tournament action values are not modeled.",
+        "The observation has no pot eligibility map; full-pot calculations are conditional.",
+        "Bounded evidence: 15 distinct public opponent actions; counts lack matched opportunities and do not establish a tendency.",
+        "Multiway pot: joint responses are unknown; do not multiply assumed individual fold rates.",
+        "Position is a seat label; remaining action order and future responses are not reconstructed."
+      ],
+      "discussion_points": [
+        "Which public actions support a range hypothesis, and which reads remain unsupported?",
+        "Which legal size or passive action would you compare, and what response assumptions does that require?"
+      ]
+    },
+    {
+      "case_id": "review-05",
+      "observation": {
+        "table_id": "00000000000000000000000000000002",
+        "hand": 1,
+        "version": 5,
+        "player": 0,
+        "position": "SB",
+        "hole": [
+          "3c",
+          "6h"
+        ],
+        "board": [],
+        "street": "preflop",
+        "pot": 55,
+        "to_call": 5,
+        "big_blind": 10,
+        "hand_start_stacks": [
+          500,
+          500,
+          500,
+          500,
+          500,
+          500
+        ],
+        "payouts": [
+          70,
+          30
+        ],
+        "players": [
+          {
+            "seat": 0,
+            "stack": 495,
+            "bet": 5,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 490,
+            "bet": 10,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 2,
+            "stack": 490,
+            "bet": 10,
+            "active": true,
+            "position": "UTG"
+          },
+          {
+            "seat": 3,
+            "stack": 490,
+            "bet": 10,
+            "active": true,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 490,
+            "bet": 10,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 490,
+            "bet": 10,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal": [
+          {
+            "key": "fold",
+            "kind": "fold",
+            "amount": 0
+          },
+          {
+            "key": "call",
+            "kind": "call",
+            "amount": 5
+          },
+          {
+            "key": "raise:20",
+            "kind": "raise",
+            "amount": 20
+          },
+          {
+            "key": "raise:40",
+            "kind": "raise",
+            "amount": 40
+          },
+          {
+            "key": "raise:70",
+            "kind": "raise",
+            "amount": 70
+          },
+          {
+            "key": "raise:500",
+            "kind": "raise",
+            "amount": 500
+          }
+        ],
+        "history": [
+          {
+            "id": "e2",
+            "hand": 1,
+            "street": "preflop",
+            "player": 2,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 3 calls 10."
+          },
+          {
+            "id": "e3",
+            "hand": 1,
+            "street": "preflop",
+            "player": 3,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 4 calls 10."
+          },
+          {
+            "id": "e4",
+            "hand": 1,
+            "street": "preflop",
+            "player": 4,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 5 calls 10."
+          },
+          {
+            "id": "e5",
+            "hand": 1,
+            "street": "preflop",
+            "player": 5,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 6 calls 10."
+          }
+        ],
+        "opponents": [
+          {
+            "seat": 1,
+            "name": "Player 2",
+            "actions": 0,
+            "raises": 0,
+            "folds": 0,
+            "calls": 0,
+            "recent_actions": []
+          },
+          {
+            "seat": 2,
+            "name": "Player 3",
+            "actions": 1,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e2",
+                "hand": 1,
+                "street": "preflop",
+                "player": 2,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 3 calls 10."
+              }
+            ]
+          },
+          {
+            "seat": 3,
+            "name": "Player 4",
+            "actions": 1,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e3",
+                "hand": 1,
+                "street": "preflop",
+                "player": 3,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 4 calls 10."
+              }
+            ]
+          },
+          {
+            "seat": 4,
+            "name": "Player 5",
+            "actions": 1,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e4",
+                "hand": 1,
+                "street": "preflop",
+                "player": 4,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 5 calls 10."
+              }
+            ]
+          },
+          {
+            "seat": 5,
+            "name": "Player 6",
+            "actions": 1,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e5",
+                "hand": 1,
+                "street": "preflop",
+                "player": 5,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 6 calls 10."
+              }
+            ]
+          }
+        ]
+      },
+      "metrics": {
+        "equity": 0.0417,
+        "standard_error": 0.0291,
+        "samples": 48,
+        "pot_odds_reference": 0.08333333333333333,
+        "icm_at_hand_start": 16.67,
+        "assumption": "Uniform random opponent hands; no inferred ranges or future betting.",
+        "limitation": "Pot odds omit side-pot eligibility. ICM is descriptive, not an ICM strategy solver."
+      },
+      "candidate_hypotheses": [
+        {
+          "action": "fold",
+          "intent": "fold",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version."
+          ]
+        },
+        {
+          "action": "call",
+          "intent": "call",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version."
+          ]
+        }
+      ],
+      "limitations": [
+        "No calibrated opponent ranges or response probabilities are available.",
+        "Candidate intents are heuristic hypotheses, not solved action values or frequencies.",
+        "ICM at hand start is descriptive; tournament action values are not modeled.",
+        "The observation has no pot eligibility map; full-pot calculations are conditional.",
+        "Bounded evidence: 4 distinct public opponent actions; counts lack matched opportunities and do not establish a tendency.",
+        "Multiway pot: joint responses are unknown; do not multiply assumed individual fold rates.",
+        "Raise intents are omitted where visible features do not support this module's limited classification.",
+        "Position is a seat label; remaining action order and future responses are not reconstructed."
+      ],
+      "discussion_points": [
+        "Which public actions support a range hypothesis, and which reads remain unsupported?",
+        "Which legal size or passive action would you compare, and what response assumptions does that require?",
+        "What next-street observations would change the plan, without assuming a future card?"
+      ]
+    },
+    {
+      "case_id": "review-06",
+      "observation": {
+        "table_id": "00000000000000000000000000000002",
+        "hand": 1,
+        "version": 7,
+        "player": 0,
+        "position": "SB",
+        "hole": [
+          "3c",
+          "6h"
+        ],
+        "board": [
+          "Td",
+          "4d",
+          "7c"
+        ],
+        "street": "flop",
+        "pot": 60,
+        "to_call": 0,
+        "big_blind": 10,
+        "hand_start_stacks": [
+          500,
+          500,
+          500,
+          500,
+          500,
+          500
+        ],
+        "payouts": [
+          70,
+          30
+        ],
+        "players": [
+          {
+            "seat": 0,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 2,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "UTG"
+          },
+          {
+            "seat": 3,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal": [
+          {
+            "key": "check",
+            "kind": "call",
+            "amount": 0
+          },
+          {
+            "key": "raise:10",
+            "kind": "raise",
+            "amount": 10
+          },
+          {
+            "key": "raise:30",
+            "kind": "raise",
+            "amount": 30
+          },
+          {
+            "key": "raise:60",
+            "kind": "raise",
+            "amount": 60
+          },
+          {
+            "key": "raise:490",
+            "kind": "raise",
+            "amount": 490
+          }
+        ],
+        "history": [
+          {
+            "id": "e2",
+            "hand": 1,
+            "street": "preflop",
+            "player": 2,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 3 calls 10."
+          },
+          {
+            "id": "e3",
+            "hand": 1,
+            "street": "preflop",
+            "player": 3,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 4 calls 10."
+          },
+          {
+            "id": "e4",
+            "hand": 1,
+            "street": "preflop",
+            "player": 4,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 5 calls 10."
+          },
+          {
+            "id": "e5",
+            "hand": 1,
+            "street": "preflop",
+            "player": 5,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 6 calls 10."
+          },
+          {
+            "id": "e6",
+            "hand": 1,
+            "street": "preflop",
+            "player": 0,
+            "action": "call",
+            "amount": 5,
+            "text": "Player 1 calls 5."
+          },
+          {
+            "id": "e7",
+            "hand": 1,
+            "street": "preflop",
+            "player": 1,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 2 checks."
+          }
+        ],
+        "opponents": [
+          {
+            "seat": 1,
+            "name": "Player 2",
+            "actions": 1,
+            "raises": 0,
+            "folds": 0,
+            "calls": 0,
+            "recent_actions": [
+              {
+                "id": "e7",
+                "hand": 1,
+                "street": "preflop",
+                "player": 1,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 2 checks."
+              }
+            ]
+          },
+          {
+            "seat": 2,
+            "name": "Player 3",
+            "actions": 1,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e2",
+                "hand": 1,
+                "street": "preflop",
+                "player": 2,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 3 calls 10."
+              }
+            ]
+          },
+          {
+            "seat": 3,
+            "name": "Player 4",
+            "actions": 1,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e3",
+                "hand": 1,
+                "street": "preflop",
+                "player": 3,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 4 calls 10."
+              }
+            ]
+          },
+          {
+            "seat": 4,
+            "name": "Player 5",
+            "actions": 1,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e4",
+                "hand": 1,
+                "street": "preflop",
+                "player": 4,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 5 calls 10."
+              }
+            ]
+          },
+          {
+            "seat": 5,
+            "name": "Player 6",
+            "actions": 1,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e5",
+                "hand": 1,
+                "street": "preflop",
+                "player": 5,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 6 calls 10."
+              }
+            ]
+          }
+        ]
+      },
+      "metrics": {
+        "equity": 0.0521,
+        "standard_error": 0.0307,
+        "samples": 48,
+        "pot_odds_reference": 0,
+        "icm_at_hand_start": 16.67,
+        "assumption": "Uniform random opponent hands; no inferred ranges or future betting.",
+        "limitation": "Pot odds omit side-pot eligibility. ICM is descriptive, not an ICM strategy solver."
+      },
+      "candidate_hypotheses": [
+        {
+          "action": "check",
+          "intent": "check",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version."
+          ]
+        },
+        {
+          "action": "raise:10",
+          "intent": "semi_bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Some opponents can fold, and a draw completion may help if called; neither rate is calibrated."
+          ]
+        },
+        {
+          "action": "raise:30",
+          "intent": "semi_bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Some opponents can fold, and a draw completion may help if called; neither rate is calibrated."
+          ]
+        },
+        {
+          "action": "raise:60",
+          "intent": "semi_bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Some opponents can fold, and a draw completion may help if called; neither rate is calibrated."
+          ]
+        },
+        {
+          "action": "raise:490",
+          "intent": "semi_bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Some opponents can fold, and a draw completion may help if called; neither rate is calibrated."
+          ]
+        }
+      ],
+      "limitations": [
+        "No calibrated opponent ranges or response probabilities are available.",
+        "Candidate intents are heuristic hypotheses, not solved action values or frequencies.",
+        "ICM at hand start is descriptive; tournament action values are not modeled.",
+        "The observation has no pot eligibility map; full-pot calculations are conditional.",
+        "Bounded evidence: 5 distinct public opponent actions; counts lack matched opportunities and do not establish a tendency.",
+        "Multiway pot: joint responses are unknown; do not multiply assumed individual fold rates.",
+        "Draw completions can be dominated or shared; no clean outs, draw probability, or equity realization is estimated.",
+        "Position is a seat label; remaining action order and future responses are not reconstructed."
+      ],
+      "discussion_points": [
+        "Which public actions support a range hypothesis, and which reads remain unsupported?",
+        "Which legal size or passive action would you compare, and what response assumptions does that require?",
+        "What next-street observations would change the plan, without assuming a future card?"
+      ]
+    },
+    {
+      "case_id": "review-07",
+      "observation": {
+        "table_id": "00000000000000000000000000000002",
+        "hand": 1,
+        "version": 13,
+        "player": 0,
+        "position": "SB",
+        "hole": [
+          "3c",
+          "6h"
+        ],
+        "board": [
+          "Td",
+          "4d",
+          "7c",
+          "6s"
+        ],
+        "street": "turn",
+        "pot": 60,
+        "to_call": 0,
+        "big_blind": 10,
+        "hand_start_stacks": [
+          500,
+          500,
+          500,
+          500,
+          500,
+          500
+        ],
+        "payouts": [
+          70,
+          30
+        ],
+        "players": [
+          {
+            "seat": 0,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 2,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "UTG"
+          },
+          {
+            "seat": 3,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal": [
+          {
+            "key": "check",
+            "kind": "call",
+            "amount": 0
+          },
+          {
+            "key": "raise:10",
+            "kind": "raise",
+            "amount": 10
+          },
+          {
+            "key": "raise:30",
+            "kind": "raise",
+            "amount": 30
+          },
+          {
+            "key": "raise:60",
+            "kind": "raise",
+            "amount": 60
+          },
+          {
+            "key": "raise:490",
+            "kind": "raise",
+            "amount": 490
+          }
+        ],
+        "history": [
+          {
+            "id": "e2",
+            "hand": 1,
+            "street": "preflop",
+            "player": 2,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 3 calls 10."
+          },
+          {
+            "id": "e3",
+            "hand": 1,
+            "street": "preflop",
+            "player": 3,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 4 calls 10."
+          },
+          {
+            "id": "e4",
+            "hand": 1,
+            "street": "preflop",
+            "player": 4,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 5 calls 10."
+          },
+          {
+            "id": "e5",
+            "hand": 1,
+            "street": "preflop",
+            "player": 5,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 6 calls 10."
+          },
+          {
+            "id": "e6",
+            "hand": 1,
+            "street": "preflop",
+            "player": 0,
+            "action": "call",
+            "amount": 5,
+            "text": "Player 1 calls 5."
+          },
+          {
+            "id": "e7",
+            "hand": 1,
+            "street": "preflop",
+            "player": 1,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 2 checks."
+          },
+          {
+            "id": "e8",
+            "hand": 1,
+            "street": "flop",
+            "player": 0,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 1 checks."
+          },
+          {
+            "id": "e9",
+            "hand": 1,
+            "street": "flop",
+            "player": 1,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 2 checks."
+          },
+          {
+            "id": "e10",
+            "hand": 1,
+            "street": "flop",
+            "player": 2,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 3 checks."
+          },
+          {
+            "id": "e11",
+            "hand": 1,
+            "street": "flop",
+            "player": 3,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 4 checks."
+          },
+          {
+            "id": "e12",
+            "hand": 1,
+            "street": "flop",
+            "player": 4,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 5 checks."
+          },
+          {
+            "id": "e13",
+            "hand": 1,
+            "street": "flop",
+            "player": 5,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 6 checks."
+          }
+        ],
+        "opponents": [
+          {
+            "seat": 1,
+            "name": "Player 2",
+            "actions": 2,
+            "raises": 0,
+            "folds": 0,
+            "calls": 0,
+            "recent_actions": [
+              {
+                "id": "e7",
+                "hand": 1,
+                "street": "preflop",
+                "player": 1,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 2 checks."
+              },
+              {
+                "id": "e9",
+                "hand": 1,
+                "street": "flop",
+                "player": 1,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 2 checks."
+              }
+            ]
+          },
+          {
+            "seat": 2,
+            "name": "Player 3",
+            "actions": 2,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e2",
+                "hand": 1,
+                "street": "preflop",
+                "player": 2,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 3 calls 10."
+              },
+              {
+                "id": "e10",
+                "hand": 1,
+                "street": "flop",
+                "player": 2,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 3 checks."
+              }
+            ]
+          },
+          {
+            "seat": 3,
+            "name": "Player 4",
+            "actions": 2,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e3",
+                "hand": 1,
+                "street": "preflop",
+                "player": 3,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 4 calls 10."
+              },
+              {
+                "id": "e11",
+                "hand": 1,
+                "street": "flop",
+                "player": 3,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 4 checks."
+              }
+            ]
+          },
+          {
+            "seat": 4,
+            "name": "Player 5",
+            "actions": 2,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e4",
+                "hand": 1,
+                "street": "preflop",
+                "player": 4,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 5 calls 10."
+              },
+              {
+                "id": "e12",
+                "hand": 1,
+                "street": "flop",
+                "player": 4,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 5 checks."
+              }
+            ]
+          },
+          {
+            "seat": 5,
+            "name": "Player 6",
+            "actions": 2,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e5",
+                "hand": 1,
+                "street": "preflop",
+                "player": 5,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 6 calls 10."
+              },
+              {
+                "id": "e13",
+                "hand": 1,
+                "street": "flop",
+                "player": 5,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 6 checks."
+              }
+            ]
+          }
+        ]
+      },
+      "metrics": {
+        "equity": 0.0938,
+        "standard_error": 0.0412,
+        "samples": 48,
+        "pot_odds_reference": 0,
+        "icm_at_hand_start": 16.67,
+        "assumption": "Uniform random opponent hands; no inferred ranges or future betting.",
+        "limitation": "Pot odds omit side-pot eligibility. ICM is descriptive, not an ICM strategy solver."
+      },
+      "candidate_hypotheses": [
+        {
+          "action": "check",
+          "intent": "check",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version."
+          ]
+        },
+        {
+          "action": "raise:10",
+          "intent": "semi_bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Some opponents can fold, and a draw completion may help if called; neither rate is calibrated."
+          ]
+        },
+        {
+          "action": "raise:30",
+          "intent": "semi_bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Some opponents can fold, and a draw completion may help if called; neither rate is calibrated."
+          ]
+        },
+        {
+          "action": "raise:60",
+          "intent": "semi_bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Some opponents can fold, and a draw completion may help if called; neither rate is calibrated."
+          ]
+        },
+        {
+          "action": "raise:490",
+          "intent": "semi_bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Some opponents can fold, and a draw completion may help if called; neither rate is calibrated."
+          ]
+        }
+      ],
+      "limitations": [
+        "No calibrated opponent ranges or response probabilities are available.",
+        "Candidate intents are heuristic hypotheses, not solved action values or frequencies.",
+        "ICM at hand start is descriptive; tournament action values are not modeled.",
+        "The observation has no pot eligibility map; full-pot calculations are conditional.",
+        "Bounded evidence: 10 distinct public opponent actions; counts lack matched opportunities and do not establish a tendency.",
+        "Multiway pot: joint responses are unknown; do not multiply assumed individual fold rates.",
+        "Draw completions can be dominated or shared; no clean outs, draw probability, or equity realization is estimated.",
+        "Position is a seat label; remaining action order and future responses are not reconstructed."
+      ],
+      "discussion_points": [
+        "Which public actions support a range hypothesis, and which reads remain unsupported?",
+        "Which legal size or passive action would you compare, and what response assumptions does that require?",
+        "What next-street observations would change the plan, without assuming a future card?"
+      ]
+    },
+    {
+      "case_id": "review-08",
+      "observation": {
+        "table_id": "00000000000000000000000000000002",
+        "hand": 1,
+        "version": 19,
+        "player": 0,
+        "position": "SB",
+        "hole": [
+          "3c",
+          "6h"
+        ],
+        "board": [
+          "Td",
+          "4d",
+          "7c",
+          "6s",
+          "2s"
+        ],
+        "street": "river",
+        "pot": 60,
+        "to_call": 0,
+        "big_blind": 10,
+        "hand_start_stacks": [
+          500,
+          500,
+          500,
+          500,
+          500,
+          500
+        ],
+        "payouts": [
+          70,
+          30
+        ],
+        "players": [
+          {
+            "seat": 0,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 2,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "UTG"
+          },
+          {
+            "seat": 3,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 490,
+            "bet": 0,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal": [
+          {
+            "key": "check",
+            "kind": "call",
+            "amount": 0
+          },
+          {
+            "key": "raise:10",
+            "kind": "raise",
+            "amount": 10
+          },
+          {
+            "key": "raise:30",
+            "kind": "raise",
+            "amount": 30
+          },
+          {
+            "key": "raise:60",
+            "kind": "raise",
+            "amount": 60
+          },
+          {
+            "key": "raise:490",
+            "kind": "raise",
+            "amount": 490
+          }
+        ],
+        "history": [
+          {
+            "id": "e2",
+            "hand": 1,
+            "street": "preflop",
+            "player": 2,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 3 calls 10."
+          },
+          {
+            "id": "e3",
+            "hand": 1,
+            "street": "preflop",
+            "player": 3,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 4 calls 10."
+          },
+          {
+            "id": "e4",
+            "hand": 1,
+            "street": "preflop",
+            "player": 4,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 5 calls 10."
+          },
+          {
+            "id": "e5",
+            "hand": 1,
+            "street": "preflop",
+            "player": 5,
+            "action": "call",
+            "amount": 10,
+            "text": "Player 6 calls 10."
+          },
+          {
+            "id": "e6",
+            "hand": 1,
+            "street": "preflop",
+            "player": 0,
+            "action": "call",
+            "amount": 5,
+            "text": "Player 1 calls 5."
+          },
+          {
+            "id": "e7",
+            "hand": 1,
+            "street": "preflop",
+            "player": 1,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 2 checks."
+          },
+          {
+            "id": "e8",
+            "hand": 1,
+            "street": "flop",
+            "player": 0,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 1 checks."
+          },
+          {
+            "id": "e9",
+            "hand": 1,
+            "street": "flop",
+            "player": 1,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 2 checks."
+          },
+          {
+            "id": "e10",
+            "hand": 1,
+            "street": "flop",
+            "player": 2,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 3 checks."
+          },
+          {
+            "id": "e11",
+            "hand": 1,
+            "street": "flop",
+            "player": 3,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 4 checks."
+          },
+          {
+            "id": "e12",
+            "hand": 1,
+            "street": "flop",
+            "player": 4,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 5 checks."
+          },
+          {
+            "id": "e13",
+            "hand": 1,
+            "street": "flop",
+            "player": 5,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 6 checks."
+          },
+          {
+            "id": "e14",
+            "hand": 1,
+            "street": "turn",
+            "player": 0,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 1 checks."
+          },
+          {
+            "id": "e15",
+            "hand": 1,
+            "street": "turn",
+            "player": 1,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 2 checks."
+          },
+          {
+            "id": "e16",
+            "hand": 1,
+            "street": "turn",
+            "player": 2,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 3 checks."
+          },
+          {
+            "id": "e17",
+            "hand": 1,
+            "street": "turn",
+            "player": 3,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 4 checks."
+          },
+          {
+            "id": "e18",
+            "hand": 1,
+            "street": "turn",
+            "player": 4,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 5 checks."
+          },
+          {
+            "id": "e19",
+            "hand": 1,
+            "street": "turn",
+            "player": 5,
+            "action": "check",
+            "amount": 0,
+            "text": "Player 6 checks."
+          }
+        ],
+        "opponents": [
+          {
+            "seat": 1,
+            "name": "Player 2",
+            "actions": 3,
+            "raises": 0,
+            "folds": 0,
+            "calls": 0,
+            "recent_actions": [
+              {
+                "id": "e7",
+                "hand": 1,
+                "street": "preflop",
+                "player": 1,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 2 checks."
+              },
+              {
+                "id": "e9",
+                "hand": 1,
+                "street": "flop",
+                "player": 1,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 2 checks."
+              },
+              {
+                "id": "e15",
+                "hand": 1,
+                "street": "turn",
+                "player": 1,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 2 checks."
+              }
+            ]
+          },
+          {
+            "seat": 2,
+            "name": "Player 3",
+            "actions": 3,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e2",
+                "hand": 1,
+                "street": "preflop",
+                "player": 2,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 3 calls 10."
+              },
+              {
+                "id": "e10",
+                "hand": 1,
+                "street": "flop",
+                "player": 2,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 3 checks."
+              },
+              {
+                "id": "e16",
+                "hand": 1,
+                "street": "turn",
+                "player": 2,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 3 checks."
+              }
+            ]
+          },
+          {
+            "seat": 3,
+            "name": "Player 4",
+            "actions": 3,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e3",
+                "hand": 1,
+                "street": "preflop",
+                "player": 3,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 4 calls 10."
+              },
+              {
+                "id": "e11",
+                "hand": 1,
+                "street": "flop",
+                "player": 3,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 4 checks."
+              },
+              {
+                "id": "e17",
+                "hand": 1,
+                "street": "turn",
+                "player": 3,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 4 checks."
+              }
+            ]
+          },
+          {
+            "seat": 4,
+            "name": "Player 5",
+            "actions": 3,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e4",
+                "hand": 1,
+                "street": "preflop",
+                "player": 4,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 5 calls 10."
+              },
+              {
+                "id": "e12",
+                "hand": 1,
+                "street": "flop",
+                "player": 4,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 5 checks."
+              },
+              {
+                "id": "e18",
+                "hand": 1,
+                "street": "turn",
+                "player": 4,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 5 checks."
+              }
+            ]
+          },
+          {
+            "seat": 5,
+            "name": "Player 6",
+            "actions": 3,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e5",
+                "hand": 1,
+                "street": "preflop",
+                "player": 5,
+                "action": "call",
+                "amount": 10,
+                "text": "Player 6 calls 10."
+              },
+              {
+                "id": "e13",
+                "hand": 1,
+                "street": "flop",
+                "player": 5,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 6 checks."
+              },
+              {
+                "id": "e19",
+                "hand": 1,
+                "street": "turn",
+                "player": 5,
+                "action": "check",
+                "amount": 0,
+                "text": "Player 6 checks."
+              }
+            ]
+          }
+        ]
+      },
+      "metrics": {
+        "equity": 0.0417,
+        "standard_error": 0.0291,
+        "samples": 48,
+        "pot_odds_reference": 0,
+        "icm_at_hand_start": 16.67,
+        "assumption": "Uniform random opponent hands; no inferred ranges or future betting.",
+        "limitation": "Pot odds omit side-pot eligibility. ICM is descriptive, not an ICM strategy solver."
+      },
+      "candidate_hypotheses": [
+        {
+          "action": "check",
+          "intent": "check",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version."
+          ]
+        },
+        {
+          "action": "raise:10",
+          "intent": "bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Fold pressure is hypothetical. Zero showdown return is a comparison model, not a claim that these cards have no equity."
+          ]
+        },
+        {
+          "action": "raise:30",
+          "intent": "bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Fold pressure is hypothetical. Zero showdown return is a comparison model, not a claim that these cards have no equity."
+          ]
+        },
+        {
+          "action": "raise:60",
+          "intent": "bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Fold pressure is hypothetical. Zero showdown return is a comparison model, not a claim that these cards have no equity."
+          ]
+        },
+        {
+          "action": "raise:490",
+          "intent": "bluff",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version.",
+            "Fold pressure is hypothetical. Zero showdown return is a comparison model, not a claim that these cards have no equity."
+          ]
+        }
+      ],
+      "limitations": [
+        "No calibrated opponent ranges or response probabilities are available.",
+        "Candidate intents are heuristic hypotheses, not solved action values or frequencies.",
+        "ICM at hand start is descriptive; tournament action values are not modeled.",
+        "The observation has no pot eligibility map; full-pot calculations are conditional.",
+        "Bounded evidence: 15 distinct public opponent actions; counts lack matched opportunities and do not establish a tendency.",
+        "Multiway pot: joint responses are unknown; do not multiply assumed individual fold rates.",
+        "Position is a seat label; remaining action order and future responses are not reconstructed."
+      ],
+      "discussion_points": [
+        "Which public actions support a range hypothesis, and which reads remain unsupported?",
+        "Which legal size or passive action would you compare, and what response assumptions does that require?"
+      ]
+    },
+    {
+      "case_id": "review-09",
+      "observation": {
+        "table_id": "00000000000000000000000000000003",
+        "hand": 1,
+        "version": 5,
+        "player": 0,
+        "position": "SB",
+        "hole": [
+          "6d",
+          "2c"
+        ],
+        "board": [],
+        "street": "preflop",
+        "pot": 415,
+        "to_call": 95,
+        "big_blind": 10,
+        "hand_start_stacks": [
+          100,
+          100,
+          100,
+          100,
+          100,
+          100
+        ],
+        "payouts": [
+          70,
+          30
+        ],
+        "players": [
+          {
+            "seat": 0,
+            "stack": 95,
+            "bet": 5,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 90,
+            "bet": 10,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 2,
+            "stack": 0,
+            "bet": 100,
+            "active": true,
+            "position": "UTG"
+          },
+          {
+            "seat": 3,
+            "stack": 0,
+            "bet": 100,
+            "active": true,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 0,
+            "bet": 100,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 0,
+            "bet": 100,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal": [
+          {
+            "key": "fold",
+            "kind": "fold",
+            "amount": 0
+          },
+          {
+            "key": "call",
+            "kind": "call",
+            "amount": 95
+          }
+        ],
+        "history": [
+          {
+            "id": "e2",
+            "hand": 1,
+            "street": "preflop",
+            "player": 2,
+            "action": "raise:100",
+            "amount": 100,
+            "text": "Player 3 raises to 100."
+          },
+          {
+            "id": "e3",
+            "hand": 1,
+            "street": "preflop",
+            "player": 3,
+            "action": "call",
+            "amount": 100,
+            "text": "Player 4 calls 100."
+          },
+          {
+            "id": "e4",
+            "hand": 1,
+            "street": "preflop",
+            "player": 4,
+            "action": "call",
+            "amount": 100,
+            "text": "Player 5 calls 100."
+          },
+          {
+            "id": "e5",
+            "hand": 1,
+            "street": "preflop",
+            "player": 5,
+            "action": "call",
+            "amount": 100,
+            "text": "Player 6 calls 100."
+          }
+        ],
+        "opponents": [
+          {
+            "seat": 1,
+            "name": "Player 2",
+            "actions": 0,
+            "raises": 0,
+            "folds": 0,
+            "calls": 0,
+            "recent_actions": []
+          },
+          {
+            "seat": 2,
+            "name": "Player 3",
+            "actions": 1,
+            "raises": 1,
+            "folds": 0,
+            "calls": 0,
+            "recent_actions": [
+              {
+                "id": "e2",
+                "hand": 1,
+                "street": "preflop",
+                "player": 2,
+                "action": "raise:100",
+                "amount": 100,
+                "text": "Player 3 raises to 100."
+              }
+            ]
+          },
+          {
+            "seat": 3,
+            "name": "Player 4",
+            "actions": 1,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e3",
+                "hand": 1,
+                "street": "preflop",
+                "player": 3,
+                "action": "call",
+                "amount": 100,
+                "text": "Player 4 calls 100."
+              }
+            ]
+          },
+          {
+            "seat": 4,
+            "name": "Player 5",
+            "actions": 1,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e4",
+                "hand": 1,
+                "street": "preflop",
+                "player": 4,
+                "action": "call",
+                "amount": 100,
+                "text": "Player 5 calls 100."
+              }
+            ]
+          },
+          {
+            "seat": 5,
+            "name": "Player 6",
+            "actions": 1,
+            "raises": 0,
+            "folds": 0,
+            "calls": 1,
+            "recent_actions": [
+              {
+                "id": "e5",
+                "hand": 1,
+                "street": "preflop",
+                "player": 5,
+                "action": "call",
+                "amount": 100,
+                "text": "Player 6 calls 100."
+              }
+            ]
+          }
+        ]
+      },
+      "metrics": {
+        "equity": 0.0625,
+        "standard_error": 0.0353,
+        "samples": 48,
+        "pot_odds_reference": 0.18627450980392157,
+        "icm_at_hand_start": 16.67,
+        "assumption": "Uniform random opponent hands; no inferred ranges or future betting.",
+        "limitation": "Pot odds omit side-pot eligibility. ICM is descriptive, not an ICM strategy solver."
+      },
+      "candidate_hypotheses": [
+        {
+          "action": "fold",
+          "intent": "fold",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version."
+          ]
+        },
+        {
+          "action": "call",
+          "intent": "call",
+          "assumptions": [
+            "The supplied private observation and legal menu describe the same state version."
+          ]
+        }
+      ],
+      "limitations": [
+        "No calibrated opponent ranges or response probabilities are available.",
+        "Candidate intents are heuristic hypotheses, not solved action values or frequencies.",
+        "ICM at hand start is descriptive; tournament action values are not modeled.",
+        "The observation has no pot eligibility map; full-pot calculations are conditional.",
+        "Bounded evidence: 4 distinct public opponent actions; counts lack matched opportunities and do not establish a tendency.",
+        "Multiway pot: joint responses are unknown; do not multiply assumed individual fold rates.",
+        "An active player is already all-in; folds cannot award the entire pot uncontested.",
+        "Short effective stack (at most 10 big blinds): future betting room is limited; no push/fold solution is available.",
+        "Raise intents are omitted where visible features do not support this module's limited classification.",
+        "Position is a seat label; remaining action order and future responses are not reconstructed."
+      ],
+      "discussion_points": [
+        "Which public actions support a range hypothesis, and which reads remain unsupported?",
+        "Which legal size or passive action would you compare, and what response assumptions does that require?",
+        "What next-street observations would change the plan, without assuming a future card?",
+        "How should side-pot eligibility and tournament payouts limit the equity reference?"
+      ]
+    }
+  ]
+}

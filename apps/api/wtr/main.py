@@ -1,22 +1,23 @@
 import asyncio
-from contextlib import asynccontextmanager
 import os
 import secrets
+from contextlib import asynccontextmanager, suppress
 
 from dotenv import load_dotenv
 
 load_dotenv()
 
 from fastapi import (
-    FastAPI,
     Depends,
+    FastAPI,
     Header,
     HTTPException,
+    Query,
     WebSocket,
     WebSocketDisconnect,
-    Query,
 )
 from fastapi.middleware.cors import CORSMiddleware
+
 from .models import Control, TournamentConfig
 from .store import Store
 from .workers import TableManager
@@ -47,9 +48,19 @@ async def lifespan(app):
     store = Store()
     store.initialize()
     app.state.store, app.state.manager = store, TableManager(store)
+
+    async def reap_workers():
+        while True:
+            await asyncio.to_thread(app.state.manager.poll)
+            await asyncio.sleep(0.5)
+
+    monitor = asyncio.create_task(reap_workers())
     try:
         yield
     finally:
+        monitor.cancel()
+        with suppress(asyncio.CancelledError):
+            await monitor
         await asyncio.to_thread(app.state.manager.close)
         store.engine.dispose()
 
@@ -136,17 +147,56 @@ async def live(ws: WebSocket):
         if not isinstance(auth, dict) or not valid_token(auth.get("token")):
             await ws.close(code=1008)
             return
-        last = None
-        while True:
-            # This only fans out snapshots; it never schedules poker decisions.
-            app.state.manager.poll()
-            data = await asyncio.to_thread(app.state.store.list)
-            stamp = [
-                (s["id"], s.get("version"), s["status"], s.get("phase")) for s in data
-            ]
-            if stamp != last:
-                await ws.send_json({"type": "tables", "tables": data})
-                last = stamp
-            await asyncio.sleep(0.25)
+        # Receive disconnect events even when a paused table produces no new data.
+        # Otherwise Uvicorn can wait forever for this handler during shutdown.
+        disconnected = asyncio.create_task(ws.receive())
+        try:
+            last = None
+            while not disconnected.done():
+                # This only fans out snapshots; it never schedules poker decisions.
+                app.state.manager.poll()
+                data = await asyncio.to_thread(app.state.store.list)
+                stamp = [
+                    (
+                        s["id"],
+                        s.get("version"),
+                        s["status"],
+                        s.get("phase"),
+                        s.get("active_trace_id"),
+                    )
+                    for s in data
+                ]
+                if stamp != last:
+                    await ws.send_json({"type": "tables", "tables": data})
+                    last = stamp
+                with suppress(asyncio.TimeoutError):
+                    await asyncio.wait_for(asyncio.shield(disconnected), 0.25)
+        finally:
+            disconnected.cancel()
+            with suppress(asyncio.CancelledError):
+                await disconnected
     except (WebSocketDisconnect, asyncio.TimeoutError, RuntimeError):
         pass
+
+
+@app.get("/api/tables/{table_id}/traces", dependencies=[Depends(authorized)])
+def traces(
+    table_id: str,
+    hand: int | None = Query(default=None, ge=1),
+    limit: int = Query(default=50, ge=1, le=200),
+    cursor: str | None = Query(default=None, max_length=512),
+):
+    if not app.state.store.has_table(table_id):
+        raise HTTPException(404, "Table not found")
+    try:
+        return app.state.store.list_traces(table_id, hand, limit, cursor)
+    except ValueError:
+        raise HTTPException(400, "Invalid trace cursor") from None
+
+
+@app.get("/api/tables/{table_id}/traces/{trace_id}", dependencies=[Depends(authorized)])
+def trace(table_id: str, trace_id: str):
+    result = app.state.store.get_trace(table_id, trace_id)
+    if result is None:
+        raise HTTPException(404, "Trace not found")
+    return result

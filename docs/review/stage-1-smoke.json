@@ -1,0 +1,109 @@
+{
+  "protocol_version": 2,
+  "attempts": 16,
+  "completed": 16,
+  "unique_seeds": 4,
+  "matching_repeat_pairs": 8,
+  "chip_conservation": true,
+  "hands": 68,
+  "actions": 646,
+  "hero_decisions": 112,
+  "config": {
+    "tuning_seeds": [
+      1,
+      2
+    ],
+    "held_out_seeds": [
+      101,
+      102
+    ],
+    "policy_seed": 42,
+    "repeats": 2,
+    "policies": [
+      {
+        "name": "heuristic",
+        "version": "skeleton-0fe9596-v1",
+        "factory": "wtr.evaluation.policies:Heuristic"
+      }
+    ],
+    "scenarios": [
+      "standard",
+      "repeated-shove"
+    ],
+    "opponent_profiles": [
+      "tight",
+      "caller",
+      "aggressive",
+      "balanced",
+      "volatile"
+    ],
+    "stack_bb": 10,
+    "hands_per_level": 2,
+    "payouts": "70/30",
+    "max_hands": 300,
+    "max_actions": 5000,
+    "timeout_seconds": 120
+  },
+  "runtime": {
+    "python": "3.12.14",
+    "pokerkit": "0.7.7",
+    "source_sha256": {
+      "game.py": "fb7f850363cb205decbcf08efcb01da86277b053213d901e636fa0a868f31927",
+      "agent.py": "f2e4f0437870308d075ccc1fed5cc793f3d85d88af3f68351f7b07aa1765b92c",
+      "evaluation/__init__.py": "4be0e73369a6c0fa069f146a1f31c0c8ff22cf26e862367e70ef78e55c29111e",
+      "evaluation/__main__.py": "1a6e02dfa690d16c5f7f1d90dbb12c070e39c5af1c34bb86af6345e5d5301368",
+      "evaluation/policies.py": "825cd72d318b00a6ef392e7a66a69f8da061d67b2b6946bef5b2585899aa76b4",
+      "evaluation/runner.py": "ac35f3debfba22fa67b71ad8435f54c67af141e202ea22354423d32eb925e34a"
+    }
+  },
+  "summary": [
+    {
+      "split": "held_out",
+      "policy": "heuristic",
+      "scenario": "repeated-shove",
+      "attempted": 4,
+      "completed": 4,
+      "failed": 0,
+      "unique_seeds": 2,
+      "completed_unique_seeds": 2,
+      "mean_prize_units": 6.0,
+      "mean_finishing_position": 2.0
+    },
+    {
+      "split": "held_out",
+      "policy": "heuristic",
+      "scenario": "standard",
+      "attempted": 4,
+      "completed": 4,
+      "failed": 0,
+      "unique_seeds": 2,
+      "completed_unique_seeds": 2,
+      "mean_prize_units": 35.0,
+      "mean_finishing_position": 2.5
+    },
+    {
+      "split": "tuning",
+      "policy": "heuristic",
+      "scenario": "repeated-shove",
+      "attempted": 4,
+      "completed": 4,
+      "failed": 0,
+      "unique_seeds": 2,
+      "completed_unique_seeds": 2,
+      "mean_prize_units": 6.0,
+      "mean_finishing_position": 2.0
+    },
+    {
+      "split": "tuning",
+      "policy": "heuristic",
+      "scenario": "standard",
+      "attempted": 4,
+      "completed": 4,
+      "failed": 0,
+      "unique_seeds": 2,
+      "completed_unique_seeds": 2,
+      "mean_prize_units": 0.0,
+      "mean_finishing_position": 4.5
+    }
+  ]
+}

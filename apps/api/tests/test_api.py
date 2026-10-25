@@ -1,4 +1,5 @@
 import time
+
 from fastapi.testclient import TestClient
 from wtr.main import app
 
@@ -67,3 +68,114 @@ def test_access_control_and_missing_model_configuration(tmp_path, monkeypatch):
             ).status_code
             == 422
         )
+
+
+def test_trace_isolation_and_shutdown_without_websocket(tmp_path, monkeypatch):
+    monkeypatch.setenv("DATABASE_URL", f"sqlite:///{tmp_path}/isolation.sqlite")
+    monkeypatch.setenv("LANGSMITH_TRACING", "false")
+    monkeypatch.setenv("WTR_PUBLIC", "false")
+    monkeypatch.delenv("CONTROL_TOKEN", raising=False)
+    with TestClient(app) as client:
+        ids = [
+            client.post("/api/tables", json={"seed": seed, "pace": 0.05}).json()["id"]
+            for seed in (7, 8)
+        ]
+        manager = app.state.manager
+        assert len({manager.workers[i][0].pid for i in ids}) == 2
+        for table_id in ids:
+            client.post(f"/api/tables/{table_id}/control", json={"action": "resume"})
+        for table_id in ids:
+            wait_for(client, table_id, lambda t: t.get("agent_decisions", 0) >= 2)
+            client.post(f"/api/tables/{table_id}/control", json={"action": "pause"})
+        roots = []
+        for table_id in ids:
+            wait_for(client, table_id, lambda t: t["status"] == "paused")
+            records = client.get(f"/api/tables/{table_id}/traces").json()["items"]
+            assert len(records) >= 2
+            assert all(
+                r["table_id"] == table_id and r["status"] == "completed"
+                for r in records
+            )
+            roots.append({r["trace_id"] for r in records})
+        assert roots[0].isdisjoint(roots[1])
+    assert manager.workers == {}
+
+
+def test_legacy_replay_and_interrupted_session_remain_readable(tmp_path, monkeypatch):
+    from wtr.game import Tournament
+    from wtr.models import TournamentConfig
+    from wtr.store import Store
+
+    monkeypatch.setenv("DATABASE_URL", f"sqlite:///{tmp_path}/legacy.sqlite")
+    monkeypatch.delenv("CONTROL_TOKEN", raising=False)
+    monkeypatch.setenv("WTR_PUBLIC", "false")
+    store = Store()
+    store.initialize()
+    config = TournamentConfig().model_dump()
+    game = Tournament("legacy", config)
+    store.create(game.id, config)
+    snapshot = game.snapshot()
+    snapshot["decision"] = {
+        "action": "call",
+        "source": "heuristic",
+        "state_version": 0,
+        "summary": "Historical record",
+        "hand": 1,
+        "event_id": "legacy:e1",
+    }
+    store.save(snapshot)
+    store.engine.dispose()
+    with TestClient(app) as client:
+        restored = next(
+            t for t in client.get("/api/tables").json() if t["id"] == "legacy"
+        )
+        assert restored["status"] == "interrupted"
+        assert "trace_id" not in restored["decision"]
+        assert (
+            client.get("/api/tables/legacy/history").json()[0]["decision"]
+            == snapshot["decision"]
+        )
+        assert client.get("/api/tables/legacy/traces").json() == {
+            "items": [],
+            "next_cursor": None,
+        }
+
+
+def test_idle_live_websocket_exits_on_disconnect(tmp_path, monkeypatch):
+    import asyncio
+    from wtr.main import live, origins
+
+    store = type("EmptyStore", (), {"list": lambda self: []})()
+    monkeypatch.setenv("CONTROL_TOKEN", "ws-test")
+    app.state.store = store
+    app.state.manager = type("Manager", (), {"poll": lambda self: None})()
+
+    class Socket:
+        headers = {"origin": origins[0]}
+
+        def __init__(self):
+            self.sent = asyncio.Event()
+            self.disconnect = asyncio.Event()
+
+        async def accept(self):
+            pass
+
+        async def receive_json(self):
+            return {"token": "ws-test"}
+
+        async def receive(self):
+            await self.disconnect.wait()
+            return {"type": "websocket.disconnect"}
+
+        async def send_json(self, data):
+            assert data == {"type": "tables", "tables": []}
+            self.sent.set()
+
+    async def exercise():
+        ws = Socket()
+        task = asyncio.create_task(live(ws))
+        await asyncio.wait_for(ws.sent.wait(), 2)
+        ws.disconnect.set()
+        await asyncio.wait_for(task, 0.5)
+
+    asyncio.run(exercise())
