@@ -1,6 +1,6 @@
 # LLM table talk and the hero harness
 
-Direction recorded on 2026-10-25 after Rayner proposed an all-LLM poker table with shared chat, then identified the hero's strategy and harness as the main development goal. This is the next implementation plan. It does not describe functionality already present in the application.
+Direction recorded on 2026-10-25 after Rayner proposed an all-LLM poker table with shared chat, then identified the hero's strategy and harness as the main development goal. The environment/UI slice is now delivered and reviewed with mocked providers. The richer playing harness and real-model evaluations below remain future work.
 
 ## Product and experiment
 
@@ -8,7 +8,7 @@ The primary use case is to create an agent harness that lets Rayner's LLM poker 
 
 The poker table provides the evaluation environment. Players choose legal actions and can make public claims, bluff, react and stay silent. Table talk is an additional source of uncertain evidence and a possible strategic action. The UI and traces expose the experiment. Improvement must be measured; adding tools or persuasive explanations does not itself establish better play.
 
-Rayner has selected six seats for the first implementation: five LLM opponents and a hero that he initially controls manually, choosing actions and messages, with optional LLM takeover. Fully automated mode has six LLM players. Keep PokerKit authoritative and preserve `baseline/stage-2a` and its PokerTH mode as a runnable comparison. LLM opponents, shared chat, manual control/takeover and per-player trace selection all require implementation; the existing configuration starts six players with legacy or PokerTH opponents and no manual hero controls.
+Rayner selected six seats for the first implementation: five LLM opponents and a hero that he initially controls manually, choosing actions and messages, with optional LLM takeover. Fully automated mode has six LLM players. This environment, public chat, per-player traces and manual controls are implemented and reviewed locally with mocked provider responses. PokerKit remains authoritative, and `baseline/stage-2a` with PokerTH stays runnable. The new checkpoint is `baseline/llm-table`; see the [combined review](review/llm-table-integration.md).
 
 The supplied UI reference informs a compact terminal/pixel-inspired dashboard with four areas: table, public conversation, selected-player decision/tool records, and action history/standings. Rayner requires equally usable dark and light themes. Player colours should remain consistent across panels. Display recorded values and concise decision summaries, without inventing confidence scores or probabilities.
 
@@ -61,10 +61,10 @@ For chat influence, repeat decisions at matched frozen hand states with chat vis
 
 ## Implementation sequence and completion
 
-1. **Six-seat table and manual hero:** add independent per-seat LLM adapters, bounded public chat and per-seat trace selection. Let Rayner choose hero actions/messages manually, then hand control to the LLM for fully automated six-player play. Keep a reusable stable opponent configuration and preserve PokerTH compatibility. Mock provider tests establish engineering behavior; actual LLM play requires selected models and an authorized live-call budget.
+1. **Six-seat table and manual hero, delivered:** independent per-seat adapters, bounded chat, per-seat traces, manual actions/messages and LLM takeover are implemented with stable neutral opponents and PokerTH compatibility. The combined review establishes engineering behavior with mocks; live-model play requires selected models and an authorized run budget.
 2. **Hero decision loop:** connect the existing analysis module through a bounded tool registry, implement public evidence/claim retrieval and conditional range/scenario tools, then add the first qualified solver/reference adapter. Demonstrate legal decisions and inspectable tool results on selected hands, including unsupported coverage and failure cases.
 3. **Measured comparisons:** run controlled baseline, full-harness and capability-removal comparisons. Broaden held-out opponents and seats before claiming the harness improves results. Review specific hands alongside outcomes, including errors and successful exploits.
 
-The existing 128 API tests and 16 frontend tests cover the Stage 2A baseline, not these new capabilities. New acceptance evidence must include private-context separation, chat ordering, action versions, malformed model output, budget exhaustion, six-player LLM completion, manual submissions and takeover, legacy/native regression coverage and observable per-seat records.
+The combined review reran 160 API tests and 48 frontend tests, plus browser checks of the real API/worker flow using mocked model responses. It covers private-context separation, chat ordering, versions, malformed output, budgets, completion, manual actions/takeover and preserved legacy/native paths. The saved 72-game mock report is engineering evidence; it does not establish poker strength or chat influence.
 
-OpenRouter is selected. Exact models, total live-run spend, initial solver access and the richer tool contracts remain unresolved. The first player/chat interface is specified in [LLM table v1](../contracts/llm-table-v1.md). Rayner assigned [backend players and benchmark setup](tasks/backend-llm-table.md) and [frontend terminal UI](tasks/frontend-terminal-ui.md) concurrently. These assignments do not establish runtime completion or authorize paid calls. The fuller hero harness and solver are a subsequent slice.
+OpenRouter is selected. Exact models, total live-run spend, initial solver access and the richer tool contracts remain unresolved. The first player/chat interface is implemented in [LLM table v1](../contracts/llm-table-v1.md). The backend environment/benchmark and frontend assignments are delivered and integrated. No paid calls were made; the fuller hero harness and solver are a subsequent slice.

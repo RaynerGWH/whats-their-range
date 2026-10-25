@@ -4,13 +4,11 @@ A local NLH tournament simulator for testing LLM poker agents.
 
 The project goal is to build and evaluate an agent harness that helps an LLM outperform competing LLM poker agents. Memory, poker tools and decision workflows are the main strategy work; table talk and traces support the experiment.
 
-The current baseline is a playable spectator lab: six-player NLH freezeout tournaments, five PokerTH engine 4 opponents (or an explicit legacy heuristic mode), a replaceable agent, independent table workers, replayable decision records and an execution trace explorer. The [Stage 2A delivery](docs/stage-2a.md) records the native opponent integration and game evidence. The fuller LLM strategy and solver are the next milestone.
+The current baseline supports six seats with five neutral OpenRouter-backed opponents and a manually controlled hero. Choose your actions and optional public messages, or switch the hero to LLM control for six automated players. Each seat has isolated context, and the terminal UI supports dark/light themes, per-player traces and replay. The [integration review](docs/review/llm-table-integration.md) records verification with mocked provider responses; real-model play remains unverified.
 
-The committed starting point for that next milestone is tagged `baseline/stage-2a`. See the [baseline checkpoint](docs/baseline-stage-2a.md) for its contents, verification and remaining agent work.
+PokerTH engine 4 and legacy heuristic modes remain available without model calls. Their earlier checkpoint is preserved as `baseline/stage-2a`; the integrated environment/UI checkpoint is `baseline/llm-table`. Independent table workers and the same PokerKit game engine serve all modes.
 
-The next direction is a six-seat table with public chat and a stronger hero strategy harness. Rayner can play his hero's actions and messages manually against five LLM opponents, then hand control to the LLM for fully automated six-player games. The [implementation and evaluation plan](docs/llm-agent-harness.md) describes this setup and its stable neutral opponent configuration. This mode is not implemented in the runnable baseline below.
-
-Current assignments are [configurable OpenRouter players and benchmark setup](docs/tasks/backend-llm-table.md), and a [terminal-inspired UI with dark/light themes](docs/tasks/frontend-terminal-ui.md). Per-seat model, instructions, chat access and harness settings follow the [shared interface](contracts/llm-table-v1.md). The richer hero strategy and solver remain subsequent work.
+The [implementation and evaluation plan](docs/llm-agent-harness.md) and [shared interface](contracts/llm-table-v1.md) describe the stable neutral opponent setup. The richer hero strategy, model-directed tool loop and solver remain subsequent work.
 
 ## Project direction
 
@@ -37,32 +35,37 @@ npm run dev
 
 Open http://localhost:5173. Create a tournament and press **Run table**. Tables start paused. **Step** advances one action, or deals the next hand after settlement. Two tables can run concurrently in separate processes. Closing the browser does not stop them while the API stays running.
 
-New UI tables select PokerTH opponents by default. Opponent policy and hero mode are separate controls. Missing native builds produce a setup error; selecting Legacy heuristic is explicit. Older clients that omit the opponent field retain legacy mode.
+With OpenRouter configured and the new capabilities available, the UI defaults to six LLM seats with manual hero control. Without credentials, PokerTH remains the runnable default; Legacy heuristic is also explicit. Missing native builds produce a PokerTH setup error. Older clients that omit the opponent field retain legacy mode.
 
 No credentials are required for the heuristic hero. It uses SQLite locally and does not make model calls. Deck, hero policy, opponent policy and private personality assignment randomness are separate. API controller fields `hero_seed`, `opponent_seed` and `personality_seed` can reproduce a run; omitted seeds are independently generated and saved in the spectator configuration, outside player observations.
 
 ## OpenRouter agent
 
-Set these in `apps/api/.env`, restart the backend, then select OpenRouter when creating a table:
+Set these in `apps/api/.env`, restart the backend, then create an LLM table:
 
 ```dotenv
 OPENROUTER_API_KEY=your-server-side-key
 OPENROUTER_MODEL=provider/model-id
-AGENT_DEADLINE_SECONDS=10
-AGENT_MAX_CALLS=100
 ```
 
-Choose a model/provider supporting structured JSON output. The UI accepts the model ID per table. The graph calculates a small Monte Carlo equity estimate and retrieves bounded public-action evidence in parallel, then makes **one model call**. It validates the returned action and evidence references before execution. Invalid responses, errors, deadline expiry and exhausted budgets produce a visibly labeled heuristic fallback. No automatic retries multiply spend.
+Choose models supporting the structured JSON parameters requested by the adapter. Use a default model or per-seat overrides. The initial `free_play` instructions supply the objective, rules and optional chat without prescribing tactics or bluff frequency. Each automated turn makes one bounded model call using the acting seat's permitted observation, own memory and public chat. Manual turns wait for a selected legal action and optional message, with no hero call or timeout action. The saved opponent preset remains unchanged when the hero switches control.
 
-The call cap is per table, not a dollar limit. Configure account spending limits in OpenRouter. No production provider call was required to build or test the skeleton.
+Per-seat and total-table call/output limits, deadlines and message limits are available through `llm_limits` and `/api/config`. Invalid responses, provider errors and exhausted budgets produce a visibly labeled heuristic fallback without invented chat. Pause, stop and takeover cancel pending work and prevent obsolete results from applying. Started attempts still count. Call/output caps are not a dollar limit; configure account spending limits separately.
+
+The older hero-only OpenRouter option with PokerTH/legacy opponents still uses the fixed assessment/retrieval graph and `AGENT_DEADLINE_SECONDS` / `AGENT_MAX_CALLS`. Neither path implements the future model-directed strategy harness or solver. No paid provider calls were made during baseline verification.
+
+For a completely offline walkthrough of the combined UI and worker flow, use the explicitly mocked [integration preview](docs/review/llm-table-integration.md#reproduce-the-offline-browser-check). It does not demonstrate real-model poker behavior.
 
 ## What is implemented
 
+- Six-seat LLM tables, manual hero action/chat entry, LLM takeover, stable neutral opponent presets, isolated per-seat memory and public table talk. Four seats are also supported.
+- Dark/light terminal workspace, capability-aware configuration, per-seat trace selection and explicit play/spectator views.
+- Bounded [LLM benchmark runner](docs/llm-benchmark.md), using the same game/player path, seat rotation, held-out configuration, and retained failure/usage records. Mock reports are engineering evidence only.
 - React/TypeScript/Vite spectator UI, responsive table, hidden-card toggle, pause/run/step/speed, two independent sessions, archive and replay.
 - PokerKit dealing, arbitrary legal chip accounting within a discrete agent action menu, all-ins, side pots, eliminations, heads-up seating and payout settlement.
 - Real native PokerTH engine 4 opponents, legal action normalization, public behavioral statistics and private shuffled personalities, with legacy heuristic comparison mode. Opponent parameters and seeds are never sent to the hero.
 - Private observations for the hero, descriptive action counts, bounded evidence, state-version validation, structured OpenRouter adapter and local decision records.
-- LangGraph orchestration with optional LangSmith tracing (`LANGSMITH_TRACING`, `LANGSMITH_API_KEY`, `LANGSMITH_PROJECT`). Traces contain only the agent's permitted observation, not the spectator snapshot. View traces in your LangSmith project.
+- Fixed LangGraph orchestration for the older hero-only path, with optional LangSmith tracing (`LANGSMITH_TRACING`, `LANGSMITH_API_KEY`, `LANGSMITH_PROJECT`). The new per-seat LLM path makes one direct bounded call. Model traces contain only the acting player's permitted observation, not the spectator snapshot.
 - SQLAlchemy persistence: SQLite locally, PostgreSQL via `DATABASE_URL`, including Supabase session-pooler URLs.
 - Descriptive ICM prize-equity display based on hand-start or settled stacks, in 100 prize units. Prize structure is configurable as 70/30 or winner-take-all.
 
@@ -70,13 +73,13 @@ The call cap is per table, not a dollar limit. Configure account spending limits
 
 This is an **experimental baseline, not a GTO or ICM strategy solver**. Equity assumes uniform random opponent hands and does not infer ranges. Pot odds are an approximate reference and do not model side-pot eligibility. The ICM display does not drive a solved action-value policy. No solver datasets are bundled.
 
-The planned competing-hypothesis analyses, future-street search, calibrated opponent beliefs and robust exploitation are future strategy work. Every action is recorded, including after hero folds, but off-turn LLM deliberation is not yet implemented. The present preparation graph has parallel calculation/retrieval, not multiple LLM analysts.
+The planned competing-hypothesis analyses, future-street search, calibrated opponent beliefs and robust exploitation are future strategy work. Every action is recorded, including after hero folds, but off-turn LLM deliberation is not implemented. The old hero graph has parallel calculation/retrieval; the new per-seat baseline uses one direct model decision. Neither path has multiple LLM analysts or a model-directed tool loop.
 
-Opponent policies have stable biases and use current hand strength, pot and stacks. They are not validated human models or ICM-aware tournament professionals. Blinds increase by 1.5x every configured number of hands; there are no antes or re-entries. The simulator permits any number of contenders from six down to one.
+PokerTH and legacy heuristic opponents have stable biases and use current hand strength, pot and stacks. They are not validated human models or ICM-aware tournament professionals. Neutral LLM opponents receive permitted game context and choose their own actions; their poker behavior remains unverified with real models. Blinds increase by 1.5x every configured number of hands; there are no antes or re-entries. The simulator permits any number of contenders from six down to one.
 
 Replay stores full spectator snapshots, including private cards, and must remain behind access control. It stores the last 120 public events in each snapshot plus full current-hand context for decisions. APIs page through older snapshots. This is deliberately simple and will need retention and normalized event storage for long-term scale.
 
-On API restart, unfinished sessions are archived as interrupted. Replay survives; resuming their engine state is not yet supported. Pausing or stopping takes effect after an in-flight decision finishes, bounded by its model deadline. A single backend host/process owns the workers; do not run multiple Uvicorn workers or scale replicas without introducing a table-ownership mechanism.
+On API restart, unfinished sessions are archived as interrupted. Replay survives; resuming their engine state is not yet supported. Pause and stop cancel in-flight policy work, preserving a cancelled trace and preventing that result from changing the game. A single backend host/process owns the workers; do not run multiple Uvicorn workers or scale replicas without introducing a table-ownership mechanism.
 
 ## Deployment preparation
 

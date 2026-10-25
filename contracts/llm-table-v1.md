@@ -1,6 +1,6 @@
 # LLM table interface, first slice
 
-Implementation contract for the backend and frontend assignments on 2026-10-25, updated to shared-context revision 20. Rayner wants six seats, neutral opponent instructions and manual control of the hero's actions/messages with optional LLM takeover. These additions are implemented on `feat/llm-table`, pending integration review. Existing six-player clients and stored games must remain readable. Backend owns implementation and machine-readable fixtures; frontend consumes this contract. Document any necessary compatible refinement before consumers depend on it.
+Implementation contract for the backend and frontend assignments on 2026-10-25, with revision 20 requirements reviewed together under shared-context revision 21. Rayner wants six seats, neutral opponent instructions and manual control of the hero's actions/messages with optional LLM takeover. These additions are implemented and covered by the [combined integration review](../docs/review/llm-table-integration.md), using mocked provider calls. Existing six-player clients and stored games remain readable. Backend owns implementation and machine-readable fixtures; frontend consumes this contract. Document any necessary compatible refinement before consumers depend on it.
 
 ## Configuration
 
