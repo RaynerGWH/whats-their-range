@@ -96,6 +96,37 @@ describe("trace requests and selection", () => {
     view.unmount();
     expect(vi.getTimerCount()).toBe(0);
   });
+  it("manually refreshes a completed trace to discover a delayed LangSmith link", async () => {
+    let linked = false;
+    const fetcher = vi.fn((url: string) =>
+      response(
+        url.includes("?")
+          ? { items: [trace], next_cursor: null }
+          : {
+              ...trace,
+              langsmith_url: linked
+                ? "https://smith.langchain.com/o/test/projects/p/run"
+                : null,
+            },
+      ),
+    );
+    vi.stubGlobal("fetch", fetcher);
+    render(<TraceBrowser {...props} decisionTraceId={trace.trace_id} />);
+    await screen.findByText(
+      "LangSmith link not available. Refresh to check again.",
+    );
+    expect(
+      screen.queryByRole("link", { name: "Open in LangSmith" }),
+    ).toBeNull();
+    linked = true;
+    fireEvent.click(screen.getByRole("button", { name: "Refresh" }));
+    await screen.findByRole("link", { name: "Open in LangSmith" });
+    expect(
+      screen.queryByText(
+        "LangSmith link not available. Refresh to check again.",
+      ),
+    ).toBeNull();
+  });
   it("aborts requests on a hand change and ignores late responses", async () => {
     let finishOld!: (value: Response) => void;
     let oldSignal: AbortSignal | undefined;
@@ -166,6 +197,25 @@ describe("trace requests and selection", () => {
     expect(screen.queryByRole("region", { name: "Step details" })).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: "Retry" }));
     await screen.findByText("No traces recorded for this hand selection.");
+  });
+  it("preserves legacy decisions without trace IDs and reports authentication failure safely", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi
+        .fn()
+        .mockResolvedValue(
+          new Response("secret raw proxy error", { status: 401 }),
+        ),
+    );
+    render(<TraceBrowser {...props} decisionTraceId={undefined} />);
+    await screen.findByText(/Access denied. Check Connections./);
+    expect(
+      screen.getByText(
+        "This decision has no linked trace. Browse recorded traces by hand.",
+      ),
+    ).toBeTruthy();
+    expect(screen.queryByText(/secret raw proxy error/)).toBeNull();
+    expect(screen.queryByRole("region", { name: "Step details" })).toBeNull();
   });
   it("rejects cross-table detail data", async () => {
     vi.stubGlobal(

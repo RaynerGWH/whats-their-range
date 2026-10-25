@@ -5,6 +5,7 @@ import logging
 import math
 import os
 import queue
+import re
 import threading
 import time
 import uuid
@@ -90,12 +91,43 @@ def private_observation(obs):
             {k: deepcopy(row[k]) for k in keys.split() if k in row}
             for row in obs.get(name, [])
         ]
+    result["history"] = public_events(obs.get("history", []))
     for source, target in zip(obs.get("opponents", []), result["opponents"]):
-        target["recent_actions"] = [
-            {k: deepcopy(e[k]) for k in fields["history"].split() if k in e}
-            for e in source.get("recent_actions", [])[-5:]
-        ]
+        target["name"] = f"Player {target['seat'] + 1}"
+        target["recent_actions"] = public_events(source.get("recent_actions", [])[-5:])
     return clean(result)
+
+
+def public_events(events):
+    """Reconstruct public action text and local evidence IDs, never copy prose."""
+    result = []
+    for event in events:
+        match = re.fullmatch(r"(?:.*:)?e([1-9][0-9]{0,9})", str(event.get("id", "")))
+        action, seat = event.get("action"), event.get("player")
+        if (
+            not match
+            or type(seat) is not int
+            or not 0 <= seat < 6
+            or not isinstance(action, str)
+            or not re.fullmatch(r"fold|check|call|raise:[0-9]+", action)
+        ):
+            continue
+        amount = event.get("amount", 0)
+        if type(amount) is not int or amount < 0:
+            continue
+        words = "raises to" if action.startswith("raise:") else action + "s"
+        result.append(
+            {
+                "id": "e" + match[1],
+                "hand": event["hand"],
+                "street": event["street"],
+                "player": seat,
+                "action": action,
+                "amount": amount,
+                "text": f"Player {seat + 1} {words}{' ' + str(amount) if amount else ''}.",
+            }
+        )
+    return result
 
 
 def usage_from_provider(raw):

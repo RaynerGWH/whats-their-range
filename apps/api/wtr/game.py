@@ -6,6 +6,8 @@ import random
 
 from pokerkit import Automation, Deck, NoLimitTexasHoldem, calculate_icm
 
+from .tracing import private_observation
+
 AUTOMATIONS = (
     Automation.ANTE_POSTING,
     Automation.BET_COLLECTION,
@@ -48,7 +50,7 @@ class Tournament:
 
     def log(self, text, player=None, action=None, amount=0):
         e = {
-            "id": f"{self.id}:e{len(self.history) + 1}",
+            "id": f"e{len(self.history) + 1}",
             "hand": self.hand,
             "street": self.street,
             "text": text,
@@ -164,47 +166,51 @@ class Tournament:
         s = self.state
         if self.actor is None:
             raise ValueError("No decision pending")
-        return {
-            "table_id": self.id,
-            "hand": self.hand,
-            "version": self.version,
-            "player": self.actor,
-            "position": POSITIONS[len(self.order)][s.actor_index],
-            "hole": self.holes[self.actor].copy(),
-            "board": list(map(repr, s.get_board_cards(0))),
-            "street": self.street,
-            "pot": s.total_pot_amount,
-            "to_call": s.checking_or_calling_amount or 0,
-            "big_blind": self.bb,
-            "players": [
-                {
-                    "seat": seat,
-                    "stack": s.stacks[p],
-                    "bet": s.bets[p],
-                    "active": s.statuses[p],
-                    "position": POSITIONS[len(self.order)][p],
-                }
-                for p, seat in enumerate(self.order)
-            ],
-            "hand_start_stacks": self.start_stacks.copy(),
-            "payouts": self.payouts.copy(),
-            "history": deepcopy(self.hand_actions),
-            "legal": self.legal(),
-            "opponents": [
-                {
-                    "seat": i,
-                    "name": NAMES[i],
-                    **self.stats[i],
-                    "recent_actions": deepcopy(
-                        [e for e in self.history if e["player"] == i and e["action"]][
-                            -5:
-                        ]
-                    ),
-                }
-                for i in self.order
-                if i != self.actor
-            ],
-        }
+        return private_observation(
+            {
+                "table_id": self.id,
+                "hand": self.hand,
+                "version": self.version,
+                "player": self.actor,
+                "position": POSITIONS[len(self.order)][s.actor_index],
+                "hole": self.holes[self.actor].copy(),
+                "board": list(map(repr, s.get_board_cards(0))),
+                "street": self.street,
+                "pot": s.total_pot_amount,
+                "to_call": s.checking_or_calling_amount or 0,
+                "big_blind": self.bb,
+                "players": [
+                    {
+                        "seat": seat,
+                        "stack": s.stacks[p],
+                        "bet": s.bets[p],
+                        "active": s.statuses[p],
+                        "position": POSITIONS[len(self.order)][p],
+                    }
+                    for p, seat in enumerate(self.order)
+                ],
+                "hand_start_stacks": self.start_stacks.copy(),
+                "payouts": self.payouts.copy(),
+                "history": deepcopy(self.hand_actions),
+                "legal": self.legal(),
+                "opponents": [
+                    {
+                        "seat": i,
+                        "name": NAMES[i],
+                        **self.stats[i],
+                        "recent_actions": deepcopy(
+                            [
+                                e
+                                for e in self.history
+                                if e["player"] == i and e["action"]
+                            ][-5:]
+                        ),
+                    }
+                    for i in self.order
+                    if i != self.actor
+                ],
+            }
+        )
 
     def apply(self, key, version, decision=None):
         if version != self.version:

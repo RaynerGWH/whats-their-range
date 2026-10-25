@@ -44,3 +44,9 @@ No paid provider calls, cloud resources, deployments or external trace uploads w
 ## Screenshots
 
 [Desktop details](qa/trace-desktop.jpg), [narrow details](qa/trace-narrow.jpg), [error details](qa/trace-error.jpg), and [legacy backend](qa/trace-legacy.jpg).
+
+## Stage 1 integration
+
+The combined backend implements both trace endpoints. Completed traces without a LangSmith URL now explicitly instruct the user to refresh. **Refresh** requests both the list and selected detail again, including completed traces, and can reveal a delayed export URL. This behavior is covered by a test; completion still stops automatic polling. Local inspection does not depend on LangSmith availability.
+
+Stage 1 browser checks use ports 8012/5175 and a disposable SQLite database. `apps/api/tests/stage1_preview.py` is an optional local QA bootstrap that mocks every provider request, including in spawned workers. It is never imported by the production API. See `docs/stage-1.md` for combined checks and screenshots.

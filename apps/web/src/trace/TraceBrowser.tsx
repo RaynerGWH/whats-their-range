@@ -269,6 +269,11 @@ export default function TraceBrowser({
             Table {trace.table_id} · Started {trace.started_at}
             {traceError ? " · Last received data" : ""}
           </p>
+          {trace.status !== "running" && !trace.langsmith_url && (
+            <p className="trace-message">
+              LangSmith link not available. Refresh to check again.
+            </p>
+          )}
           <TraceView key={trace.trace_id} trace={trace} />
         </>
       )}

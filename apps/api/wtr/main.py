@@ -147,25 +147,34 @@ async def live(ws: WebSocket):
         if not isinstance(auth, dict) or not valid_token(auth.get("token")):
             await ws.close(code=1008)
             return
-        last = None
-        while True:
-            # This only fans out snapshots; it never schedules poker decisions.
-            app.state.manager.poll()
-            data = await asyncio.to_thread(app.state.store.list)
-            stamp = [
-                (
-                    s["id"],
-                    s.get("version"),
-                    s["status"],
-                    s.get("phase"),
-                    s.get("active_trace_id"),
-                )
-                for s in data
-            ]
-            if stamp != last:
-                await ws.send_json({"type": "tables", "tables": data})
-                last = stamp
-            await asyncio.sleep(0.25)
+        # Receive disconnect events even when a paused table produces no new data.
+        # Otherwise Uvicorn can wait forever for this handler during shutdown.
+        disconnected = asyncio.create_task(ws.receive())
+        try:
+            last = None
+            while not disconnected.done():
+                # This only fans out snapshots; it never schedules poker decisions.
+                app.state.manager.poll()
+                data = await asyncio.to_thread(app.state.store.list)
+                stamp = [
+                    (
+                        s["id"],
+                        s.get("version"),
+                        s["status"],
+                        s.get("phase"),
+                        s.get("active_trace_id"),
+                    )
+                    for s in data
+                ]
+                if stamp != last:
+                    await ws.send_json({"type": "tables", "tables": data})
+                    last = stamp
+                with suppress(asyncio.TimeoutError):
+                    await asyncio.wait_for(asyncio.shield(disconnected), 0.25)
+        finally:
+            disconnected.cancel()
+            with suppress(asyncio.CancelledError):
+                await disconnected
     except (WebSocketDisconnect, asyncio.TimeoutError, RuntimeError):
         pass
 

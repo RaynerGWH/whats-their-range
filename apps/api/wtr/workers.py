@@ -37,9 +37,8 @@ def table_worker(table_id, config, commands, database_url):
             active_trace_id = next_id
             publish(False)
 
-    agent = Agent(
-        config["mode"], config["model"], config["seed"], trace_sink=record_trace
-    )
+    # Policy randomness must not expose or derive from the hidden deck seed.
+    agent = Agent(config["mode"], config["model"], seed=42, trace_sink=record_trace)
 
     try:
         publish()
