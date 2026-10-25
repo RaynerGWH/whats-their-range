@@ -1825,13 +1825,15 @@ footer {
 
 /* Keep the audience view focused on the table and public conversation. */
 .main-grid > .chat-panel {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  min-height: 0;
+  /* Let the board size the shared row, regardless of message count. */
+  contain: size;
 }
 .main-grid .chat-messages {
-  flex: 1;
-  height: 0;
-  min-height: 240px;
+  height: auto;
+  min-height: 0;
 }
 .main-grid .chat-message {
   padding: 16px;
@@ -1843,10 +1845,11 @@ footer {
   min-height: 240px;
 }
 @media (max-width: 900px) {
+  .main-grid > .chat-panel {
+    contain: none;
+  }
   .main-grid .chat-messages {
-    flex: auto;
     height: 260px;
-    min-height: 0;
   }
 }
 .skip-link {

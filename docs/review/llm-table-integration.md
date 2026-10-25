@@ -49,3 +49,7 @@ Create a table named clearly as a mock review. Manual actions and takeover use t
 Live OpenRouter compatibility, real-model chat and poker behavior, live LangSmith export and hosted PostgreSQL operation remain unverified. Exact live models and a permitted run budget still need selection. The hero currently uses the neutral baseline player when automated; it has no model-directed LangGraph tool loop, integrated solver or demonstrated competitive advantage. The public evidence/hypothesis tools and stronger hero harness are the next strategy slice.
 
 No remote push or deployment was performed. The existing review services on 8012/5175 were not stopped. The separate integrated preview uses 8016/5178 and a disposable local database.
+
+## Chat height follow-up
+
+Rayner requested that desktop table talk match the board panel's natural height and scroll its messages internally. The chat panel now excludes its message contents from grid row sizing and uses a shrinking middle row. At 1,200 CSS pixels, both panels measured 472.33 pixels high while the 1,445-pixel message list scrolled inside a 396-pixel area. Dark and light themes were checked. At 400 CSS pixels, chat keeps its 260-pixel scroll area below the board, with no horizontal page overflow. The production build passed. See [the updated layout](../qa/llm-integration/chat-height-fixed.png). This follow-up remains on the integration branch for review before another main update.
