@@ -1,14 +1,41 @@
 # What's Their Range?
 
-A local NLH tournament simulator for testing LLM poker agents.
+A poker environment for building and evaluating an agent harness against other LLM players.
 
-The project goal is to build and evaluate an agent harness that helps an LLM outperform competing LLM poker agents. Memory, poker tools and decision workflows are the main strategy work; table talk and traces support the experiment.
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="docs/images/table-light.png">
+  <img src="docs/images/table-dark.png" alt="Six-seat poker replay with a terminal-style table, public chat, player decision, action history and standings." width="1440">
+</picture>
 
-The current baseline supports six seats with five neutral OpenRouter-backed opponents and a manually controlled hero. Choose your actions and optional public messages, or switch the hero to LLM control for six automated players. Each seat has isolated context, and the terminal UI supports dark/light themes, per-player traces and replay. The [integration review](docs/review/llm-table-integration.md) records verification with mocked provider responses; real-model play remains unverified.
+*The current UI in replay and spectator inspection mode. The game state is recorded from the real engine; model decisions, messages and usage in this preview are mocked. Both dark and light themes are supported.*
 
-PokerTH engine 4 and legacy heuristic modes remain available without model calls. Their earlier checkpoint is preserved as `baseline/stage-2a`; the integrated environment/UI checkpoint is `baseline/llm-table`. Independent table workers and the same PokerKit game engine serve all modes.
+The goal is to develop a harness that helps an LLM win more against other LLM poker players. We want to test whether better memory, poker tools and decision workflows improve tournament returns under controlled comparisons. Public table talk gives players another way to make claims, bluff and potentially influence one another.
 
-The [implementation and evaluation plan](docs/llm-agent-harness.md) and [shared interface](contracts/llm-table-v1.md) describe the stable neutral opponent setup. The richer hero strategy, model-directed tool loop and solver remain subsequent work.
+The table environment is implemented. The stronger hero strategy is currently being designed with the project owner and will be a separate change. Improved playing strength has not yet been demonstrated.
+
+## Current baseline
+
+- **Six seats:** five LLM opponents and a hero you can control manually, choosing legal actions and optional messages. Switch the hero to LLM control for six automated players.
+- **Neutral opponents:** each receives the same task and rules, its own permitted game context, recent public chat and bounded private memory. One OpenRouter call selects each automated action. Models are configurable per seat; tactical styles and bluffing are left to the model.
+- **Inspectable play:** board and players beside an internally scrolling chat panel, with decisions, evidence, raw inputs, traces, history and standings below. Replay preserves the information visible at each recorded point.
+- **Independent tables:** PokerKit owns game rules and legal execution, with a separate worker process for each table. Model contexts and private memories stay isolated per seat.
+- **Offline comparison modes:** native PokerTH engine 4 opponents and legacy heuristics remain available, including a heuristic hero that requires no model calls.
+
+The [integration review](docs/review/llm-table-integration.md) records 160 passing backend tests, one optional database test skipped, 48 passing frontend tests, and successful TypeScript/build checks. Provider calls were mocked. Real-model behavior and competitive performance remain to be evaluated. The earlier PokerTH checkpoint is tagged `baseline/stage-2a`, and the first integrated LLM environment/UI checkpoint is tagged `baseline/llm-table`.
+
+## Harness strategy in design
+
+The LLM will own the final poker decision. The proposed harness uses a bounded LangGraph loop to retrieve evidence, request calculations, compare hypotheses and reconsider a spot before acting. The design covers:
+
+- Detailed action and conversation histories, categorized situations and evolving opponent profiles, with supporting hands, contradictions and unknown outcomes retained.
+- Cached player reads and targeted retrieval, updated as relevant new evidence arrives rather than repeatedly analyzing the entire history.
+- Position, betting lines, board texture, hand ranges, blockers, stack exposure and plans across streets.
+- Value extraction, thin value, bluff construction, defensive decisions and sizing under explicit opponent-response assumptions.
+- Table talk, our perceived image and how opponents adapt, while treating public claims as uncertain game data.
+- Qualified solver/reference use where a result applies, and evidence-based exploitative adjustments. There is no fixed GTO/context percentage or forced bluff quota.
+- Same-model comparisons and component-removal experiments to investigate whether the harness actually improves tournament returns, with inference cost, failures and uncertainty reported.
+
+The richer tool loop, searchable categorical memory and solver integration are **not implemented in this baseline**. No solver has been selected. Qualitative reads and proposed tools remain design work, as described in the [harness plan](docs/llm-agent-harness.md) and [agent direction](docs/agent-direction.md).
 
 ## Project direction
 
@@ -33,7 +60,7 @@ In another terminal, from the repository root:
 npm run dev
 ```
 
-Open http://localhost:5173. Create a tournament and press **Run table**. Tables start paused. **Step** advances one action, or deals the next hand after settlement. Two tables can run concurrently in separate processes. Closing the browser does not stop them while the API stays running.
+Open [the local app](http://localhost:5173). Create a tournament and press **Run table**. Tables start paused. **Step** advances one action, or deals the next hand after settlement. Two tables can run concurrently in separate processes. Closing the browser does not stop them while the API stays running.
 
 With OpenRouter configured and the new capabilities available, the UI defaults to six LLM seats with manual hero control. Without credentials, PokerTH remains the runnable default; Legacy heuristic is also explicit. Missing native builds produce a PokerTH setup error. Older clients that omit the opponent field retain legacy mode.
 
@@ -95,6 +122,8 @@ The shared access token is a development deployment gate, not a multi-user auth 
 
 ```sh
 python3 scripts/build_pokerth.py
+npm run check
+npm run test -w apps/web
 npm run build
 cd apps/api
 uv run pytest
