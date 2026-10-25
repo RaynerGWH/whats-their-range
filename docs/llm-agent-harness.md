@@ -4,7 +4,9 @@ Direction recorded on 2026-10-25 after Rayner proposed an all-LLM poker table wi
 
 ## Product and experiment
 
-Build a poker table where LLM players choose legal actions and can make public claims, bluff, react and stay silent. Rayner's hero uses a strategy harness intended to improve its decisions against these opponents. Improvement must be measured; adding tools or persuasive explanations does not itself establish better play.
+The primary use case is to create an agent harness that lets Rayner's LLM poker agent beat competing LLM agents. The harness is the main product. Measure its competitive performance through repeated games, including a same-model comparison that isolates the harness's contribution and broader opponent-model comparisons as coverage grows.
+
+The poker table provides the evaluation environment. Players choose legal actions and can make public claims, bluff, react and stay silent. Table talk is an additional source of uncertain evidence and a possible strategic action. The UI and traces expose the experiment. Improvement must be measured; adding tools or persuasive explanations does not itself establish better play.
 
 The recommended first scope from the discussion is four players: the hero and three LLM opponents. Keep PokerKit authoritative. Preserve `baseline/stage-2a` and its PokerTH mode as a runnable comparison. Four starting players, LLM opponents, shared chat and per-player trace selection all require implementation; the existing configuration still starts six players and offers legacy or PokerTH opponents.
 

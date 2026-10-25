@@ -2,6 +2,8 @@
 
 A local NLH tournament simulator for testing LLM poker agents.
 
+The project goal is to build and evaluate an agent harness that helps an LLM outperform competing LLM poker agents. Memory, poker tools and decision workflows are the main strategy work; table talk and traces support the experiment.
+
 The current baseline is a playable spectator lab: six-player NLH freezeout tournaments, five PokerTH engine 4 opponents (or an explicit legacy heuristic mode), a replaceable agent, independent table workers, replayable decision records and an execution trace explorer. The [Stage 2A delivery](docs/stage-2a.md) records the native opponent integration and game evidence. The fuller LLM strategy and solver are the next milestone.
 
 The committed starting point for that next milestone is tagged `baseline/stage-2a`. See the [baseline checkpoint](docs/baseline-stage-2a.md) for its contents, verification and remaining agent work.

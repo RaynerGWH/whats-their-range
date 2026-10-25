@@ -1,6 +1,6 @@
 # Shared project context
 
-Revision: 16. Updated: 2026-10-25 19:10 Asia/Singapore.
+Revision: 17. Updated: 2026-10-25 19:13 Asia/Singapore.
 
 This is the current project brief and decision log for every coding chat and worktree. Read it before starting or resuming work. The integration chat maintains it from Rayner's decisions and verified branch evidence. The local canonical checkout is identified in [shared context access](shared-context.md).
 
@@ -8,7 +8,9 @@ This is the current project brief and decision log for every coding chat and wor
 
 This is a noncommercial research and demonstration project, intended for a public GitHub repository and a LinkedIn presentation. Prioritize a reproducible setup, inspectable decisions and honest evaluation results. Commercial product requirements are outside the agreed scope.
 
-Build a spectator lab where LLM poker players share public table talk and choose their own actions. Rayner's hero is the main strategy project: develop a harness intended to improve its decisions against the other AIs, and measure that improvement. The agent should interpret the whole hand, maintain cautious opponent reads, examine competing hypotheses, consider future responses and streets, and use tools and applicable strategy references. The proposed first LLM table has the hero plus three opponents. The existing six-player PokerTH environment and two-table support remain the preserved baseline.
+The primary use case is to build and evaluate an agent harness that enables Rayner's LLM poker agent to outperform competing LLM agents. The harness is the main development product: memory, evidence access, poker tools, strategy references and a disciplined decision workflow. Success is measured through repeated games against defined opponents, with model settings, inference budgets, uncertainty and failures reported.
+
+Poker supplies the competitive environment. Public table talk adds claims, deception and social influence that the harness can interpret or use. The UI and traces make play and decisions inspectable. The agent should interpret the whole hand, maintain cautious opponent reads, examine competing hypotheses and consider future responses and streets. The proposed first LLM table has the hero plus three opponents. Same-model comparisons first isolate the harness's contribution; later comparisons broaden opponent models and settings. The existing six-player PokerTH environment and two-table support remain the preserved baseline.
 
 Rayner's Garrett Edelstein reference expresses the desired depth of player-like judgment. It is not a claimed reproduction of his strategy or evidence of comparable skill. This project's actual decision context includes tournament stacks and payouts.
 
@@ -107,7 +109,7 @@ All entries below were accepted through Rayner's discussion in the integration c
 | D013 | Rayner clarified during live review that a single scenario should not be used to call the simulation inaccurate | Evaluate recurring behavior across a meaningful sample; separate mechanical validity, adapter fidelity and strategic judgment; do not reject PokerTH or block strategy work on an isolated unusual action |
 | D014 | Rayner requested committing and merging all current work as the solid starting baseline before agent logic | Consolidate remaining worktree notes into local main, preserve the reviewed environment as `baseline/stage-2a`, and base Stage 2B on this checkpoint or a later reviewed main revision |
 | D015 | Rayner proposed pivoting to LLM players sharing table talk, including deceptive claims, while developing his own hero strategy | Preserve PokerKit and the tagged PokerTH baseline; make all-LLM opponents, public chat, independent private contexts and observable decision influence the next product direction |
-| D016 | Rayner wants a strategy/harness that helps his bot outperform the other AIs | Build both the playing harness and controlled evaluation; measure gains against comparable baseline models and stable opponents, without promising superiority before results |
+| D016 | Rayner explicitly clarified the project's primary use case: create an agent harness that lets his bot beat other LLM agents at poker | Make competitive performance the objective of the playing harness and evaluation; use same-model comparisons to isolate harness gains and broader opponent models to assess competitiveness. Table talk, the UI and traces support this objective. Superiority remains an outcome to demonstrate |
 
 ## Keeping this current
 
