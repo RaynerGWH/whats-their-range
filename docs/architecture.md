@@ -1,4 +1,4 @@
-# Skeleton architecture
+# Baseline architecture
 
 ```mermaid
 flowchart LR
@@ -7,13 +7,16 @@ flowchart LR
   API --> B[Table B process]
   A --> DB[(SQLite or Supabase Postgres)]
   B --> DB
-  A --> G[Private observation / LangGraph]
+  A --> G[Hero observation / LangGraph]
   G --> E[Hand calculation]
   G --> M[Evidence retrieval]
   E --> D[Agent decision]
   M --> D
   D --> OR[OpenRouter or heuristic]
   OR --> V[Legal action / state version check]
+  A --> O[Opponent observation]
+  O --> P[PokerTH native subprocess]
+  P --> V
   V --> A
   G -. optional .-> LS[LangSmith]
 ```

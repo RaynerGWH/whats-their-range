@@ -6,7 +6,7 @@ Researched on 2026-10-25 following Rayner's request to assess PokerTH as an alte
 
 Prioritize PokerTH's AI engine 4 for the first opponent-adapter trial. Its community and maintenance evidence are stronger than QuantPlay's, and an isolated build demonstrated that the current decision module can run without the desktop application. This supersedes the earlier provisional recommendation to trial QuantPlay first. QuantPlay remains a useful alternative opponent family.
 
-Neither has been integrated into our application. This is a technical recommendation, not a claim of proven human realism or an expansion of the active Stage 1 assignment.
+At the time of this research, neither had been integrated. Rayner subsequently authorized Stage 2A, which delivered the PokerTH adapter and was reviewed into local main. See the [delivery](../stage-2a.md) and [integration review](../review/stage-2a-integration.md). The research evidence below remains a historical feasibility assessment, not proof of human realism.
 
 ## Community and maintenance
 
