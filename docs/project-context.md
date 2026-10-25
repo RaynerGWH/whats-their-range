@@ -1,6 +1,6 @@
 # Shared project context
 
-Revision: 15. Updated: 2026-10-25 19:00 Asia/Singapore.
+Revision: 16. Updated: 2026-10-25 19:10 Asia/Singapore.
 
 This is the current project brief and decision log for every coding chat and worktree. Read it before starting or resuming work. The integration chat maintains it from Rayner's decisions and verified branch evidence. The local canonical checkout is identified in [shared context access](shared-context.md).
 
@@ -8,7 +8,7 @@ This is the current project brief and decision log for every coding chat and wor
 
 This is a noncommercial research and demonstration project, intended for a public GitHub repository and a LinkedIn presentation. Prioritize a reproducible setup, inspectable decisions and honest evaluation results. Commercial product requirements are outside the agreed scope.
 
-Build a spectator lab in which an LLM poker agent plays a six-player single-table NLH tournament against simulated opponents, with up to two independent tables. The agent should interpret the whole hand, maintain cautious opponent reads, examine competing hypotheses, consider future responses and streets, and make informed poker decisions using tools and applicable strategy references.
+Build a spectator lab where LLM poker players share public table talk and choose their own actions. Rayner's hero is the main strategy project: develop a harness intended to improve its decisions against the other AIs, and measure that improvement. The agent should interpret the whole hand, maintain cautious opponent reads, examine competing hypotheses, consider future responses and streets, and use tools and applicable strategy references. The proposed first LLM table has the hero plus three opponents. The existing six-player PokerTH environment and two-table support remain the preserved baseline.
 
 Rayner's Garrett Edelstein reference expresses the desired depth of player-like judgment. It is not a claimed reproduction of his strategy or evidence of comparable skill. This project's actual decision context includes tournament stacks and payouts.
 
@@ -20,14 +20,18 @@ Rayner's Garrett Edelstein reference expresses the desired depth of player-like 
 - Deterministic calculations support the agent. They do not require deterministic final play or make heuristic classifications into a GTO strategy.
 - The target is a bounded, model-directed tool loop in LangGraph, with parallel analyses when useful. The current fixed preparation graph is an intermediate implementation.
 - The immediate focus is backend and strategy. Rayner wants to review concrete hands and strategic tradeoffs as this develops.
+- Rayner has pivoted the next product direction to an all-LLM table with public chat, including deceptive claims and attempts to influence decisions. The hero's strategy and harness are the main development focus. PokerTH remains a comparison mode; the existing baseline is preserved.
+- The current implementation proposal is four players, optional short messages and a compact dark dashboard inspired by Rayner's supplied UI reference. Start with the same underlying model across seats to isolate harness effects, then broaden comparisons. Player count, message budgets and provider/tool contracts still need implementation.
 - Stage 2 must be an end-to-end playable agent, including actual simulated opponents, public player history, a genuine solver/reference tool for supported spots, and visible analysis and decisions. Later stages expand solver coverage and opponent realism.
-- Combine the existing PokerKit game environment with PokerTH's opponent decision logic through an adapter. PokerKit handles cards, betting, pots and legality; PokerTH chooses opponent actions; our LLM chooses hero actions. The solver is a separate tool. Stage 2A implements the opponent environment; the fuller LLM strategy remains Stage 2B.
+- The preserved Stage 2A baseline combines PokerKit's game environment with PokerTH opponent decisions. PokerKit continues to own cards, betting, pots and legality in the new direction. Next-stage LLM opponents will choose their own actions and public messages; solver access remains a separate tool.
 - Deliver this in two steps: Stage 2A makes complete games playable against PokerTH through the existing hero decision interface; Stage 2B implements the fuller strategy/tool loop and initial genuine solver access. Rayner explicitly requested the environment first, then strategy development.
 - Make meaningful local commits during development. The integration chat may merge completed, reviewed milestones into local `main` after their checks pass. Remote pushes and deployment remain separate actions.
 - Protect evaluation from both hidden-state leakage and shortcuts based on knowing the simulator's opponent policies. Opponent adjustments should be supported by permitted observations; successful play against recognizable scripts does not establish general poker skill.
 - Judge simulation behavior across recurring situations and a meaningful sample. An isolated unusual or losing action does not establish that PokerTH is inaccurate. Imperfect opponents are useful for this side project; keep legality, adapter fidelity and strategic quality separate.
 
 Detailed design targets and proposed tool families are in [agent direction](agent-direction.md). That document distinguishes implemented behavior from future work.
+
+The pivot and concrete playing/evaluation plan are in [LLM agent harness](llm-agent-harness.md). The LLM opponent/chat mode, four-player setup and new harness are not implemented yet. Earlier milestone reports describe the preserved PokerTH baseline.
 
 ## Current implementation
 
@@ -58,7 +62,7 @@ The player agent must not receive opponent-policy source, simulator settings, de
 
 Stage 1 is complete as an engineering baseline and reviewed into local main. The original backend delivery `01f3a8120790fbdad4d8589962be6d90fcb7d8b7` remains preserved on `feat/baseline-integration`. The [integration review](review/stage-1-integration.md) records independently rerun checks and the merge. Strategic hand review remains pending.
 
-[Stage 2A](tasks/stage-2a.md) is complete and reviewed into local main. The backend delivered `a82a152` on `feat/pokerth-opponents`: complete games with real PokerTH opponents and the existing hero decision path, public history, traces and replay. The [delivery report](stage-2a.md) records 20 completed tournament runs and ten matching repeat pairs. The [integration review](review/stage-2a-integration.md) records the independent checks and merge. Stage 2B is next: the fuller backend/strategy decision specification, model-directed tool loop and initial genuine solver access. It remains unassigned and provider access/budget remains unresolved.
+[Stage 2A](tasks/stage-2a.md) is complete and reviewed into local main. The backend delivered `a82a152` on `feat/pokerth-opponents`: complete games with real PokerTH opponents and the existing hero decision path, public history, traces and replay. The [delivery report](stage-2a.md) records 20 completed tournament runs and ten matching repeat pairs. The [integration review](review/stage-2a-integration.md) records the independent checks and merge. Following Rayner's pivot, Stage 2B now includes an all-LLM table and public chat, then the hero's model-directed strategy/tool loop and initial genuine solver access, with controlled comparisons throughout. The [harness plan](llm-agent-harness.md) proposes implementation slices. Runtime work remains unassigned and provider access/budget remains unresolved.
 
 The [roadmap](roadmap.md) records this sequence, completion evidence, opponent-model work and a solver shortlist researched on 2026-10-25. Splitting Stage 2 into A and B changes sequencing; Stage 2A alone does not establish the target reasoning system or solver integration. No solver has been selected or integrated.
 
@@ -102,6 +106,8 @@ All entries below were accepted through Rayner's discussion in the integration c
 | D012 | Rayner authorized commits during development and merges to main once work is solid and complete | Use coherent local commits; integration reviews and validates completed deliveries before merging into local main, without an additional permission round |
 | D013 | Rayner clarified during live review that a single scenario should not be used to call the simulation inaccurate | Evaluate recurring behavior across a meaningful sample; separate mechanical validity, adapter fidelity and strategic judgment; do not reject PokerTH or block strategy work on an isolated unusual action |
 | D014 | Rayner requested committing and merging all current work as the solid starting baseline before agent logic | Consolidate remaining worktree notes into local main, preserve the reviewed environment as `baseline/stage-2a`, and base Stage 2B on this checkpoint or a later reviewed main revision |
+| D015 | Rayner proposed pivoting to LLM players sharing table talk, including deceptive claims, while developing his own hero strategy | Preserve PokerKit and the tagged PokerTH baseline; make all-LLM opponents, public chat, independent private contexts and observable decision influence the next product direction |
+| D016 | Rayner wants a strategy/harness that helps his bot outperform the other AIs | Build both the playing harness and controlled evaluation; measure gains against comparable baseline models and stable opponents, without promising superiority before results |
 
 ## Keeping this current
 

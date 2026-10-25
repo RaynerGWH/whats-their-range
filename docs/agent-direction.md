@@ -6,6 +6,8 @@ The [shared project context](project-context.md) holds the current accepted deci
 
 The intended release is a noncommercial research demo shared on GitHub and LinkedIn, with reproducible setup, inspectable decisions and clearly stated limitations.
 
+Rayner's subsequent pivot makes the next environment an all-LLM table with public conversation, while the hero remains the main strategy-development target. The recommended starting scope is the hero plus three LLM opponents. The [playing and evaluation harness plan](llm-agent-harness.md) records this direction, proposed implementation slices and unresolved provider/budget choices. The tagged six-player PokerTH baseline remains available.
+
 ## Decision authority
 
 The LLM is the poker decision-maker. It uses the permitted game context, observed opponent behavior, numerical tools and applicable strategy references to choose a legal action. It may request more evidence, compare competing explanations, reconsider a candidate and choose an exploitative adjustment when the evidence supports one.
@@ -18,11 +20,12 @@ The ambition is player-like judgment: interpreting the whole betting line, exami
 
 Strategy is part of the backend. The strategy work defines useful poker analyses, tool semantics, hypothesis comparison and decision instructions. Backend work implements the observation and evidence pipeline, LangGraph execution, model and tool interfaces, budgets, persistence and action enforcement. Both workstreams implement one shared decision process.
 
-The implemented simulated-game architecture retains PokerKit for game state, cards, bets, pots and legal execution. PokerTH's opponent logic chooses actions for the other seats through an adapter, using each player's permitted observation. Our LLM chooses hero actions when provider mode is selected; an explicit heuristic hero remains available. The game advances after each validated action and produces public history for later decisions. PokerKit does not supply opponent strategy or a GTO solver; solver access remains a separate tool integration. Stage 2A is complete and reviewed into local main using the existing hero interface. Stage 2B will implement the fuller strategy described below. See the [integration review](review/stage-2a-integration.md) for verified behavior and remaining limits.
+The implemented baseline retains PokerKit for game state, cards, bets, pots and legal execution. PokerTH currently chooses opponent actions; hero mode selects the existing LLM path or an explicit heuristic. The target extends this with separate LLM policies and private contexts for every seat, plus shared public messages. The game advances after each validated action and produces public history for later decisions. PokerKit does not supply opponent strategy or a GTO solver; solver access remains a separate tool integration. Stage 2A is complete and reviewed into local main. Stage 2B will implement the LLM table-talk environment and fuller hero strategy. See the [integration review](review/stage-2a-integration.md) for verified baseline behavior.
 
 The target flow is:
 
 1. Assemble a versioned permitted observation and relevant public opponent evidence.
+   Freeze the public chat sequence visible to this decision. Treat peer messages as claims and game data, with no authority to change instructions or tool permissions.
 2. Let the LLM identify plausible explanations of the situation and what further information would distinguish them.
 3. Execute requested tools, including bounded parallel scenario work where useful, against the same frozen observation.
 4. Return results with their sources, assumptions, uncertainty and applicability limits. The LLM may revise its assessment or request further work within explicit budgets.
@@ -36,6 +39,7 @@ LangGraph manages this bounded model/tool loop. A mandatory sequence of every po
 These are design targets requiring implementation and review:
 
 - **Opponent evidence:** Retrieve public actions and relevant opportunities by situation, including position, sizing and stack context. Distinguish observed facts, tentative tendencies and proposed exploits. Observe public play even after hero folds, keeping memory isolated per table.
+- **Table-talk evidence:** Retrieve attributed public statements and their timing relative to bets. Compare claims with permitted public behavior, preserve competing interpretations and avoid promoting a claim to verified card information. Keep private analysis and evaluator truth outside the conversation.
 - **Hand and range calculations:** Assess hand features and conditional outcomes against explicitly supplied range hypotheses. Identify unsupported side-pot, multiway or tournament assumptions. Keep random-range equity separate from inferred-range analysis.
 - **Strategy references:** Retrieve verified material or solver results when available, with provenance and the modeled game, ranges, sizes, stacks and payoff assumptions. Return unavailable or mismatched results honestly. An LLM recollection is not a verified solver result.
 - **Scenario comparison:** Compare legal actions under competing opponent hypotheses and possible future responses or streets. Preserve disagreement and identify what makes a candidate succeed or fail. Hypothetical future states never come from the simulator's actual future deck or outcomes.
