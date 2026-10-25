@@ -1,4 +1,5 @@
 import time
+
 from fastapi.testclient import TestClient
 from wtr.main import app
 
@@ -67,3 +68,34 @@ def test_access_control_and_missing_model_configuration(tmp_path, monkeypatch):
             ).status_code
             == 422
         )
+
+
+def test_trace_isolation_and_shutdown_without_websocket(tmp_path, monkeypatch):
+    monkeypatch.setenv("DATABASE_URL", f"sqlite:///{tmp_path}/isolation.sqlite")
+    monkeypatch.setenv("LANGSMITH_TRACING", "false")
+    monkeypatch.setenv("WTR_PUBLIC", "false")
+    monkeypatch.delenv("CONTROL_TOKEN", raising=False)
+    with TestClient(app) as client:
+        ids = [
+            client.post("/api/tables", json={"seed": seed, "pace": 0.05}).json()["id"]
+            for seed in (7, 8)
+        ]
+        manager = app.state.manager
+        assert len({manager.workers[i][0].pid for i in ids}) == 2
+        for table_id in ids:
+            client.post(f"/api/tables/{table_id}/control", json={"action": "resume"})
+        for table_id in ids:
+            wait_for(client, table_id, lambda t: t.get("agent_decisions", 0) >= 2)
+            client.post(f"/api/tables/{table_id}/control", json={"action": "pause"})
+        roots = []
+        for table_id in ids:
+            wait_for(client, table_id, lambda t: t["status"] == "paused")
+            records = client.get(f"/api/tables/{table_id}/traces").json()["items"]
+            assert len(records) >= 2
+            assert all(
+                r["table_id"] == table_id and r["status"] == "completed"
+                for r in records
+            )
+            roots.append({r["trace_id"] for r in records})
+        assert roots[0].isdisjoint(roots[1])
+    assert manager.workers == {}

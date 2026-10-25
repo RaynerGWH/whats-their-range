@@ -3,27 +3,43 @@
 import asyncio
 import multiprocessing as mp
 import queue
+import threading
 import time
 import uuid
 
 from .agent import Agent, assess, baseline
-from .game import Tournament, PROFILES
+from .game import PROFILES, Tournament
 from .store import Store
 
 TERMINAL = {"finished", "stopped", "error", "interrupted"}
 
 
-def table_worker(table_id, config, commands, updates, database_url):
+def table_worker(table_id, config, commands, database_url):
     store = Store(database_url)
     game = Tournament(table_id, config)
-    agent = Agent(config["mode"], config["model"], config["seed"])
+    active_trace_id = None
 
     def publish(replay=True):
         if replay:
             game.version += 1
-        snap = game.snapshot()
+        snap = {**game.snapshot(), "active_trace_id": active_trace_id}
         store.save(snap, replay)
-        updates.put(snap)
+
+    def record_trace(record):
+        nonlocal active_trace_id
+        # Background export only patches the URL; it never touches game state.
+        if record["langsmith_url"]:
+            store.set_trace_url(record)
+            return
+        store.save_trace(record)
+        next_id = record["trace_id"] if record["status"] == "running" else None
+        if next_id != active_trace_id:
+            active_trace_id = next_id
+            publish(False)
+
+    agent = Agent(
+        config["mode"], config["model"], config["seed"], trace_sink=record_trace
+    )
 
     try:
         publish()
@@ -79,67 +95,80 @@ def table_worker(table_id, config, commands, updates, database_url):
         except Exception:
             pass
     finally:
+        agent.close()
         store.engine.dispose()
+        commands.close()
 
 
 class TableManager:
     def __init__(self, store):
         self.store, self.ctx = store, mp.get_context("spawn")
-        self.workers, self.latest = {}, {}
+        self.workers = {}
+        self.lock = threading.RLock()
 
     def create(self, config):
-        if sum(p.is_alive() for p, _, _ in self.workers.values()) >= 2:
-            raise ValueError(
-                "Two live tables are already open. Stop one to create another."
+        with self.lock:
+            self.poll()
+            if len(self.workers) >= 2:
+                raise ValueError(
+                    "Two live tables are already open. Stop one to create another."
+                )
+            table_id = uuid.uuid4().hex[:12]
+            self.store.create(table_id, config)
+            commands = self.ctx.Queue(maxsize=32)
+            process = self.ctx.Process(
+                target=table_worker,
+                args=(
+                    table_id,
+                    config,
+                    commands,
+                    self.store.engine.url.render_as_string(hide_password=False),
+                ),
+                daemon=True,
             )
-        table_id = uuid.uuid4().hex[:12]
-        self.store.create(table_id, config)
-        commands, updates = self.ctx.Queue(), self.ctx.Queue()
-        process = self.ctx.Process(
-            target=table_worker,
-            args=(
-                table_id,
-                config,
-                commands,
-                updates,
-                str(self.store.engine.url.render_as_string(hide_password=False)),
-            ),
-            daemon=True,
-        )
-        process.start()
-        self.workers[table_id] = (process, commands, updates)
-        return table_id
+            process.start()
+            self.workers[table_id] = (process, commands)
+            return table_id
 
     def poll(self):
-        for table_id, (process, _, updates) in self.workers.items():
-            while True:
-                try:
-                    self.latest[table_id] = updates.get_nowait()
-                except queue.Empty:
-                    break
-            current = self.latest.get(table_id)
-            if not process.is_alive() and (
-                current is None or current["status"] not in TERMINAL
-            ):
-                if current:
-                    current = {**current, "status": "error", "phase": "error"}
-                    self.latest[table_id] = current
-                    self.store.save(current, False)
-        return self.latest
+        # Snapshots already live in the database. No duplicate snapshot IPC queue
+        # can grow while browsers are disconnected or keep a worker alive on exit.
+        with self.lock:
+            for table_id, (process, commands) in list(self.workers.items()):
+                if not process.is_alive():
+                    process.join()
+                    self.store.interrupt(table_id)
+                    commands.cancel_join_thread()
+                    commands.close()
+                    process.close()
+                    del self.workers[table_id]
 
     def control(self, table_id, command):
-        if table_id not in self.workers or not self.workers[table_id][0].is_alive():
-            raise ValueError("This session is archived or no longer running.")
-        self.workers[table_id][1].put(command)
+        with self.lock:
+            if table_id not in self.workers or not self.workers[table_id][0].is_alive():
+                raise ValueError("This session is archived or no longer running.")
+            try:
+                self.workers[table_id][1].put_nowait(command)
+            except queue.Full:
+                raise ValueError(
+                    "Table control queue is full. Try again shortly."
+                ) from None
 
     def close(self):
-        for process, commands, _ in self.workers.values():
-            if process.is_alive():
-                commands.put({"action": "stop"})
-        deadline = time.monotonic() + 12
-        for process, _, _ in self.workers.values():
-            process.join(max(0, deadline - time.monotonic()))
-            if process.is_alive():
-                process.terminate()
-                process.join(2)
-        self.poll()
+        with self.lock:
+            for process, commands in self.workers.values():
+                if process.is_alive():
+                    try:
+                        commands.put_nowait({"action": "stop"})
+                    except queue.Full:
+                        pass
+            deadline = time.monotonic() + 12
+            for process, _ in self.workers.values():
+                process.join(max(0, deadline - time.monotonic()))
+                if process.is_alive():
+                    process.terminate()
+                    process.join(2)
+                    if process.is_alive():
+                        process.kill()
+                        process.join(2)
+            self.poll()

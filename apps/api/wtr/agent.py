@@ -12,9 +12,19 @@ import time
 from typing import TypedDict
 
 import httpx
-from langgraph.graph import StateGraph, START, END
-from langsmith import traceable
+from langgraph.graph import END, START, StateGraph
+from langsmith import tracing_context
 from pokerkit import Card, Deck, StandardHighHand, calculate_icm
+
+from .tracing import (
+    LangSmithExporter,
+    Trace,
+    clean,
+    current_trace,
+    private_observation,
+    traced_node,
+    usage_from_provider,
+)
 
 
 class AgentState(TypedDict, total=False):
@@ -115,13 +125,27 @@ def baseline(obs, metrics, rng, profile="balanced"):
 
 
 class Agent:
-    def __init__(self, mode="heuristic", model="", seed=42, transport=None):
+    def __init__(
+        self, mode="heuristic", model="", seed=42, transport=None, trace_sink=None
+    ):
         self.mode, self.model, self.calls = mode, model, 0
         self.rng = random.Random(seed + 991)
         self.transport = transport
+        self.trace_sink = trace_sink
+        self.last_trace = None
+        self.exporter = (
+            LangSmithExporter(trace_sink)
+            if (
+                os.getenv("LANGSMITH_TRACING", "false").lower() == "true"
+                and os.getenv("LANGSMITH_API_KEY")
+            )
+            else None
+        )
         builder = StateGraph(AgentState)
-        builder.add_node("assess_hand", assess)
-        builder.add_node("retrieve_evidence", recall)
+        builder.add_node("assess_hand", traced_node("assess_hand", "tool", assess))
+        builder.add_node(
+            "retrieve_evidence", traced_node("retrieve_evidence", "retriever", recall)
+        )
         builder.add_node("choose_action", self.choose)
         builder.add_edge(START, "assess_hand")
         builder.add_edge(START, "retrieve_evidence")
@@ -129,7 +153,6 @@ class Agent:
         builder.add_edge("choose_action", END)
         self.graph = builder.compile()
 
-    @traceable(name="openrouter_decision", run_type="llm")
     async def model_decision(self, context):
         keys = [a["key"] for a in context["observation"]["legal"]]
         schema = {
@@ -175,45 +198,89 @@ class Agent:
             "Authorization": "Bearer " + os.getenv("OPENROUTER_API_KEY", ""),
             "X-Title": "What's Their Range?",
         }
-        deadline = float(os.getenv("AGENT_DEADLINE_SECONDS", "10"))
-        async with asyncio.timeout(deadline):
-            async with httpx.AsyncClient(
-                timeout=deadline, transport=self.transport
-            ) as client:
-                response = await client.post(
-                    "https://openrouter.ai/api/v1/chat/completions",
-                    headers=headers,
-                    json=payload,
-                )
-                response.raise_for_status()
-                raw = response.json()
-        value = json.loads(raw["choices"][0]["message"]["content"])
-        if value.get("action") not in keys:
-            raise ValueError("illegal_model_action")
-        for name in ("summary", "uncertainty"):
+        with current_trace.get().span(
+            "model_call", "llm", {"messages": payload["messages"]}, self.model
+        ) as span:
+            deadline = float(os.getenv("AGENT_DEADLINE_SECONDS", "10"))
+            async with asyncio.timeout(deadline):
+                async with httpx.AsyncClient(
+                    timeout=deadline, transport=self.transport
+                ) as client:
+                    response = await client.post(
+                        "https://openrouter.ai/api/v1/chat/completions",
+                        headers=headers,
+                        json=payload,
+                    )
+                    response.raise_for_status()
+                    raw = response.json()
+            if not isinstance(raw, dict):
+                raise ValueError("invalid_provider_response")
+            span["usage"] = usage_from_provider(raw.get("usage"))
+            value = json.loads(raw["choices"][0]["message"]["content"])
+            if not isinstance(value, dict):
+                raise ValueError("invalid_model_response")
+            # Ignore unrequested provider fields, including reasoning and raw errors.
+            value = clean(
+                {
+                    k: value[k]
+                    for k in ("action", "summary", "uncertainty", "evidence_ids")
+                    if k in value
+                }
+            )
+            span["outputs"] = value
+        with current_trace.get().span("validate_response", "tool", value) as span:
+            if value.get("action") not in keys:
+                raise ValueError("illegal_model_action")
+            for name in ("summary", "uncertainty"):
+                if (
+                    not isinstance(value.get(name), str)
+                    or not 1 <= len(value[name]) <= 1500
+                ):
+                    raise ValueError("invalid_model_summary")
+            available = {
+                e["id"] for p in context["evidence"] for e in p["recent_actions"]
+            }
+            available.update(e["id"] for e in context["observation"]["history"])
+            ids = value.get("evidence_ids")
             if (
-                not isinstance(value.get(name), str)
-                or not 1 <= len(value[name]) <= 1500
+                not isinstance(ids, list)
+                or len(ids) > 10
+                or any(not isinstance(i, str) or i not in available for i in ids)
             ):
-                raise ValueError("invalid_model_summary")
-        available = {e["id"] for p in context["evidence"] for e in p["recent_actions"]}
-        available.update(e["id"] for e in context["observation"]["history"])
-        ids = value.get("evidence_ids")
-        if (
-            not isinstance(ids, list)
-            or len(ids) > 10
-            or any(not isinstance(i, str) or i not in available for i in ids)
-        ):
-            raise ValueError("invalid_evidence_reference")
-        return {
-            **value,
-            "usage": raw.get("usage", {}),
-            "provider_request_id": raw.get("id"),
-        }
+                raise ValueError("invalid_evidence_reference")
+            span["outputs"] = {"valid": True, "action": value["action"]}
+            usage = usage_from_provider(raw.get("usage"))
+            return {
+                **value,
+                "usage": {
+                    k: v
+                    for k, v in zip(
+                        ("prompt_tokens", "completion_tokens", "cost"), usage.values()
+                    )
+                    if v is not None
+                },
+                "provider_request_id": clean(raw.get("id"))
+                if isinstance(raw.get("id"), str)
+                else None,
+            }
 
     async def choose(self, state):
+        with current_trace.get().span(
+            "choose_action", inputs={"legal": state["observation"]["legal"]}
+        ) as span:
+            result = await self._choose(state)
+            span["outputs"] = {
+                k: result["decision"][k] for k in ("action", "source", "fallback")
+            }
+            return result
+
+    async def _choose(self, state):
         obs, metrics = state["observation"], state["metrics"]
-        action = baseline(obs, metrics, self.rng)
+        with current_trace.get().span(
+            "heuristic_selection", "tool", {"legal": obs["legal"], "metrics": metrics}
+        ) as span:
+            action = baseline(obs, metrics, self.rng)
+            span["outputs"] = {"action": action, "policy": "stochastic_heuristic"}
         decision = {
             "action": action,
             "source": "heuristic",
@@ -246,6 +313,11 @@ class Agent:
                 except (httpx.HTTPError, ValueError, KeyError, TypeError, IndexError):
                     # Never expose raw upstream bodies, headers, or keys to viewers.
                     decision["fallback"] = "Model request or response validation failed"
+        if decision["fallback"]:
+            with current_trace.get().span(
+                "fallback", "chain", {"reason": decision["fallback"]}
+            ) as span:
+                span["outputs"] = {"action": action, "source": "heuristic"}
         return {
             "decision": {
                 **decision,
@@ -258,18 +330,32 @@ class Agent:
         }
 
     async def decide(self, observation):
+        observation = private_observation(observation)
+        trace = Trace(observation, self.trace_sink)
+        token = current_trace.set(trace)
         start = time.perf_counter()
-        result = await self.graph.ainvoke(
-            {"observation": observation},
-            config={
-                "metadata": {
-                    "table_id": observation["table_id"],
-                    "hand": observation["hand"],
-                    "version": observation["version"],
+        try:
+            with trace.span(
+                "decision", inputs={"observation": observation}, root=True
+            ) as span:
+                # Ambient LangGraph callbacks must not bypass the bounded exporter.
+                with tracing_context(enabled=False):
+                    result = await self.graph.ainvoke({"observation": observation})
+                span["outputs"] = {
+                    k: result["decision"][k] for k in ("action", "source", "fallback")
                 }
-            },
-        )
-        return {
-            **result["decision"],
-            "latency_ms": round((time.perf_counter() - start) * 1000),
-        }
+            return {
+                **result["decision"],
+                "latency_ms": round((time.perf_counter() - start) * 1000),
+                "trace_id": trace.record["trace_id"],
+                "langsmith_url": None,
+            }
+        finally:
+            current_trace.reset(token)
+            self.last_trace = trace.record
+            if self.exporter:
+                self.exporter.submit(trace.record)
+
+    def close(self):
+        if self.exporter:
+            self.exporter.close()
