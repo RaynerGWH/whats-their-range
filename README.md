@@ -4,6 +4,10 @@ A local NLH tournament simulator for testing LLM poker agents.
 
 This first skeleton is a playable spectator lab: six-player NLH freezeout tournaments, five probabilistic opponents, a replaceable agent, independent table workers, and replayable decision records.
 
+## Project direction
+
+Before starting or resuming project work, read [shared context access](docs/shared-context.md). It points every local worktree to the same live project brief, decision log and agent direction. That brief separates agreed goals, proposed work and verified implementation. The sections below describe the runnable skeleton.
+
 ## Run locally
 
 Requires Node 22+ and Python 3.11+. Use `uv` for the Python environment.
