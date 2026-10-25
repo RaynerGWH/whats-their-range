@@ -1,6 +1,6 @@
 # Shared project context
 
-Revision: 18. Updated: 2026-10-25 19:20 Asia/Singapore.
+Revision: 20. Updated: 2026-10-25 19:28 Asia/Singapore.
 
 This is the current project brief and decision log for every coding chat and worktree. Read it before starting or resuming work. The integration chat maintains it from Rayner's decisions and verified branch evidence. The local canonical checkout is identified in [shared context access](shared-context.md).
 
@@ -10,13 +10,13 @@ This is a noncommercial research and demonstration project, intended for a publi
 
 The primary use case is to build and evaluate an agent harness that enables Rayner's LLM poker agent to outperform competing LLM agents. The harness is the main development product: memory, evidence access, poker tools, strategy references and a disciplined decision workflow. Success is measured through repeated games against defined opponents, with model settings, inference budgets, uncertainty and failures reported.
 
-Poker supplies the competitive environment. Public table talk adds claims, deception and social influence that the harness can interpret or use. The UI and traces make play and decisions inspectable. The agent should interpret the whole hand, maintain cautious opponent reads, examine competing hypotheses and consider future responses and streets. The first implementation targets the hero plus three opponents while preserving six-player support. OpenRouter model choice, instruction profile, chat access and harness are independently configurable per seat. Same-model comparisons isolate instruction and harness effects; mixed-model tables assess broader competition. The existing six-player PokerTH environment and two-table support remain the preserved baseline.
+Poker supplies the competitive environment. Public table talk adds claims, deception and social influence that the harness can interpret or use. The UI and traces make play and decisions inspectable. The agent should interpret the whole hand, maintain cautious opponent reads, examine competing hypotheses and consider future responses and streets. Rayner has chosen six seats as the new baseline, with five LLM opponents on a stable saved configuration. He explicitly wants to choose his hero's actions and messages manually first, with optional LLM takeover making all six seats automated. OpenRouter model choice, instruction profile, chat access and harness remain independently configurable. Same-model comparisons isolate harness effects; explicit model variants assess broader competition. The existing six-player PokerTH environment and two-table support remain the preserved baseline.
 
 Rayner's Garrett Edelstein reference expresses the desired depth of player-like judgment. It is not a claimed reproduction of his strategy or evidence of comparable skill. This project's actual decision context includes tournament stacks and payouts.
 
 ## Agreed direction
 
-- The LLM makes the final poker decision. It can request evidence, calculations, relevant strategy references and scenario analyses, then revise its assessment before choosing a legal action.
+- Under LLM control, the LLM makes the final poker decision. It can request evidence, calculations, relevant strategy references and scenario analyses, then revise its assessment before choosing a legal action. Manual hero control lets Rayner choose that seat's action instead without changing the automated harness's intended authority.
 - Strategy is part of the backend. The two coding workstreams implement one decision system: poker analysis and tool semantics alongside the runtime, evidence pipeline and execution controls.
 - There is no fixed numerical blend of GTO and opponent context. The LLM judges whether evidence supports an adjustment and identifies the assumptions and uncertainty behind it.
 - Deterministic calculations support the agent. They do not require deterministic final play or make heuristic classifications into a GTO strategy.
@@ -24,7 +24,8 @@ Rayner's Garrett Edelstein reference expresses the desired depth of player-like 
 - The immediate focus is backend and strategy. Rayner wants to review concrete hands and strategic tradeoffs as this develops.
 - Rayner has pivoted the next product direction to an all-LLM table with public chat, including deceptive claims and attempts to influence decisions. The hero's strategy and harness are the main development focus. PokerTH remains a comparison mode; the existing baseline is preserved.
 - Rayner requested the terminal/pixel-inspired UI from his reference, with both dark and light themes, and explicitly handed this to the frontend chat. Keep the interface compact, readable and functional in both modes. Player count, message budgets and provider/tool contracts still need implementation.
-- Rayner directed backend work toward a shared LLM player interface using OpenRouter, configurable per-seat models and instructions. Initial profiles are free play with the task/rules/chat access but no suggested strategy, and bluff-directed play. The model still chooses its actions. Benchmark conditions vary these factors explicitly; profiles are not proven human playstyles.
+- Rayner directed backend work toward a shared LLM player interface using OpenRouter, configurable per-seat models and instructions, then clarified that bluff-directed wording was too deliberate. Ordinary players use free play with the task, objective, rules and optional chat but no suggested strategy. Bluffing and deceptive talk are situational choices, without increased-frequency targets, quotas or forced behavior. The initial bluff-directed profile/preset is removed; explicit prompt experiments can be added later. Benchmark conditions remain distinct, and profiles are not proven human playstyles.
+- The new baseline has six seats. Interactive play starts with Rayner choosing the hero's legal actions and optional messages, with a Manual/LLM switch for takeover. Five opponents retain a saved neutral model/instruction configuration while reacting to the actual game. Fully automated runs use six LLMs. Human or mixed-control games must not be reported as autonomous-agent benchmark results.
 - Stage 2 must be an end-to-end playable agent, including actual simulated opponents, public player history, a genuine solver/reference tool for supported spots, and visible analysis and decisions. Later stages expand solver coverage and opponent realism.
 - The preserved Stage 2A baseline combines PokerKit's game environment with PokerTH opponent decisions. PokerKit continues to own cards, betting, pots and legality in the new direction. Next-stage LLM opponents will choose their own actions and public messages; solver access remains a separate tool.
 - Deliver this in two steps: Stage 2A makes complete games playable against PokerTH through the existing hero decision interface; Stage 2B implements the fuller strategy/tool loop and initial genuine solver access. Rayner explicitly requested the environment first, then strategy development.
@@ -34,7 +35,7 @@ Rayner's Garrett Edelstein reference expresses the desired depth of player-like 
 
 Detailed design targets and proposed tool families are in [agent direction](agent-direction.md). That document distinguishes implemented behavior from future work.
 
-The pivot and concrete playing/evaluation plan are in [LLM agent harness](llm-agent-harness.md). The LLM opponent/chat mode, four-player setup and new harness are not implemented yet. Earlier milestone reports describe the preserved PokerTH baseline.
+The pivot and concrete playing/evaluation plan are in [LLM agent harness](llm-agent-harness.md). The six-seat LLM opponent/chat mode, manual hero control/takeover and new harness are not implemented yet. Earlier milestone reports describe the preserved PokerTH baseline.
 
 ## Current implementation
 
@@ -114,7 +115,9 @@ All entries below were accepted through Rayner's discussion in the integration c
 | D015 | Rayner proposed pivoting to LLM players sharing table talk, including deceptive claims, while developing his own hero strategy | Preserve PokerKit and the tagged PokerTH baseline; make all-LLM opponents, public chat, independent private contexts and observable decision influence the next product direction |
 | D016 | Rayner explicitly clarified the project's primary use case: create an agent harness that lets his bot beat other LLM agents at poker | Make competitive performance the objective of the playing harness and evaluation; use same-model comparisons to isolate harness gains and broader opponent models to assess competitiveness. Table talk, the UI and traces support this objective. Superiority remains an outcome to demonstrate |
 | D017 | Rayner requested a terminal/pixel-inspired UI matching his reference, with a light mode as well, and assigned it to the frontend chat | Implement a compact readable workspace in both themes, preserving real baseline controls/traces and preparing capability-aware LLM seat/chat views |
-| D018 | Rayner directed backend work toward a common player interface, configurable instructions including active bluffing versus unprescribed strategy, and interchangeable OpenRouter models | Implement isolated per-seat LLM policies and public chat, with model/profile/harness/chat settings separated; add versioned benchmark presets and run records without treating mock games as performance evidence |
+| D018 | Rayner directed backend work toward a common player interface, configurable instructions including active bluffing versus unprescribed strategy, and interchangeable OpenRouter models | Implement isolated per-seat LLM policies and public chat, with model/profile/harness/chat settings separated; add versioned benchmark presets and run records without treating mock games as performance evidence. D019 supersedes the initial bluff-directed profile choice |
+| D019 | Rayner clarified that bluff-directed wording sounds too deliberate and that players should not constantly bluff | Use neutral task/objective/rules/chat instructions for ordinary players, leaving tactical choices to each model. Remove the initial bluff-directed profile and preset; preserve configurable prompts for explicit future experiments without bluff quotas or rewards |
+| D020 | Rayner chose a six-seat baseline and explicitly confirmed choosing his hero's poker actions and messages manually, with an option for the LLM to take over | Build five LLM opponents on a reusable stable configuration, manual legal-action/chat controls and safe takeover. Automated mode has six LLMs. This supersedes the earlier proposed four-player default; manual/mixed runs are not autonomous performance evidence |
 
 ## Keeping this current
 

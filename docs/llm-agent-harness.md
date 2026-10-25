@@ -8,13 +8,13 @@ The primary use case is to create an agent harness that lets Rayner's LLM poker 
 
 The poker table provides the evaluation environment. Players choose legal actions and can make public claims, bluff, react and stay silent. Table talk is an additional source of uncertain evidence and a possible strategic action. The UI and traces expose the experiment. Improvement must be measured; adding tools or persuasive explanations does not itself establish better play.
 
-The first implementation scope is four players: the hero and three LLM opponents, with six-player compatibility. Keep PokerKit authoritative. Preserve `baseline/stage-2a` and its PokerTH mode as a runnable comparison. Four starting players, LLM opponents, shared chat and per-player trace selection all require implementation; the existing configuration still starts six players and offers legacy or PokerTH opponents.
+Rayner has selected six seats for the first implementation: five LLM opponents and a hero that he initially controls manually, choosing actions and messages, with optional LLM takeover. Fully automated mode has six LLM players. Keep PokerKit authoritative and preserve `baseline/stage-2a` and its PokerTH mode as a runnable comparison. LLM opponents, shared chat, manual control/takeover and per-player trace selection all require implementation; the existing configuration starts six players with legacy or PokerTH opponents and no manual hero controls.
 
 The supplied UI reference informs a compact terminal/pixel-inspired dashboard with four areas: table, public conversation, selected-player decision/tool records, and action history/standings. Rayner requires equally usable dark and light themes. Player colours should remain consistent across panels. Display recorded values and concise decision summaries, without inventing confidence scores or probabilities.
 
 ## Playing harness
 
-The LLM chooses its final poker action. LangGraph manages a bounded model/tool loop. The proposed components are:
+Under LLM control, the LLM chooses its final poker action. LangGraph manages a bounded model/tool loop. Manual hero play bypasses the hero model and submits Rayner's selected legal action. The proposed automated components are:
 
 | Component | Role |
 | --- | --- |
@@ -32,9 +32,11 @@ The same observation and public chat cutoff are frozen for one decision. The wor
 
 ## Opponents and table talk
 
-Use OpenRouter with independently configurable models, instruction profiles, chat access and harness per seat. Each opponent has its own private context and memory. Rayner requested a free-play condition with the task, objective, rules and optional chat but no strategy advice, and a bluff-directed condition that encourages strategic bluffing without forcing actions. Version these prompts. The profile is private to its owner; other players must infer tendencies from public behavior.
+Use OpenRouter with independently configurable models, instruction profiles, chat access and harness per seat. Each opponent has its own private context and memory. Following Rayner's clarification, the initial profile is free play with the task, objective, rules and optional chat but no strategy advice. Bluffing and deceptive talk are choices players can make when useful, without instructions to bluff more, quotas or rewards. The earlier bluff-directed profile and benchmark preset are removed. Keep prompt versioning and configuration extensible for explicit experiments later. The profile is private to its owner; other players must infer tendencies from public behavior.
 
 Same-model controls isolate instruction and harness effects. Model-swap comparisons hold prompts and harnesses constant, while mixed tables provide broader competition. The hero's extra capability eventually comes from its processing, evidence tools and strategy harness; it receives no privileged engine information. The initial environment can run the hero through the same baseline interface before that richer harness is available.
+
+For ordinary interactive play, keep the five opponents on one saved neutral configuration across sessions unless Rayner changes it. Settings stay fixed while the players' decisions respond to the game. Rayner's manual hero sees his own permitted cards/actions and can send an optional message. The table waits for his input without automatically acting or calling the hero model. Switching to LLM control preserves public history, validates the current turn and prevents an obsolete in-flight result from applying. Human actions and mode changes are recorded distinctly from LLM decisions; manual or mixed-control games are not autonomous benchmark results.
 
 The initial communication proposal is one optional short message attached to a poker action, followed by any explicitly bounded reply window. Publish a stable sequence of messages before the next decision. Silence is valid. Continuous, unbounded conversations are outside the first slice.
 
@@ -59,10 +61,10 @@ For chat influence, repeat decisions at matched frozen hand states with chat vis
 
 ## Implementation sequence and completion
 
-1. **Four-player LLM table:** parameterize player count through game state, observations, statistics, workers, persistence, replay and UI. Add independent per-seat LLM adapters, bounded public chat and per-seat trace selection. Preserve six-player PokerTH compatibility. Mock provider tests establish engineering behavior; actual LLM play requires a selected provider and an authorized live-call budget.
+1. **Six-seat table and manual hero:** add independent per-seat LLM adapters, bounded public chat and per-seat trace selection. Let Rayner choose hero actions/messages manually, then hand control to the LLM for fully automated six-player play. Keep a reusable stable opponent configuration and preserve PokerTH compatibility. Mock provider tests establish engineering behavior; actual LLM play requires selected models and an authorized live-call budget.
 2. **Hero decision loop:** connect the existing analysis module through a bounded tool registry, implement public evidence/claim retrieval and conditional range/scenario tools, then add the first qualified solver/reference adapter. Demonstrate legal decisions and inspectable tool results on selected hands, including unsupported coverage and failure cases.
 3. **Measured comparisons:** run controlled baseline, full-harness and capability-removal comparisons. Broaden held-out opponents and seats before claiming the harness improves results. Review specific hands alongside outcomes, including errors and successful exploits.
 
-The existing 128 API tests and 16 frontend tests cover the Stage 2A baseline, not these new capabilities. New acceptance evidence must include private-context separation, chat ordering, action versions, malformed model output, budget exhaustion, four-player completion, six-player regression coverage and observable per-seat records.
+The existing 128 API tests and 16 frontend tests cover the Stage 2A baseline, not these new capabilities. New acceptance evidence must include private-context separation, chat ordering, action versions, malformed model output, budget exhaustion, six-player LLM completion, manual submissions and takeover, legacy/native regression coverage and observable per-seat records.
 
 OpenRouter is selected. Exact models, total live-run spend, initial solver access and the richer tool contracts remain unresolved. The first player/chat interface is specified in [LLM table v1](../contracts/llm-table-v1.md). Rayner assigned [backend players and benchmark setup](tasks/backend-llm-table.md) and [frontend terminal UI](tasks/frontend-terminal-ui.md) concurrently. These assignments do not establish runtime completion or authorize paid calls. The fuller hero harness and solver are a subsequent slice.

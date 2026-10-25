@@ -8,7 +8,7 @@ The current baseline is a playable spectator lab: six-player NLH freezeout tourn
 
 The committed starting point for that next milestone is tagged `baseline/stage-2a`. See the [baseline checkpoint](docs/baseline-stage-2a.md) for its contents, verification and remaining agent work.
 
-The next direction is an all-LLM table with public chat and a stronger hero strategy harness. The [implementation and evaluation plan](docs/llm-agent-harness.md) describes the proposed four-player setup. This mode is not implemented in the runnable baseline below.
+The next direction is a six-seat table with public chat and a stronger hero strategy harness. Rayner can play his hero's actions and messages manually against five LLM opponents, then hand control to the LLM for fully automated six-player games. The [implementation and evaluation plan](docs/llm-agent-harness.md) describes this setup and its stable neutral opponent configuration. This mode is not implemented in the runnable baseline below.
 
 Current assignments are [configurable OpenRouter players and benchmark setup](docs/tasks/backend-llm-table.md), and a [terminal-inspired UI with dark/light themes](docs/tasks/frontend-terminal-ui.md). Per-seat model, instructions, chat access and harness settings follow the [shared interface](contracts/llm-table-v1.md). The richer hero strategy and solver remain subsequent work.
 
