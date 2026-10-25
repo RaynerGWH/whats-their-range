@@ -9,6 +9,10 @@ class TournamentConfig(BaseModel):
     hands_per_level: int = Field(default=8, ge=2, le=100)
     payouts: Literal["70/30", "winner-take-all"] = "70/30"
     mode: Literal["heuristic", "openrouter"] = "heuristic"
+    opponents: Literal["legacy", "pokerth"] = "legacy"
+    opponent_seed: int | None = Field(default=None, ge=0, le=2**31 - 1)
+    personality_seed: int | None = Field(default=None, ge=0, le=2**31 - 1)
+    hero_seed: int | None = Field(default=None, ge=0, le=2**31 - 1)
     model: str = Field(default="", max_length=150, pattern=r"^[A-Za-z0-9/_.:\-]*$")
     pace: float = Field(default=1.2, ge=0.05, le=5)
 

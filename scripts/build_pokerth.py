@@ -1,4 +1,5 @@
 """Offline native build from verified vendored PokerTH source. No Qt required."""
+
 import hashlib
 import json
 import os
@@ -23,20 +24,47 @@ def main():
     compiler = shlex.split(os.environ.get("CXX", "c++"))
     with tempfile.TemporaryDirectory(dir=output) as temporary:
         binary = Path(temporary) / "pokerth-opponent"
-        command = [*compiler, "-std=c++20", "-O2", "-Wall", "-Wextra",
-                   "-I", str(sources), "-I", str(NATIVE / "vendor/src"),
-                   str(NATIVE / "bridge.cpp"),
-                   *[str(sources / (name + ".cpp")) for name in
-                     ("aiengine4", "equitycalculator", "holecardsrange", "handevaluator")],
-                   "-o", str(binary)]
+        command = [
+            *compiler,
+            "-std=c++20",
+            "-O2",
+            "-Wall",
+            "-Wextra",
+            "-I",
+            str(sources),
+            "-I",
+            str(NATIVE / "vendor/src"),
+            str(NATIVE / "bridge.cpp"),
+            *[
+                str(sources / (name + ".cpp"))
+                for name in (
+                    "aiengine4",
+                    "equitycalculator",
+                    "holecardsrange",
+                    "handevaluator",
+                )
+            ],
+            "-o",
+            str(binary),
+        ]
         subprocess.run(command, check=True)
         subprocess.run([str(binary), "--version"], check=True)
         binary.replace(output / "pokerth-opponent")
-    (output / "build.json").write_text(json.dumps({
-        "upstream": manifest["revision"],
-        "compiler": subprocess.check_output([*compiler, "--version"], text=True).splitlines()[0],
-        "bridge_sha256": hashlib.sha256((NATIVE / "bridge.cpp").read_bytes()).hexdigest(),
-    }, indent=2) + "\n")
+    (output / "build.json").write_text(
+        json.dumps(
+            {
+                "upstream": manifest["revision"],
+                "compiler": subprocess.check_output(
+                    [*compiler, "--version"], text=True
+                ).splitlines()[0],
+                "bridge_sha256": hashlib.sha256(
+                    (NATIVE / "bridge.cpp").read_bytes()
+                ).hexdigest(),
+            },
+            indent=2,
+        )
+        + "\n"
+    )
     print(f"Built {output / 'pokerth-opponent'}")
 
 

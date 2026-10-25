@@ -17,3 +17,8 @@ No paid calls, remote pushes, deployments, other-checkout edits, main merges,
 extra agents, cross-chat messages or automation. Use isolated ports 8012/5175.
 
 Progress: branch created; inspecting native source and application contracts.
+
+Native milestone committed as `6f3b965`. Worker/evaluation adapter and UI selector
+implemented. Nineteen native tests pass, including complete two-worker games with
+heuristic and mocked-provider heroes, real PokerTH opponents, controls and replay.
+Remaining: combined checks, recorded smoke set, browser QA and final delivery report.

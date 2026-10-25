@@ -45,6 +45,7 @@ const defaultConfig: Config = {
   hands_per_level: 8,
   payouts: "70/30",
   mode: "heuristic",
+  opponents: "pokerth",
   model: "",
   pace: 1.2,
 };
@@ -654,6 +655,7 @@ export default function App() {
               )}
             </div>
           )}
+          {table?.error && <div className="error-banner" role="alert">{table.error}</div>}
           {connection !== "live" && (
             <div className="offline-banner">
               <WifiOff size={14} />{" "}
@@ -682,7 +684,7 @@ export default function App() {
                       <div>
                         <strong>{t.config.name}</strong>
                         <small>
-                          Seed {t.config.seed} · {t.config.mode} · {t.hand || 0}{" "}
+                          Seed {t.config.seed} · {t.config.mode} · {t.config.opponents === "pokerth" ? "PokerTH" : "Legacy"} · {t.hand || 0}{" "}
                           hands
                         </small>
                       </div>
@@ -1124,7 +1126,7 @@ export default function App() {
                   />
                 </label>
                 <label>
-                  Random seed
+                  Deck seed
                   <input
                     type="number"
                     min={0}
@@ -1136,6 +1138,14 @@ export default function App() {
                   />
                 </label>
               </div>
+              <label>
+                Opponents
+                <select value={form.opponents ?? "legacy"}
+                  onChange={(e) => setForm({ ...form, opponents: e.target.value as Config["opponents"] })}>
+                  <option value="pokerth">PokerTH engine 4</option>
+                  <option value="legacy">Legacy heuristic</option>
+                </select>
+              </label>
               <label>
                 Agent mode
                 <select

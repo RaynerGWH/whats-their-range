@@ -27,6 +27,9 @@ def main(argv=None):
         default=42,
         help="Policy RNG seed, independent of hidden deck seeds",
     )
+    parser.add_argument("--opponents", choices=("legacy", "pokerth"), default="legacy")
+    parser.add_argument("--opponent-seed", type=int, default=43)
+    parser.add_argument("--personality-seed", type=int, default=44)
     parser.add_argument("--repeats", type=int, default=1)
     parser.add_argument("--policy", choices=POLICIES, action="append")
     parser.add_argument(
@@ -73,6 +76,9 @@ def main(argv=None):
             tuning_seeds=args.tuning_seeds,
             held_out_seeds=args.held_out_seeds,
             policy_seed=args.policy_seed,
+            opponents=args.opponents,
+            opponent_seed=args.opponent_seed,
+            personality_seed=args.personality_seed,
             repeats=args.repeats,
             policies=policies,
             scenarios=tuple(args.scenario or ["standard"]),

@@ -2,7 +2,7 @@
 
 A local NLH tournament simulator for testing LLM poker agents.
 
-This first skeleton is a playable spectator lab: six-player NLH freezeout tournaments, five probabilistic opponents, a replaceable agent, independent table workers, and replayable decision records.
+This first skeleton is a playable spectator lab: six-player NLH freezeout tournaments, five PokerTH engine 4 opponents (or an explicit legacy heuristic mode), a replaceable agent, independent table workers, and replayable decision records.
 
 ## Project direction
 
@@ -10,10 +10,11 @@ Before starting or resuming project work, read [shared context access](docs/shar
 
 ## Run locally
 
-Requires Node 22+ and Python 3.11+. Use `uv` for the Python environment.
+Requires Node 22+, Python 3.11+ and a C++20 compiler (Clang or GCC). Use `uv` for the Python environment.
 
 ```sh
 npm install
+python3 scripts/build_pokerth.py
 cd apps/api
 cp .env.example .env
 uv sync --extra test
@@ -28,7 +29,9 @@ npm run dev
 
 Open http://localhost:5173. Create a tournament and press **Run table**. Tables start paused. **Step** advances one action, or deals the next hand after settlement. Two tables can run concurrently in separate processes. Closing the browser does not stop them while the API stays running.
 
-No credentials are required for heuristic mode. It uses SQLite locally and does not make model calls.
+New UI tables select PokerTH opponents by default. Opponent policy and hero mode are separate controls. Missing native builds produce a setup error; selecting Legacy heuristic is explicit. Older clients that omit the opponent field retain legacy mode.
+
+No credentials are required for the heuristic hero. It uses SQLite locally and does not make model calls. Deck, hero policy, opponent policy and private personality assignment randomness are separate. API controller fields `hero_seed`, `opponent_seed` and `personality_seed` can reproduce a run; omitted seeds are independently generated and saved in the spectator configuration, outside player observations.
 
 ## OpenRouter agent
 
@@ -49,7 +52,7 @@ The call cap is per table, not a dollar limit. Configure account spending limits
 
 - React/TypeScript/Vite spectator UI, responsive table, hidden-card toggle, pause/run/step/speed, two independent sessions, archive and replay.
 - PokerKit dealing, arbitrary legal chip accounting within a discrete agent action menu, all-ins, side pots, eliminations, heads-up seating and payout settlement.
-- Deterministic deck seeds and stochastic scripted opponents. Opponent archetypes are never sent to the agent.
+- Real native PokerTH engine 4 opponents, legal action normalization, public behavioral statistics and private shuffled personalities, with legacy heuristic comparison mode. Opponent parameters and seeds are never sent to the hero.
 - Private observations for the hero, descriptive action counts, bounded evidence, state-version validation, structured OpenRouter adapter and local decision records.
 - LangGraph orchestration with optional LangSmith tracing (`LANGSMITH_TRACING`, `LANGSMITH_API_KEY`, `LANGSMITH_PROJECT`). Traces contain only the agent's permitted observation, not the spectator snapshot. View traces in your LangSmith project.
 - SQLAlchemy persistence: SQLite locally, PostgreSQL via `DATABASE_URL`, including Supabase session-pooler URLs.
@@ -72,7 +75,7 @@ On API restart, unfinished sessions are archived as interrupted. Replay survives
 Templates are included; nothing is deployed automatically.
 
 - **Supabase:** set `DATABASE_URL` to a server-side PostgreSQL connection (`postgresql+psycopg://...`, with `sslmode=require`). Prefer the session pooler for this persistent service. The backend creates its two tables and enables RLS on PostgreSQL; no browser policies are granted. Connect as the owner/backend role. Supabase Auth and per-user authorization are not yet integrated.
-- **Fly.io:** use `apps/api/fly.toml`, review app name/region, and set `DATABASE_URL`, `CONTROL_TOKEN`, `ALLOWED_ORIGINS` and optional provider/tracing secrets. The template requires a control token and keeps the machine awake for running tournaments. Use one machine and one Uvicorn worker. SQLite on ephemeral deployment storage is not durable.
+- **Fly.io:** use repository-root build context with `apps/api/fly.toml`, review app name/region, and set `DATABASE_URL`, `CONTROL_TOKEN`, `ALLOWED_ORIGINS` and optional provider/tracing secrets. The template requires a control token and keeps the machine awake for running tournaments. Use one machine and one Uvicorn worker. SQLite on ephemeral deployment storage is not durable.
 - **Vercel:** set root directory to `apps/web`; set `VITE_API_URL` to the API's HTTPS origin. Add the exact Vercel origin to backend `ALLOWED_ORIGINS`. Enter `CONTROL_TOKEN` in the dashboard's Connections panel. Never place provider keys or database credentials in `VITE_*` variables.
 
 The shared access token is a development deployment gate, not a multi-user auth system. Local default binding is loopback. `WTR_PUBLIC=true` refuses startup without a token.
@@ -88,3 +91,7 @@ uv run pytest
 Tests cover complete seeded tournaments and chip conservation, payout settlement, heads-up order, private observations, stale/illegal actions, provider response validation, deadlines, budgets, independent table processes, replay persistence and access control. OpenRouter calls are mocked; hosted Supabase and LangSmith require your credentials for end-to-end verification.
 
 See [architecture](docs/architecture.md) for the boundaries to preserve while iterating.
+
+## PokerTH source and license
+
+The pinned opponent core is vendored with its AGPL-3.0-or-later license and original notices. See [native setup and source obligations](native/pokerth/README.md) and [Stage 2A delivery](docs/stage-2a.md). The bridge preserves the upstream decision logic, but uses separate seeded randomness and maps sizing to our discrete legal menu. It is not a solver or a verified human model.

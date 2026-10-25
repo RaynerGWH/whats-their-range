@@ -7,8 +7,9 @@ import threading
 import time
 import uuid
 
-from .agent import Agent, assess, baseline
-from .game import PROFILES, Tournament
+from .agent import Agent
+from .game import Tournament
+from .opponents import Opponents, OpponentError, require_native, resolve_seeds
 from .store import Store
 
 TERMINAL = {"finished", "stopped", "error", "interrupted"}
@@ -16,6 +17,7 @@ TERMINAL = {"finished", "stopped", "error", "interrupted"}
 
 def table_worker(table_id, config, commands, database_url):
     store = Store(database_url)
+    config = resolve_seeds(config)
     game = Tournament(table_id, config)
     active_trace_id = None
 
@@ -38,9 +40,15 @@ def table_worker(table_id, config, commands, database_url):
             publish(False)
 
     # Policy randomness must not expose or derive from the hidden deck seed.
-    agent = Agent(config["mode"], config["model"], seed=42, trace_sink=record_trace)
+    agent = Agent(
+        config["mode"],
+        config["model"],
+        seed=config["hero_seed"],
+        trace_sink=record_trace,
+    )
 
     try:
+        opponents = Opponents(config)
         publish()
         due = time.monotonic()
         while game.status not in TERMINAL:
@@ -77,18 +85,23 @@ def table_worker(table_id, config, commands, database_url):
                     game.phase = "playing"
                     game.apply(decision["action"], obs["version"], decision)
                 else:
-                    metrics = assess({"observation": obs})["metrics"]
-                    action = baseline(obs, metrics, game.rng, PROFILES[game.actor])
+                    action = opponents.decide(obs)
                     game.apply(action, obs["version"])
+                opponents.observe(
+                    obs, decision["action"] if obs["player"] == 0 else action
+                )
             publish()
             due = time.monotonic() + game.config["pace"] * (
                 2 if game.phase == "hand_complete" else 1
             )
-    except Exception:
+    except Exception as exc:
         import logging
 
         logging.exception("Table worker failed: %s", table_id)
         game.status, game.phase = "error", "error"
+        game.error = (
+            str(exc) if isinstance(exc, OpponentError) else "Table worker failed"
+        )
         try:
             publish()
         except Exception:
@@ -106,6 +119,9 @@ class TableManager:
         self.lock = threading.RLock()
 
     def create(self, config):
+        config = resolve_seeds(config)
+        if config.get("opponents") == "pokerth":
+            require_native()
         with self.lock:
             self.poll()
             if len(self.workers) >= 2:

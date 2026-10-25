@@ -5,6 +5,7 @@ export type Config = {
   hands_per_level: number;
   payouts: "70/30" | "winner-take-all";
   mode: "heuristic" | "openrouter";
+  opponents?: "legacy" | "pokerth";
   model: string;
   pace: number;
 };
@@ -77,6 +78,7 @@ export type Table = {
   config: Config;
   status: string;
   phase: string;
+  error?: string | null;
   version: number;
   hand: number;
   street: string;
