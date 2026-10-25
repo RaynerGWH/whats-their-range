@@ -17,7 +17,7 @@ from uuid import uuid4
 
 from wtr.game import Tournament
 from wtr.models import TournamentConfig
-from wtr.opponents import Opponents, REVISION
+from wtr.opponents import Opponents, OpponentError, REVISION
 from .policies import POLICIES, SCENARIOS, PolicySpec, opponent_action
 
 
@@ -235,7 +235,16 @@ def _worker(send, config, spec, seed, scenario, table_id):
     except Exception as exc:
         # Do not persist arbitrary exception text, policy payloads or credentials.
         code = str(exc) if isinstance(exc, EvaluationFailure) else f"{stage}_error"
-        send.send(("failure", {"code": code, "stage": stage}))
+        failure = {"code": code, "stage": stage}
+        if isinstance(exc, OpponentError):
+            failure = {
+                "code": "pokerth_setup_error"
+                if stage == "opponent_initialization"
+                else "pokerth_decision_error",
+                "stage": stage,
+                "message": str(exc),
+            }
+        send.send(("failure", failure))
     finally:
         send.close()
 
@@ -470,7 +479,10 @@ def save_report(report, directory):
             f"{row['completed_unique_seeds']} completed unique seeds; {estimate}"
         )
     failures = [r for r in report["results"] if r["failure"]]
-    lines.extend(f"{r['table_id']}: {r['failure']['code']}" for r in failures)
+    lines.extend(
+        f"{r['table_id']}: {r['failure']['code']} {r['failure'].get('message', '')}"
+        for r in failures
+    )
     lines.extend(
         [
             "",

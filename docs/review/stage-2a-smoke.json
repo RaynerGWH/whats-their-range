@@ -1,0 +1,477 @@
+{
+  "schema_version": 1,
+  "description": "Real PokerTH opponents, heuristic hero. Repeats are not independent samples.",
+  "build": {
+    "upstream": "0a7dceb575d8b9dfcbd7c46ec7a90482cbdb40ba",
+    "compiler": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+    "bridge_sha256": "ad6ad9a8cac87d9c81e524086940615e8867ad23a47083ce6559cf8ead0c2aba"
+  },
+  "sets": [
+    {
+      "set": "native-set-a",
+      "source_sha256": "f752e0389138a9a26cecadb3665b5f77aea6ebc10822d54d82b7cf3170f3d1d7",
+      "config": {
+        "tuning_seeds": [
+          1,
+          7
+        ],
+        "held_out_seeds": [
+          101,
+          107
+        ],
+        "policy_seed": 42,
+        "opponents": "pokerth",
+        "opponent_seed": 43,
+        "personality_seed": 44,
+        "repeats": 2,
+        "policies": [
+          {
+            "name": "heuristic",
+            "version": "skeleton-0fe9596-v1",
+            "factory": "wtr.evaluation.policies:Heuristic"
+          }
+        ],
+        "scenarios": [
+          "standard"
+        ],
+        "opponent_profiles": [
+          "tight",
+          "caller",
+          "aggressive",
+          "balanced",
+          "volatile"
+        ],
+        "stack_bb": 10,
+        "hands_per_level": 2,
+        "payouts": "70/30",
+        "max_hands": 300,
+        "max_actions": 5000,
+        "timeout_seconds": 120
+      },
+      "runtime": {
+        "python": "3.12.14",
+        "pokerkit": "0.7.7",
+        "source_sha256": {
+          "game.py": "5001a7a4d353f5d0d2ec8247018b6c18bba604facdc4a3eb5b3b4be6e83fa85c",
+          "agent.py": "f2e4f0437870308d075ccc1fed5cc793f3d85d88af3f68351f7b07aa1765b92c",
+          "opponents.py": "8025ec9d5e6ca20ebaac060c99e2ef9693d76f4d3e69baad19352d6a6c8cbf2d",
+          "evaluation/__init__.py": "4be0e73369a6c0fa069f146a1f31c0c8ff22cf26e862367e70ef78e55c29111e",
+          "evaluation/__main__.py": "520fe217b80441dd9340d09cee14c9e4965beed67d1163487122d123d2bf9d89",
+          "evaluation/policies.py": "825cd72d318b00a6ef392e7a66a69f8da061d67b2b6946bef5b2585899aa76b4",
+          "evaluation/runner.py": "5c0d48040988568b4dfc251534f2f7bc7068b3a5997d3d7a6ac79c19a7bdf3e8"
+        }
+      },
+      "games": 8,
+      "hands": 114,
+      "actions": 350,
+      "hero_decisions": 42,
+      "native_decisions": 308,
+      "matching_repeat_pairs": 4,
+      "streets": {
+        "preflop": 330,
+        "flop": 8,
+        "turn": 8,
+        "river": 4
+      },
+      "player_counts": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "runs": [
+        {
+          "seed": 1,
+          "repeat": 0,
+          "split": "tuning",
+          "opponent_seed": 43,
+          "personality_seed": 44,
+          "hands": 13,
+          "actions": 41,
+          "outcome_sha256": "d14ed99cc735d13a09c85147ca19b8d0b1f4e4005bf70d1b2780ded77ab67b46",
+          "chip_total": 600,
+          "chip_conservation": true
+        },
+        {
+          "seed": 1,
+          "repeat": 1,
+          "split": "tuning",
+          "opponent_seed": 43,
+          "personality_seed": 44,
+          "hands": 13,
+          "actions": 41,
+          "outcome_sha256": "d14ed99cc735d13a09c85147ca19b8d0b1f4e4005bf70d1b2780ded77ab67b46",
+          "chip_total": 600,
+          "chip_conservation": true
+        },
+        {
+          "seed": 7,
+          "repeat": 0,
+          "split": "tuning",
+          "opponent_seed": 43,
+          "personality_seed": 44,
+          "hands": 12,
+          "actions": 44,
+          "outcome_sha256": "8d4aeb9bd5aaf6581df0d86b52edba1dbdcf96c3bb505c4301f8b3a62c681d08",
+          "chip_total": 600,
+          "chip_conservation": true
+        },
+        {
+          "seed": 7,
+          "repeat": 1,
+          "split": "tuning",
+          "opponent_seed": 43,
+          "personality_seed": 44,
+          "hands": 12,
+          "actions": 44,
+          "outcome_sha256": "8d4aeb9bd5aaf6581df0d86b52edba1dbdcf96c3bb505c4301f8b3a62c681d08",
+          "chip_total": 600,
+          "chip_conservation": true
+        },
+        {
+          "seed": 101,
+          "repeat": 0,
+          "split": "held_out",
+          "opponent_seed": 43,
+          "personality_seed": 44,
+          "hands": 13,
+          "actions": 24,
+          "outcome_sha256": "44966b8e294160f1aaa9124bee9d48156294d00152df7ae315b42c53db250470",
+          "chip_total": 600,
+          "chip_conservation": true
+        },
+        {
+          "seed": 101,
+          "repeat": 1,
+          "split": "held_out",
+          "opponent_seed": 43,
+          "personality_seed": 44,
+          "hands": 13,
+          "actions": 24,
+          "outcome_sha256": "44966b8e294160f1aaa9124bee9d48156294d00152df7ae315b42c53db250470",
+          "chip_total": 600,
+          "chip_conservation": true
+        },
+        {
+          "seed": 107,
+          "repeat": 0,
+          "split": "held_out",
+          "opponent_seed": 43,
+          "personality_seed": 44,
+          "hands": 19,
+          "actions": 66,
+          "outcome_sha256": "67e88966bd794487bd43414aeda260dd6f01d086a198bf32363a1383b015580e",
+          "chip_total": 600,
+          "chip_conservation": true
+        },
+        {
+          "seed": 107,
+          "repeat": 1,
+          "split": "held_out",
+          "opponent_seed": 43,
+          "personality_seed": 44,
+          "hands": 19,
+          "actions": 66,
+          "outcome_sha256": "67e88966bd794487bd43414aeda260dd6f01d086a198bf32363a1383b015580e",
+          "chip_total": 600,
+          "chip_conservation": true
+        }
+      ]
+    },
+    {
+      "set": "native-set-b",
+      "source_sha256": "9202a723b34b201d2001556e065b217b76586f83dcf9c7c623fcf7680902527f",
+      "config": {
+        "tuning_seeds": [
+          1,
+          7
+        ],
+        "held_out_seeds": [
+          101,
+          107
+        ],
+        "policy_seed": 42,
+        "opponents": "pokerth",
+        "opponent_seed": 91,
+        "personality_seed": 100,
+        "repeats": 2,
+        "policies": [
+          {
+            "name": "heuristic",
+            "version": "skeleton-0fe9596-v1",
+            "factory": "wtr.evaluation.policies:Heuristic"
+          }
+        ],
+        "scenarios": [
+          "standard"
+        ],
+        "opponent_profiles": [
+          "tight",
+          "caller",
+          "aggressive",
+          "balanced",
+          "volatile"
+        ],
+        "stack_bb": 10,
+        "hands_per_level": 2,
+        "payouts": "70/30",
+        "max_hands": 300,
+        "max_actions": 5000,
+        "timeout_seconds": 120
+      },
+      "runtime": {
+        "python": "3.12.14",
+        "pokerkit": "0.7.7",
+        "source_sha256": {
+          "game.py": "5001a7a4d353f5d0d2ec8247018b6c18bba604facdc4a3eb5b3b4be6e83fa85c",
+          "agent.py": "f2e4f0437870308d075ccc1fed5cc793f3d85d88af3f68351f7b07aa1765b92c",
+          "opponents.py": "8025ec9d5e6ca20ebaac060c99e2ef9693d76f4d3e69baad19352d6a6c8cbf2d",
+          "evaluation/__init__.py": "4be0e73369a6c0fa069f146a1f31c0c8ff22cf26e862367e70ef78e55c29111e",
+          "evaluation/__main__.py": "520fe217b80441dd9340d09cee14c9e4965beed67d1163487122d123d2bf9d89",
+          "evaluation/policies.py": "825cd72d318b00a6ef392e7a66a69f8da061d67b2b6946bef5b2585899aa76b4",
+          "evaluation/runner.py": "5c0d48040988568b4dfc251534f2f7bc7068b3a5997d3d7a6ac79c19a7bdf3e8"
+        }
+      },
+      "games": 8,
+      "hands": 120,
+      "actions": 362,
+      "hero_decisions": 42,
+      "native_decisions": 320,
+      "matching_repeat_pairs": 4,
+      "streets": {
+        "preflop": 338,
+        "flop": 12,
+        "turn": 8,
+        "river": 4
+      },
+      "player_counts": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "runs": [
+        {
+          "seed": 1,
+          "repeat": 0,
+          "split": "tuning",
+          "opponent_seed": 91,
+          "personality_seed": 100,
+          "hands": 13,
+          "actions": 41,
+          "outcome_sha256": "8bae4e88f10bf0b45903c3d954d48f90809d0642e2eaa26c1bb716730fc9990e",
+          "chip_total": 600,
+          "chip_conservation": true
+        },
+        {
+          "seed": 1,
+          "repeat": 1,
+          "split": "tuning",
+          "opponent_seed": 91,
+          "personality_seed": 100,
+          "hands": 13,
+          "actions": 41,
+          "outcome_sha256": "8bae4e88f10bf0b45903c3d954d48f90809d0642e2eaa26c1bb716730fc9990e",
+          "chip_total": 600,
+          "chip_conservation": true
+        },
+        {
+          "seed": 7,
+          "repeat": 0,
+          "split": "tuning",
+          "opponent_seed": 91,
+          "personality_seed": 100,
+          "hands": 12,
+          "actions": 44,
+          "outcome_sha256": "5e5474419dfed357fb750a1f7a1a6ed345e2595a9f2847aac20fa7829884e9f1",
+          "chip_total": 600,
+          "chip_conservation": true
+        },
+        {
+          "seed": 7,
+          "repeat": 1,
+          "split": "tuning",
+          "opponent_seed": 91,
+          "personality_seed": 100,
+          "hands": 12,
+          "actions": 44,
+          "outcome_sha256": "5e5474419dfed357fb750a1f7a1a6ed345e2595a9f2847aac20fa7829884e9f1",
+          "chip_total": 600,
+          "chip_conservation": true
+        },
+        {
+          "seed": 101,
+          "repeat": 0,
+          "split": "held_out",
+          "opponent_seed": 91,
+          "personality_seed": 100,
+          "hands": 16,
+          "actions": 30,
+          "outcome_sha256": "c9e6b455e6d1f111e29a7aeec330a79efb6e8864f5d4960ee65d6830858fc5fd",
+          "chip_total": 600,
+          "chip_conservation": true
+        },
+        {
+          "seed": 101,
+          "repeat": 1,
+          "split": "held_out",
+          "opponent_seed": 91,
+          "personality_seed": 100,
+          "hands": 16,
+          "actions": 30,
+          "outcome_sha256": "c9e6b455e6d1f111e29a7aeec330a79efb6e8864f5d4960ee65d6830858fc5fd",
+          "chip_total": 600,
+          "chip_conservation": true
+        },
+        {
+          "seed": 107,
+          "repeat": 0,
+          "split": "held_out",
+          "opponent_seed": 91,
+          "personality_seed": 100,
+          "hands": 19,
+          "actions": 66,
+          "outcome_sha256": "e27464b6766dd8be49b451a6f6aee4ea781c03eae81ca429c3dd534e820d58f9",
+          "chip_total": 600,
+          "chip_conservation": true
+        },
+        {
+          "seed": 107,
+          "repeat": 1,
+          "split": "held_out",
+          "opponent_seed": 91,
+          "personality_seed": 100,
+          "hands": 19,
+          "actions": 66,
+          "outcome_sha256": "e27464b6766dd8be49b451a6f6aee4ea781c03eae81ca429c3dd534e820d58f9",
+          "chip_total": 600,
+          "chip_conservation": true
+        }
+      ]
+    },
+    {
+      "set": "native-standard",
+      "source_sha256": "8abd4c3322e8c3bd51a5a5a127bed91325fff6fe02e1bb60bcfdc770df82b417",
+      "config": {
+        "tuning_seeds": [
+          42
+        ],
+        "held_out_seeds": [
+          101
+        ],
+        "policy_seed": 42,
+        "opponents": "pokerth",
+        "opponent_seed": 43,
+        "personality_seed": 44,
+        "repeats": 2,
+        "policies": [
+          {
+            "name": "heuristic",
+            "version": "skeleton-0fe9596-v1",
+            "factory": "wtr.evaluation.policies:Heuristic"
+          }
+        ],
+        "scenarios": [
+          "standard"
+        ],
+        "opponent_profiles": [
+          "tight",
+          "caller",
+          "aggressive",
+          "balanced",
+          "volatile"
+        ],
+        "stack_bb": 50,
+        "hands_per_level": 8,
+        "payouts": "70/30",
+        "max_hands": 300,
+        "max_actions": 5000,
+        "timeout_seconds": 120
+      },
+      "runtime": {
+        "python": "3.12.14",
+        "pokerkit": "0.7.7",
+        "source_sha256": {
+          "game.py": "5001a7a4d353f5d0d2ec8247018b6c18bba604facdc4a3eb5b3b4be6e83fa85c",
+          "agent.py": "f2e4f0437870308d075ccc1fed5cc793f3d85d88af3f68351f7b07aa1765b92c",
+          "opponents.py": "8025ec9d5e6ca20ebaac060c99e2ef9693d76f4d3e69baad19352d6a6c8cbf2d",
+          "evaluation/__init__.py": "4be0e73369a6c0fa069f146a1f31c0c8ff22cf26e862367e70ef78e55c29111e",
+          "evaluation/__main__.py": "520fe217b80441dd9340d09cee14c9e4965beed67d1163487122d123d2bf9d89",
+          "evaluation/policies.py": "825cd72d318b00a6ef392e7a66a69f8da061d67b2b6946bef5b2585899aa76b4",
+          "evaluation/runner.py": "5c0d48040988568b4dfc251534f2f7bc7068b3a5997d3d7a6ac79c19a7bdf3e8"
+        }
+      },
+      "games": 4,
+      "hands": 270,
+      "actions": 1252,
+      "hero_decisions": 180,
+      "native_decisions": 1072,
+      "matching_repeat_pairs": 2,
+      "streets": {
+        "preflop": 942,
+        "flop": 114,
+        "turn": 106,
+        "river": 90
+      },
+      "player_counts": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "runs": [
+        {
+          "seed": 42,
+          "repeat": 0,
+          "split": "tuning",
+          "opponent_seed": 43,
+          "personality_seed": 44,
+          "hands": 61,
+          "actions": 288,
+          "outcome_sha256": "50badb66549c9e1fe3ff42ef49e6c5ba5604572ec7a157627ffc1cee73fc5929",
+          "chip_total": 3000,
+          "chip_conservation": true
+        },
+        {
+          "seed": 42,
+          "repeat": 1,
+          "split": "tuning",
+          "opponent_seed": 43,
+          "personality_seed": 44,
+          "hands": 61,
+          "actions": 288,
+          "outcome_sha256": "50badb66549c9e1fe3ff42ef49e6c5ba5604572ec7a157627ffc1cee73fc5929",
+          "chip_total": 3000,
+          "chip_conservation": true
+        },
+        {
+          "seed": 101,
+          "repeat": 0,
+          "split": "held_out",
+          "opponent_seed": 43,
+          "personality_seed": 44,
+          "hands": 74,
+          "actions": 338,
+          "outcome_sha256": "0ceff2ae3d4a08711553f7287381c2f35ccdacd7f0d338f7ade9a1583063461a",
+          "chip_total": 3000,
+          "chip_conservation": true
+        },
+        {
+          "seed": 101,
+          "repeat": 1,
+          "split": "held_out",
+          "opponent_seed": 43,
+          "personality_seed": 44,
+          "hands": 74,
+          "actions": 338,
+          "outcome_sha256": "0ceff2ae3d4a08711553f7287381c2f35ccdacd7f0d338f7ade9a1583063461a",
+          "chip_total": 3000,
+          "chip_conservation": true
+        }
+      ]
+    }
+  ]
+}

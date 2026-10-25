@@ -260,3 +260,13 @@ def test_rng_assignment_memory_and_information_boundaries(monkeypatch):
     assert seeds["opponent_seed"] == 43
     a, b = resolve_seeds({}), resolve_seeds({})
     assert a != b and a["opponent_seed"] != a["personality_seed"]
+
+
+def test_evaluation_missing_native_build_has_setup_guidance(tmp_path, monkeypatch):
+    monkeypatch.setenv("POKERTH_BINARY", str(tmp_path / "missing"))
+    result = run_tournament(
+        EvaluationConfig(opponents="pokerth"), POLICIES["heuristic"], 1, "standard"
+    )
+    assert result["status"] == "failed" and result["actions"] == 0
+    assert result["failure"]["code"] == "pokerth_setup_error"
+    assert "build_pokerth.py" in result["failure"]["message"]

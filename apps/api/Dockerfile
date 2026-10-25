@@ -7,6 +7,7 @@ COPY scripts/build_pokerth.py ./scripts/build_pokerth.py
 RUN python3 scripts/build_pokerth.py
 
 FROM python:3.11-slim
+RUN apt-get update && apt-get install -y --no-install-recommends libstdc++6 && rm -rf /var/lib/apt/lists/*
 COPY --from=ghcr.io/astral-sh/uv:0.12.10 /uv /usr/local/bin/uv
 WORKDIR /app
 COPY apps/api/pyproject.toml apps/api/uv.lock ./
