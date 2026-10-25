@@ -17,6 +17,7 @@ from sqlalchemy import (
     create_engine,
     delete,
     select,
+    func,
     text,
     update,
 )
@@ -272,10 +273,16 @@ class Store:
                 )
             ).scalar_one_or_none()
 
-    def list_traces(self, table_id, hand=None, limit=50, cursor=None):
+    def list_traces(self, table_id, hand=None, limit=50, cursor=None, player=None):
         query = select(traces).where(traces.c.table_id == table_id)
         if hand is not None:
             query = query.where(traces.c.hand == hand)
+        if player is not None:
+            query = query.where(
+                func.coalesce(traces.c.record["metadata"]["player"].as_integer(), 0)
+                == player
+            )
+        scope = [table_id, hand] if player is None else [table_id, hand, player]
         if cursor:
             try:
                 value = json.loads(
@@ -283,13 +290,13 @@ class Store:
                 )
                 if (
                     not isinstance(value, list)
-                    or len(value) != 3
-                    or value[:2] != [table_id, hand]
-                    or type(value[2]) is not int
-                    or not 1 <= value[2] <= 2**63 - 1
+                    or len(value) != len(scope) + 1
+                    or value[:-1] != scope
+                    or type(value[-1]) is not int
+                    or not 1 <= value[-1] <= 2**63 - 1
                 ):
                     raise ValueError
-                query = query.where(traces.c.sequence < value[2])
+                query = query.where(traces.c.sequence < value[-1])
             except (ValueError, UnicodeError, TypeError):
                 raise ValueError("Invalid trace cursor") from None
         with self.engine.connect() as c:
@@ -301,7 +308,7 @@ class Store:
         next_cursor = None
         if len(rows) > limit:
             next_cursor = base64.urlsafe_b64encode(
-                json.dumps([table_id, hand, rows[limit - 1]["sequence"]]).encode()
+                json.dumps([*scope, rows[limit - 1]["sequence"]]).encode()
             ).decode()
         return {
             "items": [r["record"] for r in rows[:limit]],

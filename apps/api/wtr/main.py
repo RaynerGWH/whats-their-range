@@ -18,7 +18,8 @@ from fastapi import (
 )
 from fastapi.middleware.cors import CORSMiddleware
 
-from .models import Control, TournamentConfig
+from .models import Control, HeroAction, LLMLimits, TournamentConfig
+from .presets import neutral_table
 from .store import Store
 from .workers import TableManager
 
@@ -89,6 +90,14 @@ def config():
         if app.state.store.engine.dialect.name == "postgresql"
         else "sqlite",
         "max_tables": 2,
+        "capabilities": {
+            "llm_tables": True,
+            "public_chat": True,
+            "per_seat_traces": True,
+            "manual_hero": True,
+        },
+        "llm_limits": LLMLimits().model_dump(),
+        "llm_preset": neutral_table(os.getenv("OPENROUTER_MODEL", "")),
         "agent_call_limit": int(os.getenv("AGENT_MAX_CALLS", "100")),
     }
 
@@ -100,7 +109,7 @@ def tables():
 
 @app.post("/api/tables", dependencies=[Depends(authorized)], status_code=201)
 async def create_table(config: TournamentConfig):
-    if config.mode == "openrouter":
+    if config.mode == "openrouter" and config.opponents != "llm":
         if not os.getenv("OPENROUTER_API_KEY"):
             raise HTTPException(
                 400, "Set OPENROUTER_API_KEY in the backend .env first."
@@ -121,10 +130,36 @@ async def create_table(config: TournamentConfig):
 )
 async def control(table_id: str, command: Control):
     try:
-        app.state.manager.control(table_id, command.model_dump())
+        operation = (
+            app.state.manager.request
+            if command.action == "set_hero_control"
+            else app.state.manager.control
+        )
+        await asyncio.to_thread(operation, table_id, command.model_dump())
     except ValueError as e:
         raise HTTPException(409, str(e)) from None
     return {"accepted": True, "note": "Applied at the next action boundary."}
+
+
+@app.post(
+    "/api/tables/{table_id}/hero-action",
+    dependencies=[Depends(authorized)],
+    status_code=202,
+)
+async def hero_action(table_id: str, command: HeroAction):
+    try:
+        await asyncio.to_thread(
+            app.state.manager.request,
+            table_id,
+            {
+                **command.model_dump(exclude={"action"}),
+                "action": "hero_action",
+                "key": command.action,
+            },
+        )
+    except ValueError as exc:
+        raise HTTPException(409, str(exc)) from None
+    return {"accepted": True}
 
 
 @app.get("/api/tables/{table_id}/history", dependencies=[Depends(authorized)])
@@ -185,11 +220,12 @@ def traces(
     hand: int | None = Query(default=None, ge=1),
     limit: int = Query(default=50, ge=1, le=200),
     cursor: str | None = Query(default=None, max_length=512),
+    player: int | None = Query(default=None, ge=0, le=5),
 ):
     if not app.state.store.has_table(table_id):
         raise HTTPException(404, "Table not found")
     try:
-        return app.state.store.list_traces(table_id, hand, limit, cursor)
+        return app.state.store.list_traces(table_id, hand, limit, cursor, player)
     except ValueError:
         raise HTTPException(400, "Invalid trace cursor") from None
 

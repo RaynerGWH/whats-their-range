@@ -1,0 +1,288 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "LLMLimits": {
+      "additionalProperties": false,
+      "properties": {
+        "max_calls_per_player": {
+          "default": 100,
+          "maximum": 1000,
+          "minimum": 0,
+          "title": "Max Calls Per Player",
+          "type": "integer"
+        },
+        "max_calls_total": {
+          "default": 400,
+          "maximum": 6000,
+          "minimum": 0,
+          "title": "Max Calls Total",
+          "type": "integer"
+        },
+        "max_output_tokens": {
+          "default": 600,
+          "maximum": 2000,
+          "minimum": 64,
+          "title": "Max Output Tokens",
+          "type": "integer"
+        },
+        "max_output_tokens_per_player": {
+          "default": 60000,
+          "maximum": 2000000,
+          "minimum": 0,
+          "title": "Max Output Tokens Per Player",
+          "type": "integer"
+        },
+        "max_output_tokens_total": {
+          "default": 240000,
+          "maximum": 12000000,
+          "minimum": 0,
+          "title": "Max Output Tokens Total",
+          "type": "integer"
+        },
+        "deadline_seconds": {
+          "default": 10,
+          "maximum": 30,
+          "minimum": 0.05,
+          "title": "Deadline Seconds",
+          "type": "number"
+        },
+        "max_input_chars": {
+          "default": 24000,
+          "maximum": 64000,
+          "minimum": 2000,
+          "title": "Max Input Chars",
+          "type": "integer"
+        },
+        "max_message_chars": {
+          "default": 240,
+          "maximum": 500,
+          "minimum": 1,
+          "title": "Max Message Chars",
+          "type": "integer"
+        },
+        "chat_history_limit": {
+          "default": 40,
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Chat History Limit",
+          "type": "integer"
+        },
+        "memory_turns": {
+          "default": 8,
+          "maximum": 30,
+          "minimum": 0,
+          "title": "Memory Turns",
+          "type": "integer"
+        }
+      },
+      "title": "LLMLimits",
+      "type": "object"
+    },
+    "SeatConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "seat": {
+          "maximum": 5,
+          "minimum": 0,
+          "title": "Seat",
+          "type": "integer"
+        },
+        "name": {
+          "default": "",
+          "maxLength": 40,
+          "pattern": "^[^\\x00-\\x1f]*$",
+          "title": "Name",
+          "type": "string"
+        },
+        "model": {
+          "default": "",
+          "maxLength": 150,
+          "pattern": "^[A-Za-z0-9/_.:\\-]*$",
+          "title": "Model",
+          "type": "string"
+        },
+        "instruction_profile": {
+          "const": "free_play",
+          "default": "free_play",
+          "title": "Instruction Profile",
+          "type": "string"
+        },
+        "harness": {
+          "const": "baseline",
+          "default": "baseline",
+          "title": "Harness",
+          "type": "string"
+        },
+        "chat_enabled": {
+          "default": true,
+          "title": "Chat Enabled",
+          "type": "boolean"
+        },
+        "temperature": {
+          "default": 1.0,
+          "maximum": 2,
+          "minimum": 0,
+          "title": "Temperature",
+          "type": "number"
+        }
+      },
+      "required": [
+        "seat"
+      ],
+      "title": "SeatConfig",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "name": {
+      "default": "The opening table",
+      "maxLength": 50,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "seed": {
+      "default": 42,
+      "maximum": 2147483647,
+      "minimum": 0,
+      "title": "Seed",
+      "type": "integer"
+    },
+    "stack_bb": {
+      "default": 50,
+      "maximum": 200,
+      "minimum": 10,
+      "title": "Stack Bb",
+      "type": "integer"
+    },
+    "hands_per_level": {
+      "default": 8,
+      "maximum": 100,
+      "minimum": 2,
+      "title": "Hands Per Level",
+      "type": "integer"
+    },
+    "payouts": {
+      "default": "70/30",
+      "enum": [
+        "70/30",
+        "winner-take-all"
+      ],
+      "title": "Payouts",
+      "type": "string"
+    },
+    "mode": {
+      "default": "heuristic",
+      "enum": [
+        "heuristic",
+        "openrouter"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "opponents": {
+      "default": "legacy",
+      "enum": [
+        "legacy",
+        "pokerth",
+        "llm"
+      ],
+      "title": "Opponents",
+      "type": "string"
+    },
+    "player_count": {
+      "default": 6,
+      "enum": [
+        4,
+        6
+      ],
+      "title": "Player Count",
+      "type": "integer"
+    },
+    "hero_seat": {
+      "default": 0,
+      "maximum": 5,
+      "minimum": 0,
+      "title": "Hero Seat",
+      "type": "integer"
+    },
+    "hero_control": {
+      "default": "llm",
+      "enum": [
+        "human",
+        "llm"
+      ],
+      "title": "Hero Control",
+      "type": "string"
+    },
+    "seat_configs": {
+      "items": {
+        "$ref": "#/$defs/SeatConfig"
+      },
+      "maxItems": 6,
+      "title": "Seat Configs",
+      "type": "array"
+    },
+    "llm_limits": {
+      "$ref": "#/$defs/LLMLimits"
+    },
+    "opponent_seed": {
+      "anyOf": [
+        {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Opponent Seed"
+    },
+    "personality_seed": {
+      "anyOf": [
+        {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Personality Seed"
+    },
+    "hero_seed": {
+      "anyOf": [
+        {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Hero Seed"
+    },
+    "model": {
+      "default": "",
+      "maxLength": 150,
+      "pattern": "^[A-Za-z0-9/_.:\\-]*$",
+      "title": "Model",
+      "type": "string"
+    },
+    "pace": {
+      "default": 1.2,
+      "maximum": 5,
+      "minimum": 0.05,
+      "title": "Pace",
+      "type": "number"
+    }
+  },
+  "title": "TournamentConfig",
+  "type": "object"
+}

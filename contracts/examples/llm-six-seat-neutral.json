@@ -1,0 +1,85 @@
+{
+  "name": "LLM table",
+  "seed": 42,
+  "stack_bb": 50,
+  "hands_per_level": 8,
+  "payouts": "70/30",
+  "mode": "heuristic",
+  "opponents": "llm",
+  "player_count": 6,
+  "hero_seat": 0,
+  "hero_control": "human",
+  "seat_configs": [
+    {
+      "seat": 0,
+      "name": "Player 1",
+      "model": "",
+      "instruction_profile": "free_play",
+      "harness": "baseline",
+      "chat_enabled": true,
+      "temperature": 1.0
+    },
+    {
+      "seat": 1,
+      "name": "Player 2",
+      "model": "",
+      "instruction_profile": "free_play",
+      "harness": "baseline",
+      "chat_enabled": true,
+      "temperature": 1.0
+    },
+    {
+      "seat": 2,
+      "name": "Player 3",
+      "model": "",
+      "instruction_profile": "free_play",
+      "harness": "baseline",
+      "chat_enabled": true,
+      "temperature": 1.0
+    },
+    {
+      "seat": 3,
+      "name": "Player 4",
+      "model": "",
+      "instruction_profile": "free_play",
+      "harness": "baseline",
+      "chat_enabled": true,
+      "temperature": 1.0
+    },
+    {
+      "seat": 4,
+      "name": "Player 5",
+      "model": "",
+      "instruction_profile": "free_play",
+      "harness": "baseline",
+      "chat_enabled": true,
+      "temperature": 1.0
+    },
+    {
+      "seat": 5,
+      "name": "Player 6",
+      "model": "",
+      "instruction_profile": "free_play",
+      "harness": "baseline",
+      "chat_enabled": true,
+      "temperature": 1.0
+    }
+  ],
+  "llm_limits": {
+    "max_calls_per_player": 100,
+    "max_calls_total": 400,
+    "max_output_tokens": 600,
+    "max_output_tokens_per_player": 60000,
+    "max_output_tokens_total": 240000,
+    "deadline_seconds": 10,
+    "max_input_chars": 24000,
+    "max_message_chars": 240,
+    "chat_history_limit": 40,
+    "memory_turns": 8
+  },
+  "opponent_seed": null,
+  "personality_seed": null,
+  "hero_seed": null,
+  "model": "",
+  "pace": 1.2
+}
