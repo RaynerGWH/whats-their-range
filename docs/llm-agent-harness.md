@@ -8,9 +8,9 @@ The primary use case is to create an agent harness that lets Rayner's LLM poker 
 
 The poker table provides the evaluation environment. Players choose legal actions and can make public claims, bluff, react and stay silent. Table talk is an additional source of uncertain evidence and a possible strategic action. The UI and traces expose the experiment. Improvement must be measured; adding tools or persuasive explanations does not itself establish better play.
 
-The recommended first scope from the discussion is four players: the hero and three LLM opponents. Keep PokerKit authoritative. Preserve `baseline/stage-2a` and its PokerTH mode as a runnable comparison. Four starting players, LLM opponents, shared chat and per-player trace selection all require implementation; the existing configuration still starts six players and offers legacy or PokerTH opponents.
+The first implementation scope is four players: the hero and three LLM opponents, with six-player compatibility. Keep PokerKit authoritative. Preserve `baseline/stage-2a` and its PokerTH mode as a runnable comparison. Four starting players, LLM opponents, shared chat and per-player trace selection all require implementation; the existing configuration still starts six players and offers legacy or PokerTH opponents.
 
-The supplied UI reference informs a compact dark dashboard with four areas: table, public conversation, selected-player decision/tool records, and action history/standings. Player colours should remain consistent across panels. Display recorded values and concise decision summaries, without inventing confidence scores or probabilities.
+The supplied UI reference informs a compact terminal/pixel-inspired dashboard with four areas: table, public conversation, selected-player decision/tool records, and action history/standings. Rayner requires equally usable dark and light themes. Player colours should remain consistent across panels. Display recorded values and concise decision summaries, without inventing confidence scores or probabilities.
 
 ## Playing harness
 
@@ -32,7 +32,9 @@ The same observation and public chat cutoff are frozen for one decision. The wor
 
 ## Opponents and table talk
 
-Start the comparison with the same underlying model across seats and fixed, competent baseline opponent prompts. Each opponent has its own private context and memory, with stable playing and conversational tendencies. The hero's extra capability comes from its processing, evidence tools and strategy harness; it receives no privileged engine information. Multiple model families can be compared later without confusing model strength with harness improvements.
+Use OpenRouter with independently configurable models, instruction profiles, chat access and harness per seat. Each opponent has its own private context and memory. Rayner requested a free-play condition with the task, objective, rules and optional chat but no strategy advice, and a bluff-directed condition that encourages strategic bluffing without forcing actions. Version these prompts. The profile is private to its owner; other players must infer tendencies from public behavior.
+
+Same-model controls isolate instruction and harness effects. Model-swap comparisons hold prompts and harnesses constant, while mixed tables provide broader competition. The hero's extra capability eventually comes from its processing, evidence tools and strategy harness; it receives no privileged engine information. The initial environment can run the hero through the same baseline interface before that richer harness is available.
 
 The initial communication proposal is one optional short message attached to a poker action, followed by any explicitly bounded reply window. Publish a stable sequence of messages before the next decision. Silence is valid. Continuous, unbounded conversations are outside the first slice.
 
@@ -63,4 +65,4 @@ For chat influence, repeat decisions at matched frozen hand states with chat vis
 
 The existing 128 API tests and 16 frontend tests cover the Stage 2A baseline, not these new capabilities. New acceptance evidence must include private-context separation, chat ordering, action versions, malformed model output, budget exhaustion, four-player completion, six-player regression coverage and observable per-seat records.
 
-Provider/model choice, total live-run spend, initial solver access and exact tool/chat contracts remain unresolved. The same-model setup and four-player default are implementation proposals from the current discussion. No paid calls, new workstream assignment or runtime implementation is implied by this document.
+OpenRouter is selected. Exact models, total live-run spend, initial solver access and the richer tool contracts remain unresolved. The first player/chat interface is specified in [LLM table v1](../contracts/llm-table-v1.md). Rayner assigned [backend players and benchmark setup](tasks/backend-llm-table.md) and [frontend terminal UI](tasks/frontend-terminal-ui.md) concurrently. These assignments do not establish runtime completion or authorize paid calls. The fuller hero harness and solver are a subsequent slice.

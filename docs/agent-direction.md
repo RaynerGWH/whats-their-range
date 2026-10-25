@@ -6,7 +6,7 @@ The [shared project context](project-context.md) holds the current accepted deci
 
 The intended release is a noncommercial research demo shared on GitHub and LinkedIn, with reproducible setup, inspectable decisions and clearly stated limitations.
 
-Rayner's subsequent pivot makes the next environment an all-LLM table with public conversation, while the hero remains the main strategy-development target. The recommended starting scope is the hero plus three LLM opponents. The [playing and evaluation harness plan](llm-agent-harness.md) records this direction, proposed implementation slices and unresolved provider/budget choices. The tagged six-player PokerTH baseline remains available.
+Rayner's subsequent pivot makes the next environment an all-LLM table with public conversation, while the hero remains the main strategy-development target. The first implementation targets the hero plus three LLM opponents, preserving six-player compatibility. OpenRouter model, private instruction profile, chat access and harness are independently configurable per seat. Initial profiles provide free play with no strategy advice or encourage strategic bluffing. The [playing and evaluation harness plan](llm-agent-harness.md) and [shared interface](../contracts/llm-table-v1.md) record the assigned environment/UI slices and unresolved live-run budgets. The tagged six-player PokerTH baseline remains available.
 
 ## Decision authority
 
