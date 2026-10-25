@@ -20,6 +20,10 @@ Before starting or resuming project work, read [shared context access](docs/shar
 
 Before starting or resuming project work, read [shared context access](docs/shared-context.md). It points every local worktree to the same live project brief, decision log and agent direction. That brief separates agreed goals, proposed work and verified implementation. The sections below describe the runnable skeleton.
 
+## Project direction
+
+Before starting or resuming project work, read [shared context access](docs/shared-context.md). It points every local worktree to the same live project brief, decision log and agent direction. That brief separates agreed goals, proposed work and verified implementation. The sections below describe the runnable skeleton.
+
 ## Run locally
 
 Requires Node 22+, Python 3.11+ and a C++20 compiler (Clang or GCC). Use `uv` for the Python environment.
