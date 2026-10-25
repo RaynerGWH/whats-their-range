@@ -1,0 +1,2127 @@
+{
+  "mocked": true,
+  "source_sha256": "f32a915169532ba57095e97238c46fa3b990ff95348e3708927067ec1cafcc8f",
+  "purpose": "Engineering evidence only; no inference about model strength or chat effects",
+  "game": {
+    "run": 0,
+    "split": "development",
+    "seed_set": {
+      "split": "development",
+      "deck": 7,
+      "policy": 42
+    },
+    "preset": "same_model",
+    "rotation": 0,
+    "config": {
+      "name": "The opening table",
+      "seed": 7,
+      "stack_bb": 10,
+      "hands_per_level": 2,
+      "payouts": "70/30",
+      "mode": "heuristic",
+      "opponents": "llm",
+      "player_count": 6,
+      "hero_seat": 0,
+      "hero_control": "llm",
+      "seat_configs": [
+        {
+          "seat": 0,
+          "name": "Player 1",
+          "model": "mock/control",
+          "instruction_profile": "free_play",
+          "harness": "baseline",
+          "chat_enabled": true,
+          "temperature": 1.0
+        },
+        {
+          "seat": 1,
+          "name": "Player 2",
+          "model": "mock/control",
+          "instruction_profile": "free_play",
+          "harness": "baseline",
+          "chat_enabled": true,
+          "temperature": 1.0
+        },
+        {
+          "seat": 2,
+          "name": "Player 3",
+          "model": "mock/control",
+          "instruction_profile": "free_play",
+          "harness": "baseline",
+          "chat_enabled": true,
+          "temperature": 1.0
+        },
+        {
+          "seat": 3,
+          "name": "Player 4",
+          "model": "mock/control",
+          "instruction_profile": "free_play",
+          "harness": "baseline",
+          "chat_enabled": true,
+          "temperature": 1.0
+        },
+        {
+          "seat": 4,
+          "name": "Player 5",
+          "model": "mock/control",
+          "instruction_profile": "free_play",
+          "harness": "baseline",
+          "chat_enabled": true,
+          "temperature": 1.0
+        },
+        {
+          "seat": 5,
+          "name": "Player 6",
+          "model": "mock/control",
+          "instruction_profile": "free_play",
+          "harness": "baseline",
+          "chat_enabled": true,
+          "temperature": 1.0
+        }
+      ],
+      "llm_limits": {
+        "max_calls_per_player": 100,
+        "max_calls_total": 400,
+        "max_output_tokens": 600,
+        "max_output_tokens_per_player": 60000,
+        "max_output_tokens_total": 240000,
+        "deadline_seconds": 10.0,
+        "max_input_chars": 24000,
+        "max_message_chars": 240,
+        "chat_history_limit": 40,
+        "memory_turns": 8
+      },
+      "opponent_seed": 42,
+      "personality_seed": 42,
+      "hero_seed": 42,
+      "model": "mock/control",
+      "pace": 1.2
+    },
+    "stopping": {
+      "max_hands": 100,
+      "max_actions": 1000,
+      "timeout_seconds": 30.0
+    },
+    "player_versions": [
+      {
+        "seat": 0,
+        "prompt_version": "free_play-v1",
+        "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+        "harness_version": "baseline-v1"
+      },
+      {
+        "seat": 1,
+        "prompt_version": "free_play-v1",
+        "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+        "harness_version": "baseline-v1"
+      },
+      {
+        "seat": 2,
+        "prompt_version": "free_play-v1",
+        "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+        "harness_version": "baseline-v1"
+      },
+      {
+        "seat": 3,
+        "prompt_version": "free_play-v1",
+        "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+        "harness_version": "baseline-v1"
+      },
+      {
+        "seat": 4,
+        "prompt_version": "free_play-v1",
+        "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+        "harness_version": "baseline-v1"
+      },
+      {
+        "seat": 5,
+        "prompt_version": "free_play-v1",
+        "prompt_sha256": "337485a94a7f3a656efcae5314da1e6f1337e3d71a3c4a5a4761cac021a2f522",
+        "harness_version": "baseline-v1"
+      }
+    ],
+    "status": "completed",
+    "completed": true,
+    "actions": 72,
+    "hands": 6,
+    "outcomes": [
+      {
+        "seat": 0,
+        "place": 3,
+        "prize": 0.0,
+        "stack": 0
+      },
+      {
+        "seat": 1,
+        "place": 4,
+        "prize": 0.0,
+        "stack": 0
+      },
+      {
+        "seat": 2,
+        "place": 2,
+        "prize": 30.0,
+        "stack": 0
+      },
+      {
+        "seat": 3,
+        "place": 4,
+        "prize": 0.0,
+        "stack": 0
+      },
+      {
+        "seat": 4,
+        "place": 1,
+        "prize": 70,
+        "stack": 600
+      },
+      {
+        "seat": 5,
+        "place": 4,
+        "prize": 0.0,
+        "stack": 0
+      }
+    ],
+    "provisional_outcomes": [
+      {
+        "seat": 0,
+        "place": 3,
+        "prize": 0.0,
+        "stack": 0
+      },
+      {
+        "seat": 1,
+        "place": 4,
+        "prize": 0.0,
+        "stack": 0
+      },
+      {
+        "seat": 2,
+        "place": 2,
+        "prize": 30.0,
+        "stack": 0
+      },
+      {
+        "seat": 3,
+        "place": 4,
+        "prize": 0.0,
+        "stack": 0
+      },
+      {
+        "seat": 4,
+        "place": 1,
+        "prize": 70,
+        "stack": 600
+      },
+      {
+        "seat": 5,
+        "place": 4,
+        "prize": 0.0,
+        "stack": 0
+      }
+    ],
+    "accepted_actions": [
+      {
+        "player": 2,
+        "state_version": 1,
+        "action": "call",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 0,
+        "hand": 1,
+        "legal_keys": [
+          "fold",
+          "call",
+          "raise:20",
+          "raise:22",
+          "raise:35",
+          "raise:100"
+        ]
+      },
+      {
+        "player": 3,
+        "state_version": 2,
+        "action": "call",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 1,
+        "hand": 1,
+        "legal_keys": [
+          "fold",
+          "call",
+          "raise:20",
+          "raise:28",
+          "raise:45",
+          "raise:100"
+        ]
+      },
+      {
+        "player": 4,
+        "state_version": 3,
+        "action": "call",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 2,
+        "hand": 1,
+        "legal_keys": [
+          "fold",
+          "call",
+          "raise:20",
+          "raise:32",
+          "raise:55",
+          "raise:100"
+        ]
+      },
+      {
+        "player": 5,
+        "state_version": 4,
+        "action": "call",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 3,
+        "hand": 1,
+        "legal_keys": [
+          "fold",
+          "call",
+          "raise:20",
+          "raise:38",
+          "raise:65",
+          "raise:100"
+        ]
+      },
+      {
+        "player": 0,
+        "state_version": 5,
+        "action": "call",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 4,
+        "hand": 1,
+        "legal_keys": [
+          "fold",
+          "call",
+          "raise:20",
+          "raise:40",
+          "raise:70",
+          "raise:100"
+        ]
+      },
+      {
+        "player": 1,
+        "state_version": 6,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 5,
+        "hand": 1,
+        "legal_keys": [
+          "check",
+          "raise:20",
+          "raise:40",
+          "raise:70",
+          "raise:100"
+        ]
+      },
+      {
+        "player": 0,
+        "state_version": 7,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 6,
+        "hand": 1,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:90"
+        ]
+      },
+      {
+        "player": 1,
+        "state_version": 8,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 7,
+        "hand": 1,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:90"
+        ]
+      },
+      {
+        "player": 2,
+        "state_version": 9,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 8,
+        "hand": 1,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:90"
+        ]
+      },
+      {
+        "player": 3,
+        "state_version": 10,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 9,
+        "hand": 1,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:90"
+        ]
+      },
+      {
+        "player": 4,
+        "state_version": 11,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 10,
+        "hand": 1,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:90"
+        ]
+      },
+      {
+        "player": 5,
+        "state_version": 12,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 11,
+        "hand": 1,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:90"
+        ]
+      },
+      {
+        "player": 0,
+        "state_version": 13,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 12,
+        "hand": 1,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:90"
+        ]
+      },
+      {
+        "player": 1,
+        "state_version": 14,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 13,
+        "hand": 1,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:90"
+        ]
+      },
+      {
+        "player": 2,
+        "state_version": 15,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 14,
+        "hand": 1,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:90"
+        ]
+      },
+      {
+        "player": 3,
+        "state_version": 16,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 15,
+        "hand": 1,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:90"
+        ]
+      },
+      {
+        "player": 4,
+        "state_version": 17,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 16,
+        "hand": 1,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:90"
+        ]
+      },
+      {
+        "player": 5,
+        "state_version": 18,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 17,
+        "hand": 1,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:90"
+        ]
+      },
+      {
+        "player": 0,
+        "state_version": 19,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 18,
+        "hand": 1,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:90"
+        ]
+      },
+      {
+        "player": 1,
+        "state_version": 20,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 19,
+        "hand": 1,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:90"
+        ]
+      },
+      {
+        "player": 2,
+        "state_version": 21,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 20,
+        "hand": 1,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:90"
+        ]
+      },
+      {
+        "player": 3,
+        "state_version": 22,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 21,
+        "hand": 1,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:90"
+        ]
+      },
+      {
+        "player": 4,
+        "state_version": 23,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 22,
+        "hand": 1,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:90"
+        ]
+      },
+      {
+        "player": 5,
+        "state_version": 24,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 23,
+        "hand": 1,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:90"
+        ]
+      },
+      {
+        "player": 3,
+        "state_version": 26,
+        "action": "call",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 24,
+        "hand": 2,
+        "legal_keys": [
+          "fold",
+          "call",
+          "raise:20",
+          "raise:22",
+          "raise:35",
+          "raise:90"
+        ]
+      },
+      {
+        "player": 4,
+        "state_version": 27,
+        "action": "call",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 25,
+        "hand": 2,
+        "legal_keys": [
+          "fold",
+          "call",
+          "raise:20",
+          "raise:28",
+          "raise:45",
+          "raise:90"
+        ]
+      },
+      {
+        "player": 5,
+        "state_version": 28,
+        "action": "call",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 26,
+        "hand": 2,
+        "legal_keys": [
+          "fold",
+          "call",
+          "raise:20",
+          "raise:32",
+          "raise:55",
+          "raise:90"
+        ]
+      },
+      {
+        "player": 0,
+        "state_version": 29,
+        "action": "call",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 27,
+        "hand": 2,
+        "legal_keys": [
+          "fold",
+          "call",
+          "raise:20",
+          "raise:38",
+          "raise:65",
+          "raise:90"
+        ]
+      },
+      {
+        "player": 1,
+        "state_version": 30,
+        "action": "call",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 28,
+        "hand": 2,
+        "legal_keys": [
+          "fold",
+          "call",
+          "raise:20",
+          "raise:40",
+          "raise:70",
+          "raise:90"
+        ]
+      },
+      {
+        "player": 2,
+        "state_version": 31,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 29,
+        "hand": 2,
+        "legal_keys": [
+          "check",
+          "raise:20",
+          "raise:40",
+          "raise:70",
+          "raise:150"
+        ]
+      },
+      {
+        "player": 1,
+        "state_version": 32,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 30,
+        "hand": 2,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:80"
+        ]
+      },
+      {
+        "player": 2,
+        "state_version": 33,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 31,
+        "hand": 2,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:140"
+        ]
+      },
+      {
+        "player": 3,
+        "state_version": 34,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 32,
+        "hand": 2,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:80"
+        ]
+      },
+      {
+        "player": 4,
+        "state_version": 35,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 33,
+        "hand": 2,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:80"
+        ]
+      },
+      {
+        "player": 5,
+        "state_version": 36,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 34,
+        "hand": 2,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:80"
+        ]
+      },
+      {
+        "player": 0,
+        "state_version": 37,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 35,
+        "hand": 2,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:80"
+        ]
+      },
+      {
+        "player": 1,
+        "state_version": 38,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 36,
+        "hand": 2,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:80"
+        ]
+      },
+      {
+        "player": 2,
+        "state_version": 39,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 37,
+        "hand": 2,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:140"
+        ]
+      },
+      {
+        "player": 3,
+        "state_version": 40,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 38,
+        "hand": 2,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:80"
+        ]
+      },
+      {
+        "player": 4,
+        "state_version": 41,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 39,
+        "hand": 2,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:80"
+        ]
+      },
+      {
+        "player": 5,
+        "state_version": 42,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 40,
+        "hand": 2,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:80"
+        ]
+      },
+      {
+        "player": 0,
+        "state_version": 43,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 41,
+        "hand": 2,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:80"
+        ]
+      },
+      {
+        "player": 1,
+        "state_version": 44,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 42,
+        "hand": 2,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:80"
+        ]
+      },
+      {
+        "player": 2,
+        "state_version": 45,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 43,
+        "hand": 2,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:140"
+        ]
+      },
+      {
+        "player": 3,
+        "state_version": 46,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 44,
+        "hand": 2,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:80"
+        ]
+      },
+      {
+        "player": 4,
+        "state_version": 47,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 45,
+        "hand": 2,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:80"
+        ]
+      },
+      {
+        "player": 5,
+        "state_version": 48,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 46,
+        "hand": 2,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:80"
+        ]
+      },
+      {
+        "player": 0,
+        "state_version": 49,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 47,
+        "hand": 2,
+        "legal_keys": [
+          "check",
+          "raise:10",
+          "raise:30",
+          "raise:60",
+          "raise:80"
+        ]
+      },
+      {
+        "player": 4,
+        "state_version": 51,
+        "action": "raise:80",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 48,
+        "hand": 3,
+        "legal_keys": [
+          "fold",
+          "call",
+          "raise:30",
+          "raise:33",
+          "raise:52",
+          "raise:80"
+        ]
+      },
+      {
+        "player": 5,
+        "state_version": 52,
+        "action": "call",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 49,
+        "hand": 3,
+        "legal_keys": [
+          "fold",
+          "call"
+        ]
+      },
+      {
+        "player": 0,
+        "state_version": 53,
+        "action": "raise:140",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 50,
+        "hand": 3,
+        "legal_keys": [
+          "fold",
+          "call",
+          "raise:140"
+        ]
+      },
+      {
+        "player": 1,
+        "state_version": 54,
+        "action": "call",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 51,
+        "hand": 3,
+        "legal_keys": [
+          "fold",
+          "call"
+        ]
+      },
+      {
+        "player": 2,
+        "state_version": 55,
+        "action": "call",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 52,
+        "hand": 3,
+        "legal_keys": [
+          "fold",
+          "call"
+        ]
+      },
+      {
+        "player": 3,
+        "state_version": 56,
+        "action": "call",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 53,
+        "hand": 3,
+        "legal_keys": [
+          "fold",
+          "call"
+        ]
+      },
+      {
+        "player": 2,
+        "state_version": 58,
+        "action": "call",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 54,
+        "hand": 4,
+        "legal_keys": [
+          "fold",
+          "call",
+          "raise:30",
+          "raise:45",
+          "raise:120"
+        ]
+      },
+      {
+        "player": 4,
+        "state_version": 59,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 55,
+        "hand": 4,
+        "legal_keys": [
+          "check",
+          "raise:30",
+          "raise:45",
+          "raise:480"
+        ]
+      },
+      {
+        "player": 4,
+        "state_version": 60,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 56,
+        "hand": 4,
+        "legal_keys": [
+          "check",
+          "raise:15",
+          "raise:30",
+          "raise:465"
+        ]
+      },
+      {
+        "player": 2,
+        "state_version": 61,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 57,
+        "hand": 4,
+        "legal_keys": [
+          "check",
+          "raise:15",
+          "raise:30",
+          "raise:105"
+        ]
+      },
+      {
+        "player": 4,
+        "state_version": 62,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 58,
+        "hand": 4,
+        "legal_keys": [
+          "check",
+          "raise:15",
+          "raise:30",
+          "raise:465"
+        ]
+      },
+      {
+        "player": 2,
+        "state_version": 63,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 59,
+        "hand": 4,
+        "legal_keys": [
+          "check",
+          "raise:15",
+          "raise:30",
+          "raise:105"
+        ]
+      },
+      {
+        "player": 4,
+        "state_version": 64,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 60,
+        "hand": 4,
+        "legal_keys": [
+          "check",
+          "raise:15",
+          "raise:30",
+          "raise:465"
+        ]
+      },
+      {
+        "player": 2,
+        "state_version": 65,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 61,
+        "hand": 4,
+        "legal_keys": [
+          "check",
+          "raise:15",
+          "raise:30",
+          "raise:105"
+        ]
+      },
+      {
+        "player": 4,
+        "state_version": 67,
+        "action": "call",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 62,
+        "hand": 5,
+        "legal_keys": [
+          "fold",
+          "call",
+          "raise:44",
+          "raise:66",
+          "raise:465"
+        ]
+      },
+      {
+        "player": 2,
+        "state_version": 68,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 63,
+        "hand": 5,
+        "legal_keys": [
+          "check",
+          "raise:44",
+          "raise:66",
+          "raise:135"
+        ]
+      },
+      {
+        "player": 2,
+        "state_version": 69,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 64,
+        "hand": 5,
+        "legal_keys": [
+          "check",
+          "raise:22",
+          "raise:44",
+          "raise:113"
+        ]
+      },
+      {
+        "player": 4,
+        "state_version": 70,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 65,
+        "hand": 5,
+        "legal_keys": [
+          "check",
+          "raise:22",
+          "raise:44",
+          "raise:443"
+        ]
+      },
+      {
+        "player": 2,
+        "state_version": 71,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 66,
+        "hand": 5,
+        "legal_keys": [
+          "check",
+          "raise:22",
+          "raise:44",
+          "raise:113"
+        ]
+      },
+      {
+        "player": 4,
+        "state_version": 72,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 67,
+        "hand": 5,
+        "legal_keys": [
+          "check",
+          "raise:22",
+          "raise:44",
+          "raise:443"
+        ]
+      },
+      {
+        "player": 2,
+        "state_version": 73,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 68,
+        "hand": 5,
+        "legal_keys": [
+          "check",
+          "raise:22",
+          "raise:44",
+          "raise:113"
+        ]
+      },
+      {
+        "player": 4,
+        "state_version": 74,
+        "action": "check",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 69,
+        "hand": 5,
+        "legal_keys": [
+          "check",
+          "raise:22",
+          "raise:44",
+          "raise:443"
+        ]
+      },
+      {
+        "player": 2,
+        "state_version": 76,
+        "action": "raise:113",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 70,
+        "hand": 6,
+        "legal_keys": [
+          "fold",
+          "call",
+          "raise:44",
+          "raise:66",
+          "raise:113"
+        ]
+      },
+      {
+        "player": 4,
+        "state_version": 77,
+        "action": "call",
+        "source": "openrouter",
+        "fallback": null,
+        "chat_sequence": 71,
+        "hand": 6,
+        "legal_keys": [
+          "fold",
+          "call"
+        ]
+      }
+    ],
+    "chat": [
+      {
+        "id": "c1",
+        "sequence": 1,
+        "player": 2,
+        "hand": 1,
+        "state_version": 1,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c2",
+        "sequence": 2,
+        "player": 3,
+        "hand": 1,
+        "state_version": 2,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c3",
+        "sequence": 3,
+        "player": 4,
+        "hand": 1,
+        "state_version": 3,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c4",
+        "sequence": 4,
+        "player": 5,
+        "hand": 1,
+        "state_version": 4,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c5",
+        "sequence": 5,
+        "player": 0,
+        "hand": 1,
+        "state_version": 5,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c6",
+        "sequence": 6,
+        "player": 1,
+        "hand": 1,
+        "state_version": 6,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c7",
+        "sequence": 7,
+        "player": 0,
+        "hand": 1,
+        "state_version": 7,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c8",
+        "sequence": 8,
+        "player": 1,
+        "hand": 1,
+        "state_version": 8,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c9",
+        "sequence": 9,
+        "player": 2,
+        "hand": 1,
+        "state_version": 9,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c10",
+        "sequence": 10,
+        "player": 3,
+        "hand": 1,
+        "state_version": 10,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c11",
+        "sequence": 11,
+        "player": 4,
+        "hand": 1,
+        "state_version": 11,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c12",
+        "sequence": 12,
+        "player": 5,
+        "hand": 1,
+        "state_version": 12,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c13",
+        "sequence": 13,
+        "player": 0,
+        "hand": 1,
+        "state_version": 13,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c14",
+        "sequence": 14,
+        "player": 1,
+        "hand": 1,
+        "state_version": 14,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c15",
+        "sequence": 15,
+        "player": 2,
+        "hand": 1,
+        "state_version": 15,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c16",
+        "sequence": 16,
+        "player": 3,
+        "hand": 1,
+        "state_version": 16,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c17",
+        "sequence": 17,
+        "player": 4,
+        "hand": 1,
+        "state_version": 17,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c18",
+        "sequence": 18,
+        "player": 5,
+        "hand": 1,
+        "state_version": 18,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c19",
+        "sequence": 19,
+        "player": 0,
+        "hand": 1,
+        "state_version": 19,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c20",
+        "sequence": 20,
+        "player": 1,
+        "hand": 1,
+        "state_version": 20,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c21",
+        "sequence": 21,
+        "player": 2,
+        "hand": 1,
+        "state_version": 21,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c22",
+        "sequence": 22,
+        "player": 3,
+        "hand": 1,
+        "state_version": 22,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c23",
+        "sequence": 23,
+        "player": 4,
+        "hand": 1,
+        "state_version": 23,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c24",
+        "sequence": 24,
+        "player": 5,
+        "hand": 1,
+        "state_version": 24,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c25",
+        "sequence": 25,
+        "player": 3,
+        "hand": 2,
+        "state_version": 26,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c26",
+        "sequence": 26,
+        "player": 4,
+        "hand": 2,
+        "state_version": 27,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c27",
+        "sequence": 27,
+        "player": 5,
+        "hand": 2,
+        "state_version": 28,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c28",
+        "sequence": 28,
+        "player": 0,
+        "hand": 2,
+        "state_version": 29,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c29",
+        "sequence": 29,
+        "player": 1,
+        "hand": 2,
+        "state_version": 30,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c30",
+        "sequence": 30,
+        "player": 2,
+        "hand": 2,
+        "state_version": 31,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c31",
+        "sequence": 31,
+        "player": 1,
+        "hand": 2,
+        "state_version": 32,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c32",
+        "sequence": 32,
+        "player": 2,
+        "hand": 2,
+        "state_version": 33,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c33",
+        "sequence": 33,
+        "player": 3,
+        "hand": 2,
+        "state_version": 34,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c34",
+        "sequence": 34,
+        "player": 4,
+        "hand": 2,
+        "state_version": 35,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c35",
+        "sequence": 35,
+        "player": 5,
+        "hand": 2,
+        "state_version": 36,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c36",
+        "sequence": 36,
+        "player": 0,
+        "hand": 2,
+        "state_version": 37,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c37",
+        "sequence": 37,
+        "player": 1,
+        "hand": 2,
+        "state_version": 38,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c38",
+        "sequence": 38,
+        "player": 2,
+        "hand": 2,
+        "state_version": 39,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c39",
+        "sequence": 39,
+        "player": 3,
+        "hand": 2,
+        "state_version": 40,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c40",
+        "sequence": 40,
+        "player": 4,
+        "hand": 2,
+        "state_version": 41,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c41",
+        "sequence": 41,
+        "player": 5,
+        "hand": 2,
+        "state_version": 42,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c42",
+        "sequence": 42,
+        "player": 0,
+        "hand": 2,
+        "state_version": 43,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c43",
+        "sequence": 43,
+        "player": 1,
+        "hand": 2,
+        "state_version": 44,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c44",
+        "sequence": 44,
+        "player": 2,
+        "hand": 2,
+        "state_version": 45,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c45",
+        "sequence": 45,
+        "player": 3,
+        "hand": 2,
+        "state_version": 46,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c46",
+        "sequence": 46,
+        "player": 4,
+        "hand": 2,
+        "state_version": 47,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c47",
+        "sequence": 47,
+        "player": 5,
+        "hand": 2,
+        "state_version": 48,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c48",
+        "sequence": 48,
+        "player": 0,
+        "hand": 2,
+        "state_version": 49,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c49",
+        "sequence": 49,
+        "player": 4,
+        "hand": 3,
+        "state_version": 51,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c50",
+        "sequence": 50,
+        "player": 5,
+        "hand": 3,
+        "state_version": 52,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c51",
+        "sequence": 51,
+        "player": 0,
+        "hand": 3,
+        "state_version": 53,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c52",
+        "sequence": 52,
+        "player": 1,
+        "hand": 3,
+        "state_version": 54,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c53",
+        "sequence": 53,
+        "player": 2,
+        "hand": 3,
+        "state_version": 55,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c54",
+        "sequence": 54,
+        "player": 3,
+        "hand": 3,
+        "state_version": 56,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c55",
+        "sequence": 55,
+        "player": 2,
+        "hand": 4,
+        "state_version": 58,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c56",
+        "sequence": 56,
+        "player": 4,
+        "hand": 4,
+        "state_version": 59,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c57",
+        "sequence": 57,
+        "player": 4,
+        "hand": 4,
+        "state_version": 60,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c58",
+        "sequence": 58,
+        "player": 2,
+        "hand": 4,
+        "state_version": 61,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c59",
+        "sequence": 59,
+        "player": 4,
+        "hand": 4,
+        "state_version": 62,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c60",
+        "sequence": 60,
+        "player": 2,
+        "hand": 4,
+        "state_version": 63,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c61",
+        "sequence": 61,
+        "player": 4,
+        "hand": 4,
+        "state_version": 64,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c62",
+        "sequence": 62,
+        "player": 2,
+        "hand": 4,
+        "state_version": 65,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c63",
+        "sequence": 63,
+        "player": 4,
+        "hand": 5,
+        "state_version": 67,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c64",
+        "sequence": 64,
+        "player": 2,
+        "hand": 5,
+        "state_version": 68,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c65",
+        "sequence": 65,
+        "player": 2,
+        "hand": 5,
+        "state_version": 69,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c66",
+        "sequence": 66,
+        "player": 4,
+        "hand": 5,
+        "state_version": 70,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c67",
+        "sequence": 67,
+        "player": 2,
+        "hand": 5,
+        "state_version": 71,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c68",
+        "sequence": 68,
+        "player": 4,
+        "hand": 5,
+        "state_version": 72,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c69",
+        "sequence": 69,
+        "player": 2,
+        "hand": 5,
+        "state_version": 73,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c70",
+        "sequence": 70,
+        "player": 4,
+        "hand": 5,
+        "state_version": 74,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c71",
+        "sequence": 71,
+        "player": 2,
+        "hand": 6,
+        "state_version": 76,
+        "text": "Mock public claim."
+      },
+      {
+        "id": "c72",
+        "sequence": 72,
+        "player": 4,
+        "hand": 6,
+        "state_version": 77,
+        "text": "Mock public claim."
+      }
+    ],
+    "fallback_reasons": {},
+    "rejected_actions": 0,
+    "latency_ms": [
+      1.357,
+      1.297,
+      1.727,
+      1.746,
+      2.173,
+      2.471,
+      2.742,
+      3.006,
+      3.048,
+      3.355,
+      3.471,
+      3.657,
+      3.875,
+      4.178,
+      4.339,
+      4.616,
+      4.793,
+      4.822,
+      17.845,
+      5.431,
+      5.827,
+      5.903,
+      5.808,
+      6.116,
+      5.796,
+      5.768,
+      5.817,
+      5.926,
+      6.015,
+      6.084,
+      6.051,
+      6.125,
+      6.237,
+      6.327,
+      6.632,
+      6.842,
+      7.145,
+      7.281,
+      7.188,
+      7.586,
+      7.388,
+      7.634,
+      7.972,
+      7.881,
+      8.019,
+      8.403,
+      8.505,
+      8.705,
+      8.059,
+      7.966,
+      7.788,
+      7.78,
+      7.811,
+      7.545,
+      6.852,
+      6.687,
+      7.005,
+      7.049,
+      7.111,
+      7.077,
+      7.251,
+      7.331,
+      7.207,
+      7.131,
+      7.048,
+      7.162,
+      7.449,
+      7.433,
+      7.369,
+      7.358,
+      7.424,
+      7.391
+    ],
+    "duration_seconds": 0.6161,
+    "usage": {
+      "total": {
+        "attempts": 72,
+        "reserved_output_tokens": 43200,
+        "fallbacks": 0,
+        "budget_exhausted": false,
+        "input_tokens": 720,
+        "known_input_tokens": 720,
+        "missing_input_tokens_attempts": 0,
+        "output_tokens": 360,
+        "known_output_tokens": 360,
+        "missing_output_tokens_attempts": 0,
+        "cost_usd": 0.007200000000000001,
+        "known_cost_usd": 0.007200000000000001,
+        "missing_cost_usd_attempts": 0
+      },
+      "by_player": {
+        "0": {
+          "attempts": 9,
+          "reserved_output_tokens": 5400,
+          "fallbacks": 0,
+          "budget_exhausted": false,
+          "input_tokens": 90,
+          "known_input_tokens": 90,
+          "missing_input_tokens_attempts": 0,
+          "output_tokens": 45,
+          "known_output_tokens": 45,
+          "missing_output_tokens_attempts": 0,
+          "cost_usd": 0.0009000000000000001,
+          "known_cost_usd": 0.0009000000000000001,
+          "missing_cost_usd_attempts": 0
+        },
+        "1": {
+          "attempts": 9,
+          "reserved_output_tokens": 5400,
+          "fallbacks": 0,
+          "budget_exhausted": false,
+          "input_tokens": 90,
+          "known_input_tokens": 90,
+          "missing_input_tokens_attempts": 0,
+          "output_tokens": 45,
+          "known_output_tokens": 45,
+          "missing_output_tokens_attempts": 0,
+          "cost_usd": 0.0009000000000000001,
+          "known_cost_usd": 0.0009000000000000001,
+          "missing_cost_usd_attempts": 0
+        },
+        "2": {
+          "attempts": 18,
+          "reserved_output_tokens": 10800,
+          "fallbacks": 0,
+          "budget_exhausted": false,
+          "input_tokens": 180,
+          "known_input_tokens": 180,
+          "missing_input_tokens_attempts": 0,
+          "output_tokens": 90,
+          "known_output_tokens": 90,
+          "missing_output_tokens_attempts": 0,
+          "cost_usd": 0.0018000000000000002,
+          "known_cost_usd": 0.0018000000000000002,
+          "missing_cost_usd_attempts": 0
+        },
+        "3": {
+          "attempts": 9,
+          "reserved_output_tokens": 5400,
+          "fallbacks": 0,
+          "budget_exhausted": false,
+          "input_tokens": 90,
+          "known_input_tokens": 90,
+          "missing_input_tokens_attempts": 0,
+          "output_tokens": 45,
+          "known_output_tokens": 45,
+          "missing_output_tokens_attempts": 0,
+          "cost_usd": 0.0009000000000000001,
+          "known_cost_usd": 0.0009000000000000001,
+          "missing_cost_usd_attempts": 0
+        },
+        "4": {
+          "attempts": 18,
+          "reserved_output_tokens": 10800,
+          "fallbacks": 0,
+          "budget_exhausted": false,
+          "input_tokens": 180,
+          "known_input_tokens": 180,
+          "missing_input_tokens_attempts": 0,
+          "output_tokens": 90,
+          "known_output_tokens": 90,
+          "missing_output_tokens_attempts": 0,
+          "cost_usd": 0.0018000000000000002,
+          "known_cost_usd": 0.0018000000000000002,
+          "missing_cost_usd_attempts": 0
+        },
+        "5": {
+          "attempts": 9,
+          "reserved_output_tokens": 5400,
+          "fallbacks": 0,
+          "budget_exhausted": false,
+          "input_tokens": 90,
+          "known_input_tokens": 90,
+          "missing_input_tokens_attempts": 0,
+          "output_tokens": 45,
+          "known_output_tokens": 45,
+          "missing_output_tokens_attempts": 0,
+          "cost_usd": 0.0009000000000000001,
+          "known_cost_usd": 0.0009000000000000001,
+          "missing_cost_usd_attempts": 0
+        }
+      }
+    },
+    "usage_complete": true,
+    "error": null,
+    "chip_conservation": true,
+    "unsettled_pot": 0,
+    "outcome_sha256": "945be6d404f2ff9c06d9f1432f18a8a63f3a61b3679835ef0e1ba7fb6fd44ed5"
+  }
+}

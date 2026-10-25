@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "action": {
+      "enum": [
+        "resume",
+        "pause",
+        "step",
+        "stop",
+        "speed",
+        "set_hero_control"
+      ],
+      "title": "Action",
+      "type": "string"
+    },
+    "pace": {
+      "anyOf": [
+        {
+          "maximum": 5,
+          "minimum": 0.05,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Pace"
+    },
+    "hero_control": {
+      "anyOf": [
+        {
+          "enum": [
+            "human",
+            "llm"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Hero Control"
+    },
+    "state_version": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "State Version"
+    }
+  },
+  "required": [
+    "action"
+  ],
+  "title": "Control",
+  "type": "object"
+}

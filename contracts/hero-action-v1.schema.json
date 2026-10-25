@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "turn_token": {
+      "maxLength": 128,
+      "minLength": 16,
+      "title": "Turn Token",
+      "type": "string"
+    },
+    "state_version": {
+      "minimum": 0,
+      "title": "State Version",
+      "type": "integer"
+    },
+    "action": {
+      "maxLength": 40,
+      "minLength": 1,
+      "title": "Action",
+      "type": "string"
+    },
+    "public_message": {
+      "anyOf": [
+        {
+          "maxLength": 500,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Public Message"
+    }
+  },
+  "required": [
+    "turn_token",
+    "state_version",
+    "action"
+  ],
+  "title": "HeroAction",
+  "type": "object"
+}

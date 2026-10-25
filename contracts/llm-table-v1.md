@@ -1,6 +1,6 @@
 # LLM table interface, first slice
 
-Implementation contract for the backend and frontend assignments on 2026-10-25, updated to shared-context revision 20. Rayner wants six seats, neutral opponent instructions and manual control of the hero's actions/messages with optional LLM takeover. These additions are not yet implemented. Existing six-player clients and stored games must remain readable. Backend owns implementation and machine-readable fixtures; frontend consumes this contract. Document any necessary compatible refinement before consumers depend on it.
+Implementation contract for the backend and frontend assignments on 2026-10-25, updated to shared-context revision 20. Rayner wants six seats, neutral opponent instructions and manual control of the hero's actions/messages with optional LLM takeover. These additions are implemented on `feat/llm-table`, pending integration review. Existing six-player clients and stored games must remain readable. Backend owns implementation and machine-readable fixtures; frontend consumes this contract. Document any necessary compatible refinement before consumers depend on it.
 
 ## Configuration
 
@@ -70,3 +70,7 @@ First presets: same-model free-play table; a chat-disabled comparison; and a mod
 Persist every run's completion/failure, tournament prizes and finishing positions, action validity, fallbacks, usage and latency. Keep failed or budget-exhausted games in the report, with incomplete outcomes explicit. Rotate seats, reset private memory between independent games and support held-out runs. Report sample size and uncertainty when enough independent runs exist. Chat effects require matched decision experiments or controlled game comparisons; a player's self-reported explanation is not causal proof.
 
 No paid games are authorized by this implementation assignment. Provider mocks can establish interface, isolation and execution behavior; they cannot establish poker strength or real-model chat behavior.
+
+## Implemented additive details
+
+The backend exposes the stable six-seat configuration as `/api/config.llm_preset` and `contracts/examples/llm-six-seat-neutral.json`. Optional `llm_limits` bounds requests, output reservations, context, memory and chat. `seat_configs[].temperature` defaults to 1.0 and accepts 0 to 2; actual sampling settings are saved and traced. See [backend delivery](../docs/llm-table-backend.md) for acknowledgement, cancellation, limits and compatibility details, and the adjacent generated v1 schemas for field shapes.

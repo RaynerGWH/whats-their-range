@@ -95,6 +95,46 @@ def private_observation(obs):
     for source, target in zip(obs.get("opponents", []), result["opponents"]):
         target["name"] = f"Player {target['seat'] + 1}"
         target["recent_actions"] = public_events(source.get("recent_actions", [])[-5:])
+    if "chat" in obs:
+        chat = obs["chat"]
+        cutoff = chat.get("last_sequence", 0)
+        if type(cutoff) is not int or cutoff < 0:
+            raise ValueError("Invalid chat cutoff")
+        messages = []
+        for row in chat.get("messages", [])[-100:]:
+            if (
+                type(row.get("sequence")) is int
+                and 0 < row["sequence"] <= cutoff
+                and row.get("id") == f"c{row['sequence']}"
+                and type(row.get("player")) is int
+                and 0 <= row["player"] < 6
+                and type(row.get("hand")) is int
+                and 1 <= row["hand"] <= obs["hand"]
+                and type(row.get("state_version")) is int
+                and 0 <= row["state_version"] <= obs["version"]
+                and isinstance(row.get("text"), str)
+                and 1 <= len(row["text"]) <= 500
+                and not any(ord(c) < 32 for c in row["text"])
+                and (not messages or row["sequence"] > messages[-1]["sequence"])
+            ):
+                messages.append(
+                    {
+                        k: deepcopy(row[k])
+                        for k in (
+                            "id",
+                            "sequence",
+                            "player",
+                            "hand",
+                            "state_version",
+                            "text",
+                        )
+                    }
+                )
+        result["chat"] = {
+            "last_sequence": cutoff,
+            "messages": messages,
+            "truncated": bool(chat.get("truncated", False)),
+        }
     return clean(result)
 
 
@@ -162,7 +202,10 @@ class Trace:
             "duration_ms": None,
             "langsmith_url": None,
             "spans": [],
-            "metadata": {},
+            "metadata": {
+                "player": observation["player"],
+                "chat_sequence": observation.get("chat", {}).get("last_sequence", 0),
+            },
         }
 
     def emit(self):

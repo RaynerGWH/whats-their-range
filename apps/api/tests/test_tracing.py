@@ -356,7 +356,8 @@ def test_payload_bounds_and_secret_redaction(monkeypatch):
     assert bounded({"many": ["x" * 65536] * 200})["truncated"] is True
 
 
-def test_inflight_worker_trace_keeps_state_version(tmp_path, monkeypatch):
+@pytest.mark.parametrize("cancel", [False, True])
+def test_inflight_worker_trace_keeps_state_version(tmp_path, monkeypatch, cancel):
     import queue
 
     from wtr import workers
@@ -405,17 +406,35 @@ def test_inflight_worker_trace_keeps_state_version(tmp_path, monkeypatch):
         assert trace["status"] == "running"
         assert trace["state_version"] == snapshot["version"]
         assert store.history("inflight")[-1]["version"] == snapshot["version"]
-        commands.put({"action": "pause"})
-        release.set()
+        before = snapshot
+        if cancel:
+            commands.put({"action": "pause"})
+        else:
+            release.set()
         deadline = time.monotonic() + 5
         while time.monotonic() < deadline:
             snapshot = store.list()[0]
-            if snapshot["status"] == "paused" and snapshot["decision"]:
+            if (cancel and snapshot["status"] == "paused") or (
+                not cancel and snapshot["decision"]
+            ):
                 break
             time.sleep(0.01)
         assert snapshot["active_trace_id"] is None
-        assert snapshot["decision"]["trace_id"] == trace["trace_id"]
-        assert store.get_trace("inflight", trace["trace_id"])["status"] == "completed"
+        finished = store.get_trace("inflight", trace["trace_id"])
+        VALIDATOR.validate(finished)
+        assert finished["state_version"] == before["version"]
+        if cancel:
+            assert snapshot["decision"] is None
+            assert snapshot["history"] == before["history"]
+            assert snapshot["players"] == before["players"]
+            assert finished["status"] == "cancelled"
+            release.set()
+            time.sleep(0.1)
+            assert store.list()[0]["version"] == snapshot["version"]
+        else:
+            assert snapshot["decision"]["trace_id"] == trace["trace_id"]
+            assert snapshot["decision"]["state_version"] == before["version"]
+            assert finished["status"] == "completed"
     finally:
         release.set()
         commands.put({"action": "stop"})

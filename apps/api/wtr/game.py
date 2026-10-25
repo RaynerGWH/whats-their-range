@@ -33,18 +33,29 @@ POSITIONS = {
 class Tournament:
     def __init__(self, table_id, config):
         self.id, self.config = table_id, config
+        self.player_count = config.get("player_count", 6)
+        self.hero_seat = config.get("hero_seat", 0)
+        self.names = [
+            "Range Agent" if i == self.hero_seat else f"Player {i + 1}"
+            for i in range(self.player_count)
+        ]
+        for seat in config.get("seat_configs", []):
+            if seat.get("name"):
+                self.names[seat["seat"]] = seat["name"]
+        self.chat, self.chat_sequence, self.decisions_by_player = [], 0, {}
+        self.control_changes = []
         self.rng = random.Random(config["seed"])
-        self.stacks = [config["stack_bb"] * 10] * 6
+        self.stacks = [config["stack_bb"] * 10] * self.player_count
         self.total = sum(self.stacks)
-        self.hand, self.version, self.button = 0, 0, 5
+        self.hand, self.version, self.button = 0, 0, self.player_count - 1
         self.status, self.phase = "paused", "ready"
         self.history, self.hand_actions, self.decisions = [], [], []
         self.stats = [
-            {"actions": 0, "raises": 0, "folds": 0, "calls": 0} for _ in NAMES
+            {"actions": 0, "raises": 0, "folds": 0, "calls": 0} for _ in self.names
         ]
         self.payouts = [70, 30] if config["payouts"] == "70/30" else [100]
-        self.prizes, self.places = [0.0] * 6, [None] * 6
-        self.series = [{"hand": 0, "stack": self.stacks[0]}]
+        self.prizes, self.places = [0.0] * self.player_count, [None] * self.player_count
+        self.series = [{"hand": 0, "stack": self.stacks[self.hero_seat]}]
         self.last_decision = None
         self.new_hand()
 
@@ -84,16 +95,18 @@ class Tournament:
             return
         if self.hand:
             self.button = next(
-                (self.button + n) % 6
-                for n in range(1, 7)
-                if (self.button + n) % 6 in alive
+                (self.button + n) % self.player_count
+                for n in range(1, self.player_count + 1)
+                if (self.button + n) % self.player_count in alive
             )
         self.hand += 1
         self.level = (self.hand - 1) // self.config["hands_per_level"]
         self.bb = min(self.total, round(10 * 1.5 ** min(self.level, 30)))
         self.sb = max(1, self.bb // 2)
         self.order = [
-            (self.button + n) % 6 for n in range(1, 7) if (self.button + n) % 6 in alive
+            (self.button + n) % self.player_count
+            for n in range(1, self.player_count + 1)
+            if (self.button + n) % self.player_count in alive
         ]
         self.start_stacks = self.stacks.copy()
         self.hand_actions = []
@@ -196,7 +209,7 @@ class Tournament:
                 "opponents": [
                     {
                         "seat": i,
-                        "name": NAMES[i],
+                        "name": self.names[i],
                         **self.stats[i],
                         "recent_actions": deepcopy(
                             [
@@ -219,6 +232,26 @@ class Tournament:
         if action is None:
             raise ValueError("Illegal action rejected")
         player, before_street = self.actor, self.street
+        message = None
+        if decision is not None:
+            if (
+                decision.get("state_version") != version
+                or decision.get("player", player) != player
+            ):
+                raise ValueError("Stale or misattributed decision rejected")
+            if decision.get("chat_sequence", self.chat_sequence) != self.chat_sequence:
+                raise ValueError("Stale chat cutoff rejected")
+            message = decision.get("public_message")
+            if message is not None:
+                seats = {s["seat"]: s for s in self.config.get("seat_configs", [])}
+                limit = self.config.get("llm_limits", {}).get("max_message_chars", 240)
+                if (
+                    not seats.get(player, {}).get("chat_enabled")
+                    or not isinstance(message, str)
+                    or not 1 <= len(message) <= limit
+                    or any(ord(c) < 32 for c in message)
+                ):
+                    raise ValueError("Invalid public message")
         if action["kind"] == "fold":
             self.state.fold()
         elif action["kind"] == "call":
@@ -231,7 +264,7 @@ class Tournament:
             else ("checks" if key == "check" else key + "s")
         )
         self.log(
-            f"{NAMES[player]} {words}{' ' + str(action['amount']) if action['amount'] else ''}.",
+            f"{self.names[player]} {words}{' ' + str(action['amount']) if action['amount'] else ''}.",
             player,
             key,
             action["amount"],
@@ -246,13 +279,31 @@ class Tournament:
         if key == "call":
             stat["calls"] += 1
         if decision is not None:
-            self.last_decision = {
+            recorded = {
                 **decision,
+                "player": player,
+                "chat_sequence": self.chat_sequence,
                 "hand": self.hand,
                 "event_id": self.history[-1]["id"],
                 "street": before_street,
             }
-            self.decisions.append(self.last_decision)
+            self.decisions_by_player[str(player)] = recorded
+            if player == self.hero_seat:
+                self.last_decision = recorded
+            self.decisions.append(recorded)
+        if message is not None:
+            self.chat_sequence += 1
+            self.chat.append(
+                {
+                    "id": f"c{self.chat_sequence}",
+                    "sequence": self.chat_sequence,
+                    "player": player,
+                    "hand": self.hand,
+                    "state_version": version,
+                    "text": message,
+                }
+            )
+            self.chat = self.chat[-100:]
         self.advance()
         if not self.state.status:
             self.settle()
@@ -263,13 +314,13 @@ class Tournament:
         if sum(self.stacks) != self.total:
             raise RuntimeError("Chip conservation failed")
         self.phase = "hand_complete"
-        self.series.append({"hand": self.hand, "stack": self.stacks[0]})
+        self.series.append({"hand": self.hand, "stack": self.stacks[self.hero_seat]})
         gains = [
             (i, self.stacks[i] - self.start_stacks[i])
             for i in self.order
             if self.stacks[i] > self.start_stacks[i]
         ]
-        self.log(" · ".join(f"{NAMES[i]} +{v}" for i, v in gains) or "Pot split.")
+        self.log(" · ".join(f"{self.names[i]} +{v}" for i, v in gains) or "Pot split.")
         remaining = sum(v > 0 for v in self.stacks)
         busted = [i for i in self.order if not self.stacks[i]]
         place = remaining + 1
@@ -281,17 +332,17 @@ class Tournament:
             ) / len(tied)
             for i in tied:
                 self.prizes[i], self.places[i] = prize, place
-                self.log(f"{NAMES[i]} eliminated in place {place}.", i)
+                self.log(f"{self.names[i]} eliminated in place {place}.", i)
             place += len(tied)
         if remaining == 1:
             winner = next(i for i, v in enumerate(self.stacks) if v)
             self.prizes[winner], self.places[winner] = self.payouts[0], 1
             self.status, self.phase = "finished", "complete"
-            self.log(f"{NAMES[winner]} wins the tournament.", winner)
+            self.log(f"{self.names[winner]} wins the tournament.", winner)
 
     def snapshot(self):
         players = []
-        for i, name in enumerate(NAMES):
+        for i, name in enumerate(self.names):
             p = self.order.index(i) if i in self.order else None
             live = p is not None and self.state.status
             last = next(
@@ -342,9 +393,18 @@ class Tournament:
             "board": list(map(repr, self.state.get_board_cards(0))),
             "history": deepcopy(self.history[-120:]),
             "decision": deepcopy(self.last_decision),
+            "decisions_by_player": deepcopy(self.decisions_by_player),
+            "control_changes": deepcopy(self.control_changes),
+            "chat": deepcopy(self.chat),
+            "chat_sequence": self.chat_sequence,
             "series": self.series[-300:],
-            "icm": {str(i): round(icm.get(i, self.prizes[i]), 2) for i in range(6)},
+            "icm": {
+                str(i): round(icm.get(i, self.prizes[i]), 2)
+                for i in range(self.player_count)
+            },
             "icm_basis": "Hand-start stacks" if self.state.status else "Settled stacks",
-            "agent_decisions": len(self.decisions),
+            "agent_decisions": sum(
+                d["player"] == self.hero_seat for d in self.decisions
+            ),
             "remaining": sum(v > 0 for v in self.stacks),
         }

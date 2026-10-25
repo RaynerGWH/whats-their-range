@@ -230,8 +230,16 @@ class Opponents:
             raise OpponentError("Unknown opponent policy")
         self.binary = require_native() if self.mode == "pokerth" else None
         seeds = resolve_seeds(config)
+        self.seat_indices = {
+            seat: index
+            for index, seat in enumerate(
+                s
+                for s in range(config.get("player_count", 6))
+                if s != config.get("hero_seat", 0)
+            )
+        }
         self.random = {
-            seat: seat_rng(seeds["opponent_seed"], seat) for seat in range(1, 6)
+            seat: seat_rng(seeds["opponent_seed"], seat) for seat in self.seat_indices
         }
         self.personalities = list(PERSONALITIES)
         self.profiles = list(profiles)
@@ -252,12 +260,12 @@ class Opponents:
                 obs,
                 assess({"observation": obs})["metrics"],
                 self.random[seat],
-                self.profiles[seat - 1],
+                self.profiles[self.seat_indices[seat]],
             )
         values = [
             self.random[seat].getrandbits(64),
             *situation(obs, self.stats),
-            *self.personalities[seat - 1],
+            *self.personalities[self.seat_indices[seat]],
         ]
         request = " ".join(map(str, values)) + "\n"
         if len(request) > 1024:
