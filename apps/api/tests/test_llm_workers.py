@@ -256,3 +256,44 @@ def test_inflight_llm_controls_cancel_without_committing(client, action):
         ]
         == "cancelled"
     )
+
+
+@pytest.mark.parametrize("count", [4, 6])
+def test_complete_autonomous_worker_games_and_per_seat_traces(client, count):
+    cfg = config(count)
+    created = client.post("/api/tables", json=cfg)
+    assert created.status_code == 201
+    table_id = created.json()["id"]
+    wait_for(client, table_id, lambda t: t.get("version", 0) > 0)
+    command(client, table_id, "resume")
+    final = wait_for(client, table_id, lambda t: t["status"] == "finished")
+    assert len(final["players"]) == count
+    assert sum(p["stack"] for p in final["players"]) == count * 100
+    assert sum(p["prize"] for p in final["players"]) == 100
+    assert final["provider_usage"]["total"]["fallbacks"] == 0
+    roots = set()
+    for seat in range(count):
+        records = client.get(
+            f"/api/tables/{table_id}/traces", params={"player": seat}
+        ).json()["items"]
+        assert records and all(r["metadata"]["player"] == seat for r in records)
+        ids = {r["trace_id"] for r in records}
+        assert not roots & ids
+        roots |= ids
+    assert len(roots) == final["provider_usage"]["total"]["attempts"]
+
+
+def test_manual_chat_disabled_and_spoofed_attribution(client):
+    seats = config()["seat_configs"]
+    seats[2]["chat_enabled"] = False
+    table_id, snapshot = create(client, seat_configs=seats)
+    payload = manual_payload(snapshot, "Not permitted")
+    path = f"/api/tables/{table_id}/hero-action"
+    assert client.post(path, json=payload).status_code == 409
+    assert client.post(path, json={**payload, "player": 3}).status_code == 422
+    assert current(client, table_id) == snapshot
+    assert (
+        client.post(path, json={**payload, "public_message": None}).status_code == 202
+    )
+    after = current(client, table_id)
+    assert not after["chat"] and after["decision"]["source"] == "human"

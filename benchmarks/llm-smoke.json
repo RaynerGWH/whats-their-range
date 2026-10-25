@@ -1,0 +1,24 @@
+{
+  "schema_version": "llm-benchmark-v1",
+  "name": "Six-seat mocked engineering comparison",
+  "table": {
+    "opponents": "llm",
+    "player_count": 6,
+    "hero_seat": 0,
+    "hero_control": "llm",
+    "model": "mock/control",
+    "stack_bb": 10,
+    "hands_per_level": 2,
+    "seat_configs": [{"seat": 0}, {"seat": 1}, {"seat": 2}, {"seat": 3}, {"seat": 4}, {"seat": 5}]
+  },
+  "seeds": [
+    {"split": "development", "deck": 7, "policy": 42},
+    {"split": "development", "deck": 17, "policy": 52},
+    {"split": "held_out", "deck": 107, "policy": 142},
+    {"split": "held_out", "deck": 117, "policy": 152}
+  ],
+  "rotations": [0, 1, 2, 3, 4, 5],
+  "presets": ["same_model", "chat_disabled", "model_swap"],
+  "swap_model": "mock/variant",
+  "stopping": {"max_hands": 100, "max_actions": 1000, "timeout_seconds": 30}
+}
