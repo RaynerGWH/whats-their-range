@@ -19,7 +19,7 @@ AUTOMATIONS = (
     Automation.CHIPS_PULLING,
 )
 STREETS = ("preflop", "flop", "turn", "river")
-NAMES = ("Range Agent", "Marlow", "Cleo", "Atlas", "Jules", "Remy")
+NAMES = ("Range Agent", "Player 2", "Player 3", "Player 4", "Player 5", "Player 6")
 PROFILES = ("agent", "tight", "caller", "aggressive", "balanced", "volatile")
 POSITIONS = {
     6: ["SB", "BB", "UTG", "HJ", "CO", "BTN"],
@@ -327,6 +327,7 @@ class Tournament:
             "version": self.version,
             "status": self.status,
             "phase": self.phase,
+            "error": getattr(self, "error", None),
             "hand": self.hand,
             "street": self.street,
             "level": self.level + 1,

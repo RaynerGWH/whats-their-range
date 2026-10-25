@@ -1,0 +1,2241 @@
+[
+  {
+    "case": "native-set-a-multi-street",
+    "outcome_sha256": "67e88966bd794487bd43414aeda260dd6f01d086a198bf32363a1383b015580e",
+    "hand": 10,
+    "records": [
+      {
+        "state_version": 55,
+        "player": 3,
+        "street": "preflop",
+        "board": [],
+        "pot": 76,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 180,
+            "bet": 25,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 2,
+            "stack": 30,
+            "bet": 51,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 185,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 129,
+            "bet": 0,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise:102",
+          "raise:115",
+          "raise:178",
+          "raise:185"
+        ],
+        "action": "fold"
+      },
+      {
+        "state_version": 56,
+        "player": 5,
+        "street": "preflop",
+        "board": [],
+        "pot": 76,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 180,
+            "bet": 25,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 2,
+            "stack": 30,
+            "bet": 51,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 185,
+            "bet": 0,
+            "active": false,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 129,
+            "bet": 0,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise:102",
+          "raise:115",
+          "raise:129"
+        ],
+        "action": "fold"
+      },
+      {
+        "state_version": 57,
+        "player": 0,
+        "street": "preflop",
+        "board": [],
+        "pot": 76,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 180,
+            "bet": 25,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 2,
+            "stack": 30,
+            "bet": 51,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 185,
+            "bet": 0,
+            "active": false,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 129,
+            "bet": 0,
+            "active": false,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise:102",
+          "raise:153",
+          "raise:205"
+        ],
+        "action": "call"
+      },
+      {
+        "state_version": 58,
+        "player": 2,
+        "street": "preflop",
+        "board": [],
+        "pot": 102,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 154,
+            "bet": 51,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 2,
+            "stack": 30,
+            "bet": 51,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 185,
+            "bet": 0,
+            "active": false,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 129,
+            "bet": 0,
+            "active": false,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:81"
+        ],
+        "action": "check"
+      },
+      {
+        "state_version": 59,
+        "player": 0,
+        "street": "flop",
+        "board": [
+          "4c",
+          "4s",
+          "4h"
+        ],
+        "pot": 102,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 154,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 2,
+            "stack": 30,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 185,
+            "bet": 0,
+            "active": false,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 129,
+            "bet": 0,
+            "active": false,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:51",
+          "raise:102",
+          "raise:154"
+        ],
+        "action": "check"
+      },
+      {
+        "state_version": 60,
+        "player": 2,
+        "street": "flop",
+        "board": [
+          "4c",
+          "4s",
+          "4h"
+        ],
+        "pot": 102,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 154,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 2,
+            "stack": 30,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 185,
+            "bet": 0,
+            "active": false,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 129,
+            "bet": 0,
+            "active": false,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:30"
+        ],
+        "action": "check"
+      },
+      {
+        "state_version": 61,
+        "player": 0,
+        "street": "turn",
+        "board": [
+          "4c",
+          "4s",
+          "4h",
+          "7s"
+        ],
+        "pot": 102,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 154,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 2,
+            "stack": 30,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 185,
+            "bet": 0,
+            "active": false,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 129,
+            "bet": 0,
+            "active": false,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:51",
+          "raise:102",
+          "raise:154"
+        ],
+        "action": "check"
+      },
+      {
+        "state_version": 62,
+        "player": 2,
+        "street": "turn",
+        "board": [
+          "4c",
+          "4s",
+          "4h",
+          "7s"
+        ],
+        "pot": 102,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 154,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 2,
+            "stack": 30,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 185,
+            "bet": 0,
+            "active": false,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 129,
+            "bet": 0,
+            "active": false,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:30"
+        ],
+        "action": "check"
+      },
+      {
+        "state_version": 63,
+        "player": 0,
+        "street": "river",
+        "board": [
+          "4c",
+          "4s",
+          "4h",
+          "7s",
+          "3d"
+        ],
+        "pot": 102,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 154,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 2,
+            "stack": 30,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 185,
+            "bet": 0,
+            "active": false,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 129,
+            "bet": 0,
+            "active": false,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:51",
+          "raise:102",
+          "raise:154"
+        ],
+        "action": "check"
+      },
+      {
+        "state_version": 64,
+        "player": 2,
+        "street": "river",
+        "board": [
+          "4c",
+          "4s",
+          "4h",
+          "7s",
+          "3d"
+        ],
+        "pot": 102,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 154,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 2,
+            "stack": 30,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 185,
+            "bet": 0,
+            "active": false,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 129,
+            "bet": 0,
+            "active": false,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:30"
+        ],
+        "action": "check"
+      }
+    ]
+  },
+  {
+    "case": "native-set-a-heads-up",
+    "outcome_sha256": "d14ed99cc735d13a09c85147ca19b8d0b1f4e4005bf70d1b2780ded77ab67b46",
+    "hand": 13,
+    "records": [
+      {
+        "state_version": 52,
+        "player": 4,
+        "street": "preflop",
+        "board": [],
+        "pot": 171,
+        "players": [
+          {
+            "seat": 5,
+            "stack": 158,
+            "bet": 114,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 4,
+            "stack": 271,
+            "bet": 57,
+            "active": true,
+            "position": "BTN / SB"
+          }
+        ],
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise:228",
+          "raise:328"
+        ],
+        "action": "raise:328"
+      },
+      {
+        "state_version": 53,
+        "player": 5,
+        "street": "preflop",
+        "board": [],
+        "pot": 442,
+        "players": [
+          {
+            "seat": 5,
+            "stack": 158,
+            "bet": 114,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 4,
+            "stack": 0,
+            "bet": 328,
+            "active": true,
+            "position": "BTN / SB"
+          }
+        ],
+        "legal_actions": [
+          "fold",
+          "call"
+        ],
+        "action": "call"
+      }
+    ]
+  },
+  {
+    "case": "native-set-b-multi-street",
+    "outcome_sha256": "e27464b6766dd8be49b451a6f6aee4ea781c03eae81ca429c3dd534e820d58f9",
+    "hand": 10,
+    "records": [
+      {
+        "state_version": 55,
+        "player": 3,
+        "street": "preflop",
+        "board": [],
+        "pot": 76,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 180,
+            "bet": 25,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 2,
+            "stack": 30,
+            "bet": 51,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 185,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 129,
+            "bet": 0,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise:102",
+          "raise:115",
+          "raise:178",
+          "raise:185"
+        ],
+        "action": "fold"
+      },
+      {
+        "state_version": 56,
+        "player": 5,
+        "street": "preflop",
+        "board": [],
+        "pot": 76,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 180,
+            "bet": 25,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 2,
+            "stack": 30,
+            "bet": 51,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 185,
+            "bet": 0,
+            "active": false,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 129,
+            "bet": 0,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise:102",
+          "raise:115",
+          "raise:129"
+        ],
+        "action": "fold"
+      },
+      {
+        "state_version": 57,
+        "player": 0,
+        "street": "preflop",
+        "board": [],
+        "pot": 76,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 180,
+            "bet": 25,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 2,
+            "stack": 30,
+            "bet": 51,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 185,
+            "bet": 0,
+            "active": false,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 129,
+            "bet": 0,
+            "active": false,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise:102",
+          "raise:153",
+          "raise:205"
+        ],
+        "action": "call"
+      },
+      {
+        "state_version": 58,
+        "player": 2,
+        "street": "preflop",
+        "board": [],
+        "pot": 102,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 154,
+            "bet": 51,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 2,
+            "stack": 30,
+            "bet": 51,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 185,
+            "bet": 0,
+            "active": false,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 129,
+            "bet": 0,
+            "active": false,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:81"
+        ],
+        "action": "check"
+      },
+      {
+        "state_version": 59,
+        "player": 0,
+        "street": "flop",
+        "board": [
+          "4c",
+          "4s",
+          "4h"
+        ],
+        "pot": 102,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 154,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 2,
+            "stack": 30,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 185,
+            "bet": 0,
+            "active": false,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 129,
+            "bet": 0,
+            "active": false,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:51",
+          "raise:102",
+          "raise:154"
+        ],
+        "action": "check"
+      },
+      {
+        "state_version": 60,
+        "player": 2,
+        "street": "flop",
+        "board": [
+          "4c",
+          "4s",
+          "4h"
+        ],
+        "pot": 102,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 154,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 2,
+            "stack": 30,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 185,
+            "bet": 0,
+            "active": false,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 129,
+            "bet": 0,
+            "active": false,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:30"
+        ],
+        "action": "check"
+      },
+      {
+        "state_version": 61,
+        "player": 0,
+        "street": "turn",
+        "board": [
+          "4c",
+          "4s",
+          "4h",
+          "7s"
+        ],
+        "pot": 102,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 154,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 2,
+            "stack": 30,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 185,
+            "bet": 0,
+            "active": false,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 129,
+            "bet": 0,
+            "active": false,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:51",
+          "raise:102",
+          "raise:154"
+        ],
+        "action": "check"
+      },
+      {
+        "state_version": 62,
+        "player": 2,
+        "street": "turn",
+        "board": [
+          "4c",
+          "4s",
+          "4h",
+          "7s"
+        ],
+        "pot": 102,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 154,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 2,
+            "stack": 30,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 185,
+            "bet": 0,
+            "active": false,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 129,
+            "bet": 0,
+            "active": false,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:30"
+        ],
+        "action": "check"
+      },
+      {
+        "state_version": 63,
+        "player": 0,
+        "street": "river",
+        "board": [
+          "4c",
+          "4s",
+          "4h",
+          "7s",
+          "3d"
+        ],
+        "pot": 102,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 154,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 2,
+            "stack": 30,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 185,
+            "bet": 0,
+            "active": false,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 129,
+            "bet": 0,
+            "active": false,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:51",
+          "raise:102",
+          "raise:154"
+        ],
+        "action": "check"
+      },
+      {
+        "state_version": 64,
+        "player": 2,
+        "street": "river",
+        "board": [
+          "4c",
+          "4s",
+          "4h",
+          "7s",
+          "3d"
+        ],
+        "pot": 102,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 154,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 2,
+            "stack": 30,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 185,
+            "bet": 0,
+            "active": false,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 129,
+            "bet": 0,
+            "active": false,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:30"
+        ],
+        "action": "check"
+      }
+    ]
+  },
+  {
+    "case": "native-set-b-heads-up",
+    "outcome_sha256": "8bae4e88f10bf0b45903c3d954d48f90809d0642e2eaa26c1bb716730fc9990e",
+    "hand": 13,
+    "records": [
+      {
+        "state_version": 52,
+        "player": 4,
+        "street": "preflop",
+        "board": [],
+        "pot": 171,
+        "players": [
+          {
+            "seat": 5,
+            "stack": 158,
+            "bet": 114,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 4,
+            "stack": 271,
+            "bet": 57,
+            "active": true,
+            "position": "BTN / SB"
+          }
+        ],
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise:228",
+          "raise:328"
+        ],
+        "action": "raise:328"
+      },
+      {
+        "state_version": 53,
+        "player": 5,
+        "street": "preflop",
+        "board": [],
+        "pot": 442,
+        "players": [
+          {
+            "seat": 5,
+            "stack": 158,
+            "bet": 114,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 4,
+            "stack": 0,
+            "bet": 328,
+            "active": true,
+            "position": "BTN / SB"
+          }
+        ],
+        "legal_actions": [
+          "fold",
+          "call"
+        ],
+        "action": "call"
+      }
+    ]
+  },
+  {
+    "case": "native-standard-multi-street",
+    "outcome_sha256": "50badb66549c9e1fe3ff42ef49e6c5ba5604572ec7a157627ffc1cee73fc5929",
+    "hand": 12,
+    "records": [
+      {
+        "state_version": 113,
+        "player": 3,
+        "street": "preflop",
+        "board": [],
+        "pot": 22,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 409,
+            "bet": 7,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 1052,
+            "bet": 15,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 543,
+            "bet": 0,
+            "active": true,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 531,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 443,
+            "bet": 0,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise:30",
+          "raise:33",
+          "raise:52",
+          "raise:543"
+        ],
+        "action": "fold"
+      },
+      {
+        "state_version": 114,
+        "player": 4,
+        "street": "preflop",
+        "board": [],
+        "pot": 22,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 409,
+            "bet": 7,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 1052,
+            "bet": 15,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 543,
+            "bet": 0,
+            "active": false,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 531,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 443,
+            "bet": 0,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise:30",
+          "raise:33",
+          "raise:52",
+          "raise:531"
+        ],
+        "action": "call"
+      },
+      {
+        "state_version": 115,
+        "player": 5,
+        "street": "preflop",
+        "board": [],
+        "pot": 37,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 409,
+            "bet": 7,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 1052,
+            "bet": 15,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 543,
+            "bet": 0,
+            "active": false,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 516,
+            "bet": 15,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 443,
+            "bet": 0,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise:30",
+          "raise:41",
+          "raise:67",
+          "raise:443"
+        ],
+        "action": "call"
+      },
+      {
+        "state_version": 116,
+        "player": 0,
+        "street": "preflop",
+        "board": [],
+        "pot": 52,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 409,
+            "bet": 7,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 1052,
+            "bet": 15,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 543,
+            "bet": 0,
+            "active": false,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 516,
+            "bet": 15,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 428,
+            "bet": 15,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise:30",
+          "raise:45",
+          "raise:75",
+          "raise:416"
+        ],
+        "action": "call"
+      },
+      {
+        "state_version": 117,
+        "player": 1,
+        "street": "preflop",
+        "board": [],
+        "pot": 60,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 401,
+            "bet": 15,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 1052,
+            "bet": 15,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 543,
+            "bet": 0,
+            "active": false,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 516,
+            "bet": 15,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 428,
+            "bet": 15,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:30",
+          "raise:45",
+          "raise:75",
+          "raise:1067"
+        ],
+        "action": "check"
+      },
+      {
+        "state_version": 118,
+        "player": 0,
+        "street": "flop",
+        "board": [
+          "Ad",
+          "Jc",
+          "5c"
+        ],
+        "pot": 60,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 401,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 1052,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 543,
+            "bet": 0,
+            "active": false,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 516,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 428,
+            "bet": 0,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:15",
+          "raise:30",
+          "raise:60",
+          "raise:401"
+        ],
+        "action": "check"
+      },
+      {
+        "state_version": 119,
+        "player": 1,
+        "street": "flop",
+        "board": [
+          "Ad",
+          "Jc",
+          "5c"
+        ],
+        "pot": 60,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 401,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 1052,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 543,
+            "bet": 0,
+            "active": false,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 516,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 428,
+            "bet": 0,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:15",
+          "raise:30",
+          "raise:60",
+          "raise:1052"
+        ],
+        "action": "check"
+      },
+      {
+        "state_version": 120,
+        "player": 4,
+        "street": "flop",
+        "board": [
+          "Ad",
+          "Jc",
+          "5c"
+        ],
+        "pot": 60,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 401,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 1052,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 543,
+            "bet": 0,
+            "active": false,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 516,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 428,
+            "bet": 0,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:15",
+          "raise:30",
+          "raise:60",
+          "raise:516"
+        ],
+        "action": "check"
+      },
+      {
+        "state_version": 121,
+        "player": 5,
+        "street": "flop",
+        "board": [
+          "Ad",
+          "Jc",
+          "5c"
+        ],
+        "pot": 60,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 401,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 1052,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 543,
+            "bet": 0,
+            "active": false,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 516,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 428,
+            "bet": 0,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:15",
+          "raise:30",
+          "raise:60",
+          "raise:428"
+        ],
+        "action": "raise:30"
+      },
+      {
+        "state_version": 122,
+        "player": 0,
+        "street": "flop",
+        "board": [
+          "Ad",
+          "Jc",
+          "5c"
+        ],
+        "pot": 90,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 401,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 1052,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 543,
+            "bet": 0,
+            "active": false,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 516,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 398,
+            "bet": 30,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise:60",
+          "raise:90",
+          "raise:150",
+          "raise:401"
+        ],
+        "action": "call"
+      },
+      {
+        "state_version": 123,
+        "player": 1,
+        "street": "flop",
+        "board": [
+          "Ad",
+          "Jc",
+          "5c"
+        ],
+        "pot": 120,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 371,
+            "bet": 30,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 1052,
+            "bet": 0,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 543,
+            "bet": 0,
+            "active": false,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 516,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 398,
+            "bet": 30,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise:60",
+          "raise:105",
+          "raise:180",
+          "raise:1052"
+        ],
+        "action": "fold"
+      },
+      {
+        "state_version": 124,
+        "player": 4,
+        "street": "flop",
+        "board": [
+          "Ad",
+          "Jc",
+          "5c"
+        ],
+        "pot": 120,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 371,
+            "bet": 30,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 1052,
+            "bet": 0,
+            "active": false,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 543,
+            "bet": 0,
+            "active": false,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 516,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 398,
+            "bet": 30,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise:60",
+          "raise:105",
+          "raise:180",
+          "raise:516"
+        ],
+        "action": "call"
+      },
+      {
+        "state_version": 125,
+        "player": 0,
+        "street": "turn",
+        "board": [
+          "Ad",
+          "Jc",
+          "5c",
+          "6h"
+        ],
+        "pot": 150,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 371,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 1052,
+            "bet": 0,
+            "active": false,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 543,
+            "bet": 0,
+            "active": false,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 486,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 398,
+            "bet": 0,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:15",
+          "raise:75",
+          "raise:150",
+          "raise:371"
+        ],
+        "action": "check"
+      },
+      {
+        "state_version": 126,
+        "player": 4,
+        "street": "turn",
+        "board": [
+          "Ad",
+          "Jc",
+          "5c",
+          "6h"
+        ],
+        "pot": 150,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 371,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 1052,
+            "bet": 0,
+            "active": false,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 543,
+            "bet": 0,
+            "active": false,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 486,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 398,
+            "bet": 0,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:15",
+          "raise:75",
+          "raise:150",
+          "raise:486"
+        ],
+        "action": "check"
+      },
+      {
+        "state_version": 127,
+        "player": 5,
+        "street": "turn",
+        "board": [
+          "Ad",
+          "Jc",
+          "5c",
+          "6h"
+        ],
+        "pot": 150,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 371,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 1052,
+            "bet": 0,
+            "active": false,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 543,
+            "bet": 0,
+            "active": false,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 486,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 398,
+            "bet": 0,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:15",
+          "raise:75",
+          "raise:150",
+          "raise:398"
+        ],
+        "action": "raise:75"
+      },
+      {
+        "state_version": 128,
+        "player": 0,
+        "street": "turn",
+        "board": [
+          "Ad",
+          "Jc",
+          "5c",
+          "6h"
+        ],
+        "pot": 225,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 371,
+            "bet": 0,
+            "active": true,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 1052,
+            "bet": 0,
+            "active": false,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 543,
+            "bet": 0,
+            "active": false,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 486,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 323,
+            "bet": 75,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise:150",
+          "raise:225",
+          "raise:371"
+        ],
+        "action": "fold"
+      },
+      {
+        "state_version": 129,
+        "player": 4,
+        "street": "turn",
+        "board": [
+          "Ad",
+          "Jc",
+          "5c",
+          "6h"
+        ],
+        "pot": 225,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 371,
+            "bet": 0,
+            "active": false,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 1052,
+            "bet": 0,
+            "active": false,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 543,
+            "bet": 0,
+            "active": false,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 486,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 323,
+            "bet": 75,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise:150",
+          "raise:225",
+          "raise:375",
+          "raise:486"
+        ],
+        "action": "call"
+      },
+      {
+        "state_version": 130,
+        "player": 4,
+        "street": "river",
+        "board": [
+          "Ad",
+          "Jc",
+          "5c",
+          "6h",
+          "3d"
+        ],
+        "pot": 300,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 371,
+            "bet": 0,
+            "active": false,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 1052,
+            "bet": 0,
+            "active": false,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 543,
+            "bet": 0,
+            "active": false,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 411,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 323,
+            "bet": 0,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:15",
+          "raise:150",
+          "raise:300",
+          "raise:411"
+        ],
+        "action": "check"
+      },
+      {
+        "state_version": 131,
+        "player": 5,
+        "street": "river",
+        "board": [
+          "Ad",
+          "Jc",
+          "5c",
+          "6h",
+          "3d"
+        ],
+        "pot": 300,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 371,
+            "bet": 0,
+            "active": false,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 1052,
+            "bet": 0,
+            "active": false,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 543,
+            "bet": 0,
+            "active": false,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 411,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 323,
+            "bet": 0,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "check",
+          "raise:15",
+          "raise:150",
+          "raise:300",
+          "raise:323"
+        ],
+        "action": "raise:150"
+      },
+      {
+        "state_version": 132,
+        "player": 4,
+        "street": "river",
+        "board": [
+          "Ad",
+          "Jc",
+          "5c",
+          "6h",
+          "3d"
+        ],
+        "pot": 450,
+        "players": [
+          {
+            "seat": 0,
+            "stack": 371,
+            "bet": 0,
+            "active": false,
+            "position": "SB"
+          },
+          {
+            "seat": 1,
+            "stack": 1052,
+            "bet": 0,
+            "active": false,
+            "position": "BB"
+          },
+          {
+            "seat": 3,
+            "stack": 543,
+            "bet": 0,
+            "active": false,
+            "position": "HJ"
+          },
+          {
+            "seat": 4,
+            "stack": 411,
+            "bet": 0,
+            "active": true,
+            "position": "CO"
+          },
+          {
+            "seat": 5,
+            "stack": 173,
+            "bet": 150,
+            "active": true,
+            "position": "BTN"
+          }
+        ],
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise:300",
+          "raise:411"
+        ],
+        "action": "call"
+      }
+    ]
+  },
+  {
+    "case": "native-standard-heads-up",
+    "outcome_sha256": "50badb66549c9e1fe3ff42ef49e6c5ba5604572ec7a157627ffc1cee73fc5929",
+    "hand": 59,
+    "records": [
+      {
+        "state_version": 343,
+        "player": 1,
+        "street": "preflop",
+        "board": [],
+        "pot": 256,
+        "players": [
+          {
+            "seat": 5,
+            "stack": 995,
+            "bet": 171,
+            "active": true,
+            "position": "BB"
+          },
+          {
+            "seat": 1,
+            "stack": 1749,
+            "bet": 85,
+            "active": true,
+            "position": "BTN / SB"
+          }
+        ],
+        "legal_actions": [
+          "fold",
+          "call",
+          "raise:342",
+          "raise:513",
+          "raise:1834"
+        ],
+        "action": "fold"
+      }
+    ]
+  }
+]

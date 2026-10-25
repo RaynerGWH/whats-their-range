@@ -1,0 +1,59 @@
+{
+  "description": "Two UI-created complete games with real PokerTH opponents. Model responses were mocked; failures are intentional QA cases. Replay and traces inspected after API restart.",
+  "sessions": [
+    {
+      "table_id": "cbdfbc026224",
+      "name": "Native heuristic",
+      "config": {
+        "name": "Native heuristic",
+        "seed": 7,
+        "stack_bb": 20,
+        "hands_per_level": 2,
+        "payouts": "70/30",
+        "mode": "heuristic",
+        "opponents": "pokerth",
+        "opponent_seed": 1588151468,
+        "personality_seed": 1512070262,
+        "hero_seed": 446157840,
+        "model": "stage2a/mock",
+        "pace": 0.05
+      },
+      "status": "finished",
+      "hands": 20,
+      "hero_decisions": 12,
+      "replay_snapshots": 109,
+      "trace_records": 12,
+      "mock_model_successes": 0,
+      "mock_model_errors": 0,
+      "chips": 1200,
+      "prizes": 100.0
+    },
+    {
+      "table_id": "46b0f6ee2086",
+      "name": "Native + mock provider",
+      "config": {
+        "name": "Native + mock provider",
+        "seed": 101,
+        "stack_bb": 20,
+        "hands_per_level": 2,
+        "payouts": "70/30",
+        "mode": "openrouter",
+        "opponents": "pokerth",
+        "opponent_seed": 1352381941,
+        "personality_seed": 1911571285,
+        "hero_seed": 667060770,
+        "model": "stage2a/mock",
+        "pace": 0.05
+      },
+      "status": "finished",
+      "hands": 13,
+      "hero_decisions": 13,
+      "replay_snapshots": 96,
+      "trace_records": 13,
+      "mock_model_successes": 10,
+      "mock_model_errors": 3,
+      "chips": 1200,
+      "prizes": 100.0
+    }
+  ]
+}

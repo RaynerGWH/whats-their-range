@@ -42,7 +42,7 @@ def test_evaluation_is_blinded_at_factory_and_observation_boundary():
     second = run_tournament(config, spec, 101, "repeated-shove", "held_out", repeat=1)
     third = run_tournament(config, spec, 102, "repeated-shove", "held_out")
     assert all(r["status"] == "completed" for r in (first, second, third))
-    assert first["protocol_version"] == 2
+    assert first["protocol_version"] == 3
     assert first["table_id"] != second["table_id"]
     assert first["outcome_sha256"] == second["outcome_sha256"]
     assert first["seed"] == 101 and first["scenario"] == "repeated-shove"

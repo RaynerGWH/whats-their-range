@@ -29,6 +29,10 @@ flowchart LR
 7. ICM is a descriptive tool until explicitly integrated into a validated decision evaluator. Random-range equity is never labeled inferred-range equity or solver EV.
 8. API keys and database passwords never enter React, event snapshots or prompts.
 
+## Opponent execution
+
+Stage 2A routes opponent turns through `Opponents.decide(observation)`. PokerTH engine 4 runs in a bounded subprocess and its intention is normalized to the observed legal menu before PokerKit applies it. Explicit legacy mode remains available. Deck, hero, per-seat opponent and private personality assignment randomness are separate; table-local public statistics are updated after every committed action. Private configuration and native requests never become hero evidence or traces. See [Stage 2A](stage-2a.md) for sizing approximations, source/build provenance and acceptance evidence.
+
 ## Current policy seam
 
 `Agent.decide(observation)` returns a validated action and an auditable decision record. The observation contains the complete current-hand betting sequence and bounded per-opponent evidence. Replace or expand graph nodes while preserving this boundary.

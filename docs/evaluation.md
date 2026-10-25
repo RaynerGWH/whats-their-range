@@ -1,5 +1,7 @@
 # Local tournament evaluation
 
+Current behavior uses Stage 2A protocol 3. The original milestone evidence and protocol 2 notes below are historical. See [Stage 2A delivery](stage-2a.md) for the native opponent build and current checks.
+
 The evaluation runner executes complete six-seat tournaments without frontend pacing. It uses the existing PokerKit engine and its private observation, legal menu, settlement and state-version checks. Each tournament has its own spawned process. The parent collects results and enforces a wall-clock deadline; all poker turns remain sequential inside that table's process. Experiments run one tournament at a time to keep local resource use modest.
 
 ## Reproduce a run
@@ -31,7 +33,7 @@ uv run python -m wtr.evaluation \
 
 Larger experiments are opt-in. Total attempts equal the number of seeds multiplied by repeats, policies and scenarios. Defaults bound each tournament to 300 hands, 5,000 committed actions and 120 wall-clock seconds. Override these with `--max-hands`, `--max-actions` and `--timeout-seconds`. The deadline includes child startup and policy initialization. A blocked synchronous or asynchronous policy is terminated with its worker, without blocking following tournaments. A tournament that finishes at a bound counts as complete. Otherwise a bound produces a failure, not a synthetic placement or zero prize.
 
-Other options include `--stack-bb`, `--hands-per-level`, `--payouts` (`70/30` or `winner-take-all`) and `--opponent-profiles` (five comma-separated profiles for seats 1 to 5). Profiles are `tight`, `caller`, `aggressive`, `balanced` and `volatile`. CLI help lists all options. Exit status is 0 when every tournament completes, 1 for any recorded tournament failure, and 2 for invalid CLI configuration.
+Other options include `--stack-bb`, `--hands-per-level`, `--payouts` (`70/30` or `winner-take-all`) and `--opponent-profiles` (five comma-separated legacy profiles, privately shuffled across seats 1 to 5). Profiles are `tight`, `caller`, `aggressive`, `balanced` and `volatile`. CLI help lists all options. Exit status is 0 when every tournament completes, 1 for any recorded tournament failure, and 2 for invalid CLI configuration.
 
 ## Policies and scenarios
 
@@ -84,7 +86,7 @@ The evaluation report has its own `schema_version: 1`; it is not a shared `Trace
 - UTC report creation time, Python and PokerKit versions, SHA-256 hashes of engine, agent and evaluation source files.
 - Per-attempt seed, split, repeat index, scenario, table ID, hero seat (0), worker PID, completion status, hands begun, committed actions and final observed state version.
 - Completed-tournament hero finishing position and prize units, all six placements and prizes, chip totals and conservation status. Incomplete tournaments have null hero placement and prize, even if the hero was already eliminated.
-- Every committed action's hand, observed version, acting seat, original legal keys, selected action and measured policy latency in milliseconds. There are no cards or raw policy responses in the saved action log.
+- Every committed action's hand, observed version, acting seat, original legal keys, selected action and measured policy latency in milliseconds. Protocol 3 also records the public board, street, pot and player stacks/bets/statuses. There are no hole cards or raw policy responses in the saved action log.
 - Total measured duration, committed hero-decision count and total/mean/maximum hero latency. There is no latency estimate for an unreturned or rejected decision. Mean/maximum latency are null if no hero action committed.
 - A deterministic outcome hash excluding timestamps, elapsed times, PIDs and repeat identity. Exact repeats of the same seeded setup should match; timestamps and timings are expected to differ.
 - Failures with safe codes and stages. Raw exception text and upstream responses are not persisted. `policy_initialization_error` identifies an unimportable/missing factory, constructor failure or missing `decide`; `policy_decision_error` identifies a raised adapter error. Dedicated codes include `invalid_policy_response`, `stale_policy_response`, `illegal_policy_action`, `hand_limit`, `action_limit`, `timeout`, `worker_exit`, `chip_conservation` and `payout_conservation`.
@@ -128,3 +130,35 @@ The integrated delivery supersedes protocol 1 results for future comparisons. Re
 Policy constructors now receive `EvaluationConfig.policy_seed` (CLI `--policy-seed`, default 42), independently of the hidden deck seed. This is not a hash or reversible transformation of the deck seed. The same configured policy seed is used across deck seeds and repeats; it is recorded in the report and outcome hash. Changing this protocol can change tournament outcomes relative to protocol 1 even though the heuristic calculation and action weights are unchanged. Interactive workers also use the independent default policy seed 42.
 
 Permitted observations normalize opponent names to stable within-table seat labels and reconstruct action text from public structured facts. They do not copy simulator display aliases or arbitrary event prose. Known seat-to-profile assignments, shared engine RNG streams and seed-only held-out splits remain experimental limitations; opponent-policy randomization and realistic redesign are outside Stage 1. Trusted Python adapters still are not an OS sandbox. They must not be given controller files, spectator APIs, source-retrieval tools or manifests as playing-agent inputs.
+
+
+## Stage 2A protocol 3
+
+Build the native core from the repository root with `python3 scripts/build_pokerth.py`.
+Then, from `apps/api`:
+
+```sh
+uv run python -m wtr.evaluation --opponents pokerth --scenario standard \
+  --policy-seed 42 --opponent-seed 43 --personality-seed 44 \
+  --tuning-seeds 1,7 --held-out-seeds 101,107 --repeats 2
+```
+
+`--opponents legacy` remains the CLI default for historical comparison. PokerTH
+requires the standard scenario; selecting a scripted shove override is rejected.
+A missing native build is an explicit failed run with `pokerth_setup_error` and
+setup guidance, never a legacy substitution.
+
+Deck, hero policy, per-seat opponent policy and private assignment randomness
+are now separate. Both opponent families use private shuffled assignments.
+`opponent_seed` and `personality_seed` default to 43 and 44 in evaluation and are
+recorded with `policy_seed`, opponent family and the PokerTH revision in the
+controller record and outcome hash. Interactive API creation independently draws
+omitted seeds instead. None of these controller fields enter player observations.
+
+The old fixed profile assignments and shared deck/policy RNG described above
+apply to historical protocols, not protocol 3. Hero seat and initial button are
+still fixed, the held-out split still varies seeds only, and opponents are not
+validated human models. Regenerate comparisons under the new protocol rather
+than combining outcome hashes across protocols. Runtime source hashes now also
+include the Python opponent adapter; the Stage 2A evidence records native build
+provenance separately.

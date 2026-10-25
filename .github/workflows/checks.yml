@@ -18,6 +18,7 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           python-version: '3.11'
+      - run: python3 scripts/build_pokerth.py
       - run: uv sync --frozen --extra test
         working-directory: apps/api
       - run: uv run pytest

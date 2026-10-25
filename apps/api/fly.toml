@@ -1,8 +1,9 @@
+# Run with repository-root build context.
 # Review the app name and region before deploying. No resources are provisioned.
 app = "whats-their-range-api"
 primary_region = "sin"
 [build]
-  dockerfile = "Dockerfile"
+  dockerfile = "apps/api/Dockerfile"
 [env]
   WTR_PUBLIC = "true"
   LANGSMITH_TRACING = "false"

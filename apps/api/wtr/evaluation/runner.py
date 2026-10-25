@@ -17,6 +17,7 @@ from uuid import uuid4
 
 from wtr.game import Tournament
 from wtr.models import TournamentConfig
+from wtr.opponents import Opponents, OpponentError, REVISION
 from .policies import POLICIES, SCENARIOS, PolicySpec, opponent_action
 
 
@@ -25,6 +26,9 @@ class EvaluationConfig:
     tuning_seeds: tuple[int, ...] = (1,)
     held_out_seeds: tuple[int, ...] = (101,)
     policy_seed: int = 42
+    opponents: str = "legacy"
+    opponent_seed: int = 43
+    personality_seed: int = 44
     repeats: int = 1
     policies: tuple[PolicySpec, ...] = (POLICIES["heuristic"],)
     scenarios: tuple[str, ...] = ("standard",)
@@ -45,6 +49,17 @@ class EvaluationConfig:
     def __post_init__(self):
         if type(self.policy_seed) is not int or not 0 <= self.policy_seed <= 2**31 - 1:
             raise ValueError("Policy seed must be an integer between 0 and 2147483647")
+        if self.opponents not in ("legacy", "pokerth"):
+            raise ValueError("Choose legacy or pokerth opponents")
+        if self.opponents == "pokerth" and self.scenarios != ("standard",):
+            raise ValueError(
+                "PokerTH requires the standard scenario; scripted overrides are legacy only"
+            )
+        for value in (self.opponent_seed, self.personality_seed):
+            if type(value) is not int or not 0 <= value <= 2**31 - 1:
+                raise ValueError(
+                    "Opponent and personality seeds must be integers between 0 and 2147483647"
+                )
         seeds = self.tuning_seeds + self.held_out_seeds
         if not seeds or any(
             type(s) is not int or not 0 <= s <= 2**31 - 1 for s in seeds
@@ -111,11 +126,17 @@ def _worker(send, config, spec, seed, scenario, table_id):
             table_id,
             TournamentConfig(
                 seed=seed,
+                opponents=config.opponents,
+                opponent_seed=config.opponent_seed,
+                personality_seed=config.personality_seed,
+                hero_seed=config.policy_seed,
                 stack_bb=config.stack_bb,
                 hands_per_level=config.hands_per_level,
                 payouts=config.payouts,
             ).model_dump(),
         )
+        stage = "opponent_initialization"
+        opponents = Opponents(game.config, config.opponent_profiles)
         game.version += 1  # Initial committed state, matching the worker convention.
         while True:
             total = _chip_total(game)
@@ -127,6 +148,8 @@ def _worker(send, config, spec, seed, scenario, table_id):
                 "state_version": game.version,
             }
             send.send(("progress", progress))
+            if any(n < 0 for n in game.state.stacks):
+                raise EvaluationFailure("negative_stack")
             if total != game.total:
                 raise EvaluationFailure("chip_conservation")
             if game.status == "finished":
@@ -174,14 +197,22 @@ def _worker(send, config, spec, seed, scenario, table_id):
                 key = decision["action"]
             else:
                 stage = "opponent_decision"
-                key = opponent_action(
-                    obs, scenario, config.opponent_profiles[actor - 1], game.rng
+                key = (
+                    opponents.decide(obs)
+                    if config.opponents == "pokerth"
+                    else opponent_action(
+                        obs,
+                        scenario,
+                        opponents.profiles[actor - 1],
+                        opponents.random[actor],
+                    )
                 )
             latency = (time.perf_counter() - start) * 1000
             if key not in legal:
                 raise EvaluationFailure("illegal_policy_action")
             stage = "engine"
             game.apply(key, observed_version)
+            opponents.observe(obs, key)
             game.version += 1
             actions += 1
             send.send(
@@ -189,6 +220,10 @@ def _worker(send, config, spec, seed, scenario, table_id):
                     "action",
                     {
                         "hand": obs["hand"],
+                        "street": obs["street"],
+                        "board": obs["board"],
+                        "pot": obs["pot"],
+                        "players": obs["players"],
                         "state_version": observed_version,
                         "player": actor,
                         "legal_actions": legal,
@@ -200,13 +235,24 @@ def _worker(send, config, spec, seed, scenario, table_id):
     except Exception as exc:
         # Do not persist arbitrary exception text, policy payloads or credentials.
         code = str(exc) if isinstance(exc, EvaluationFailure) else f"{stage}_error"
-        send.send(("failure", {"code": code, "stage": stage}))
+        failure = {"code": code, "stage": stage}
+        if isinstance(exc, OpponentError):
+            failure = {
+                "code": "pokerth_setup_error"
+                if stage == "opponent_initialization"
+                else "pokerth_decision_error",
+                "stage": stage,
+                "message": str(exc),
+            }
+        send.send(("failure", failure))
     finally:
         send.close()
 
 
 def run_tournament(config, spec, seed, scenario, split="tuning", repeat=0):
     """Run a trusted, importable adapter in its own spawned table process."""
+    if config.opponents == "pokerth" and scenario != "standard":
+        raise ValueError("PokerTH requires the standard scenario")
     if scenario not in SCENARIOS or split not in {"tuning", "held_out"}:
         raise ValueError("Choose a supported scenario and tuning or held_out split")
     if type(seed) is not int or not 0 <= seed <= 2**31 - 1:
@@ -221,8 +267,12 @@ def run_tournament(config, spec, seed, scenario, split="tuning", repeat=0):
         "split": split,
         "repeat": repeat,
         "scenario": scenario,
-        "protocol_version": 2,
+        "protocol_version": 3,
         "policy_seed": config.policy_seed,
+        "opponents": config.opponents,
+        "opponent_seed": config.opponent_seed,
+        "personality_seed": config.personality_seed,
+        "pokerth_revision": REVISION if config.opponents == "pokerth" else None,
         "hero_seat": 0,
         "status": "failed",
         "hands": 0,
@@ -302,6 +352,10 @@ def run_tournament(config, spec, seed, scenario, split="tuning", repeat=0):
         for k in (
             "protocol_version",
             "policy_seed",
+            "opponents",
+            "opponent_seed",
+            "personality_seed",
+            "pokerth_revision",
             "policy",
             "seed",
             "scenario",
@@ -376,11 +430,12 @@ def evaluate(config: EvaluationConfig):
     sources = [
         root / "game.py",
         root / "agent.py",
+        root / "opponents.py",
         *sorted((root / "evaluation").glob("*.py")),
     ]
     return {
         "schema_version": 1,
-        "protocol_version": 2,
+        "protocol_version": 3,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "config": asdict(config),
         "runtime": {
@@ -424,7 +479,10 @@ def save_report(report, directory):
             f"{row['completed_unique_seeds']} completed unique seeds; {estimate}"
         )
     failures = [r for r in report["results"] if r["failure"]]
-    lines.extend(f"{r['table_id']}: {r['failure']['code']}" for r in failures)
+    lines.extend(
+        f"{r['table_id']}: {r['failure']['code']} {r['failure'].get('message', '')}"
+        for r in failures
+    )
     lines.extend(
         [
             "",

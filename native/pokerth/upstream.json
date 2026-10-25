@@ -1,0 +1,51 @@
+{
+  "repository": "https://github.com/pokerth/pokerth",
+  "revision": "0a7dceb575d8b9dfcbd7c46ec7a90482cbdb40ba",
+  "tag": "v2.1.10",
+  "files": {
+    "COPYING": {
+      "git_blob": "2def0e8831c25daae02b8b87cd439da27f1ac1c1",
+      "sha256": "91b65277959ec273763d28ef002e83a6b3fba57c7a35436c9e5b66536333d720"
+    },
+    "src/game_defs.h": {
+      "git_blob": "40b38162a1e616372e66ab2def870e1e9f8a0511",
+      "sha256": "6c007b070f3636edb9593c1e195355befb92cdc0e96f1530140e6f1fc9b0b15e"
+    },
+    "src/engine/local_engine/tools.h": {
+      "git_blob": "7cd599a4507e1141124a3ec2af6d66128c9275c9",
+      "sha256": "6f635896ab0357c1c572b7a4417332d4beb7e2ee9602827cfbd6571b78e9afb0"
+    },
+    "src/engine/local_engine/aiengine4.cpp": {
+      "git_blob": "0bf18858272e357450e6294a34ac97b01ce0721b",
+      "sha256": "3c94c5a252dd67a9c922672426e86980610ad2f0d902f8c58333c58d528f3e07"
+    },
+    "src/engine/local_engine/aiengine4.h": {
+      "git_blob": "7ce6325f46e39ded66a2fcbd303d3294712365e2",
+      "sha256": "7fc1e44fd5b691b0d4b6493fa4227107979a93372fcc52d6e9e21bd4373af95a"
+    },
+    "src/engine/local_engine/equitycalculator.cpp": {
+      "git_blob": "20c91d99d20d20fe6fa82ab63bd1b5cf86e40fd1",
+      "sha256": "03dc2fa8a3fecd7adf97c8d00eb5b1df2ebc622a759831692089abe510d807b2"
+    },
+    "src/engine/local_engine/equitycalculator.h": {
+      "git_blob": "1c7cc1ba799067d4832f66f45be10a5adc842100",
+      "sha256": "b41c1817c66290d08886b327d45969754efcec67e0c89f1501297d3ffebbc524"
+    },
+    "src/engine/local_engine/holecardsrange.cpp": {
+      "git_blob": "85b4115361b1aebaf31ea31ef136537463999896",
+      "sha256": "1c7cbc25a4cb055a89eed8e12123bcd1bf6a89e8bb77c89d31cc67384d733db1"
+    },
+    "src/engine/local_engine/holecardsrange.h": {
+      "git_blob": "aa364e782d6bbe7c3763fe5c435981aa8076da88",
+      "sha256": "a17695dd97c117faa4b07e8e20c882e96bf98e887e2017b55484fa555d3158b7"
+    },
+    "src/engine/local_engine/handevaluator.cpp": {
+      "git_blob": "7f0fbbde98bea31f780e6dcb945e844601a6087d",
+      "sha256": "a0d005fbc9871406ae301a03f250390edb83f3972bcb31be88952ab5d6c18662"
+    },
+    "src/engine/local_engine/handevaluator.h": {
+      "git_blob": "5fdc6bab66dfedadc6b2a6542eb1cceffbfdde3a",
+      "sha256": "a7a330cd4c392d84ab5872405dd28c53c7e556c88411617148c1a95e1fa06b6d"
+    }
+  }
+}

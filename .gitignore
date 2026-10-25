@@ -12,3 +12,4 @@ __pycache__/
 data/
 .DS_Store
 *.tsbuildinfo
+native/pokerth/build/
