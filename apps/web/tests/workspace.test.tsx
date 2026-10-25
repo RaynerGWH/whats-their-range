@@ -279,6 +279,17 @@ describe("capability-aware creation", () => {
   });
 });
 describe("player and public chat boundaries", () => {
+  it.each([
+    [{ input_tokens: 13, output_tokens: 7, cost_usd: 0.002 }, "13", "7", "$0.002"],
+    [{ prompt_tokens: 9, completion_tokens: 0, cost: 0 }, "9", "0", "$0"],
+    [{ input_tokens: null, output_tokens: null, cost_usd: null }, "Not recorded", "Not recorded", "Not recorded"],
+  ] as const)("shows recorded new or legacy usage without inventing missing values", (usage, input, output, cost) => {
+    render(<DecisionPanel table={{ ...table, decision: { ...decision, source: "openrouter", usage } }}
+      seat={0} server={server} onTrace={() => {}} />);
+    expect(screen.getByText("Input tokens").nextElementSibling?.textContent).toBe(input);
+    expect(screen.getByText("Output tokens").nextElementSibling?.textContent).toBe(output);
+    expect(screen.getByText("Cost (USD)").nextElementSibling?.textContent).toBe(cost);
+  });
   it("never assigns the legacy hero record to another player", () => {
     expect(decisionFor(table, 0)).toEqual(decision);
     expect(decisionFor(table, 1)).toBeNull();
@@ -392,4 +403,20 @@ describe("player and public chat boundaries", () => {
     );
     expect(screen.getAllByLabelText("Hidden card")).toHaveLength(2);
   });
+});
+
+it("starts configured LLM creation with six seats, manual hero and the backend preset", async () => {
+  const onCreate = vi.fn().mockResolvedValue(undefined);
+  const preset: Config = { ...config, opponents: "llm", player_count: 6,
+    hero_seat: 2, hero_control: "human", model: "test/default", stack_bb: 80,
+    seat_configs: seatDefaults(6), llm_limits: { max_message_chars: 80 } };
+  render(<CreateDialog server={{ ...server, llm_preset: preset,
+    capabilities: { llm_tables: true, public_chat: true, manual_hero: true } }}
+    count={0} onClose={() => {}} onCreate={onCreate} />);
+  expect((screen.getByRole("combobox", { name: "Opponents" }) as HTMLSelectElement).value).toBe("llm");
+  await act(async () => fireEvent.click(screen.getByRole("button", { name: "Create table" })));
+  expect(onCreate).toHaveBeenCalledTimes(1);
+  expect(onCreate.mock.calls[0][0]).toMatchObject({ opponents: "llm", player_count: 6,
+    hero_seat: 2, hero_control: "human", stack_bb: 80, llm_limits: { max_message_chars: 80 } });
+  expect(onCreate.mock.calls[0][0].seat_configs).toHaveLength(6);
 });

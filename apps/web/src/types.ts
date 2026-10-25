@@ -5,6 +5,7 @@ export type SeatConfig = {
   instruction_profile: "free_play";
   harness: "baseline";
   chat_enabled: boolean;
+  temperature?: number;
 };
 export type ChatMessage = {
   id: string;
@@ -35,6 +36,7 @@ export type HeroTurn = {
   };
 };
 export type Config = {
+  llm_limits?: { max_message_chars?: number };
   hero_control?: "human" | "llm";
   player_count?: 4 | 6;
   hero_seat?: number;
@@ -105,14 +107,21 @@ export type Decision = {
   };
   evidence: Evidence[];
   observation: Record<string, unknown>;
-  latency_ms: number;
+  latency_ms: number | null;
   state_version: number;
   hand: number;
   street: string;
   event_id: string;
   fallback: string | null;
   calls: number;
-  usage: { prompt_tokens?: number; completion_tokens?: number; cost?: number };
+  usage: {
+    prompt_tokens?: number | null;
+    completion_tokens?: number | null;
+    cost?: number | null;
+    input_tokens?: number | null;
+    output_tokens?: number | null;
+    cost_usd?: number | null;
+  };
 };
 export type Table = {
   hero_turn?: HeroTurn | null;
@@ -146,6 +155,8 @@ export type Table = {
   agent_decisions: number;
 };
 export type ServerConfig = {
+  llm_limits?: Config["llm_limits"];
+  llm_preset?: Config;
   capabilities?: {
     manual_hero?: boolean;
     llm_tables?: boolean;

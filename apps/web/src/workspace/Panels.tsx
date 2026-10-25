@@ -397,6 +397,9 @@ export function DecisionPanel({
 }
 function DecisionSummary({ decision: d }: { decision: Decision }) {
   const metrics = d.metrics;
+  const inputTokens = d.usage?.input_tokens ?? d.usage?.prompt_tokens;
+  const outputTokens = d.usage?.output_tokens ?? d.usage?.completion_tokens;
+  const cost = d.usage?.cost_usd ?? d.usage?.cost;
   return (
     <>
       <div className="decision-action">
@@ -448,16 +451,16 @@ function DecisionSummary({ decision: d }: { decision: Decision }) {
           )}
           <div>
             <dt>Input tokens</dt>
-            <dd>{number(d.usage?.prompt_tokens)}</dd>
+            <dd>{number(inputTokens)}</dd>
           </div>
           <div>
             <dt>Output tokens</dt>
-            <dd>{number(d.usage?.completion_tokens)}</dd>
+            <dd>{number(outputTokens)}</dd>
           </div>
           <div>
             <dt>Cost (USD)</dt>
             <dd>
-              {d.usage?.cost == null ? "Not recorded" : `$${d.usage.cost}`}
+              {cost == null ? "Not recorded" : `$${cost}`}
             </dd>
           </div>
         </dl>

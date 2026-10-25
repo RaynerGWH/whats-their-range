@@ -108,6 +108,37 @@ afterEach(() => {
   localStorage.clear();
 });
 describe("manual hero", () => {
+  it("uses the table message limit and rejects multiline text before submission", () => {
+    const { props } = setup({
+      table: { ...table, config: { ...table.config, llm_limits: { max_message_chars: 4 } } },
+      server: { ...server, llm_limits: { max_message_chars: 8 } },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Call 10" }));
+    const message = screen.getByRole("textbox", { name: "Public message" });
+    const submit = screen.getByRole("button", { name: "Submit call" }) as HTMLButtonElement;
+    fireEvent.change(message, { target: { value: "12345" } });
+    expect(submit.disabled).toBe(true);
+    expect(screen.getByRole("alert").textContent).toContain("at most 4 characters");
+    fireEvent.submit(submit.closest("form")!);
+    expect(props.onAction).not.toHaveBeenCalled();
+    fireEvent.change(message, { target: { value: "a\nb" } });
+    expect(submit.disabled).toBe(true);
+    // Python counts Unicode code points, so four emoji fit a four-character limit.
+    fireEvent.change(message, { target: { value: "🙂🙂🙂🙂" } });
+    expect(submit.disabled).toBe(false);
+    expect(screen.getByText("4 / 4 characters")).toBeTruthy();
+  });
+  it("labels a free action Check and submits its exact key", async () => {
+    const { props } = setup({ table: {
+      ...table,
+      hero_turn: { ...table.hero_turn!, observation: { legal: [{ key: "check", kind: "call", amount: 0 }] } },
+    } });
+    expect(screen.queryByRole("button", { name: "Call 0" })).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: "Check" }));
+    fireEvent.click(screen.getByRole("button", { name: "Submit check" }));
+    await waitFor(() => expect(props.onAction).toHaveBeenCalledTimes(1));
+    expect(props.onAction.mock.calls[0][0].action).toBe("check");
+  });
   it("submits the selected exact legal key, frozen version/token and optional message once", async () => {
     const { props } = setup();
     expect(

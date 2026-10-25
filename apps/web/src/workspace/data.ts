@@ -97,6 +97,7 @@ export function creationPayload(
   }
   // Omit additive fields entirely for old six-player backends.
   const {
+    llm_limits: _limits,
     hero_control: _control,
     player_count: _count,
     hero_seat: _hero,

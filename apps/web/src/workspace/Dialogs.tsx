@@ -72,17 +72,40 @@ export function CreateDialog({
       },
   );
   const [presetStatus, setPresetStatus] = useState("");
-  const [config, setConfig] = useState<Config>(() => ({
-    name: `Table ${count + 1}`,
-    seed: Math.floor(Math.random() * 100000),
-    stack_bb: 50,
-    hands_per_level: 8,
-    payouts: "70/30",
-    mode: "heuristic",
-    opponents: "pokerth",
-    model: server?.default_model || "",
-    pace: 1.2,
-  }));
+  const [config, setConfig] = useState<Config>(() => {
+    const baseline: Config = {
+      name: `Table ${count + 1}`,
+      seed: Math.floor(Math.random() * 100000),
+      stack_bb: 50,
+      hands_per_level: 8,
+      payouts: "70/30",
+      mode: "heuristic",
+      opponents: "pokerth",
+      model: server?.default_model || "",
+      pace: 1.2,
+    };
+    if (
+      !supports(server, "llm_tables") ||
+      !supports(server, "manual_hero") ||
+      !server?.openrouter_configured
+    ) return baseline;
+    const saved = server.llm_preset;
+    const hero = saved?.hero_seat ?? 0;
+    return {
+      ...baseline,
+      ...saved,
+      name: baseline.name,
+      seed: baseline.seed,
+      opponents: "llm",
+      mode: "openrouter",
+      player_count: 6,
+      hero_seat: hero,
+      hero_control: "human",
+      seat_configs: applyPreset(
+        seatDefaults(6, saved?.seat_configs), hero, preset,
+      ),
+    };
+  });
   const [busy, setBusy] = useState(false),
     [error, setError] = useState("");
   const isLLM = config.opponents === "llm";

@@ -67,12 +67,21 @@ export function HeroControl({
     supports(server, "public_chat") &&
     table.config.seat_configs?.find((seat) => seat.seat === hero)
       ?.chat_enabled === true;
+  const messageLimit =
+    table.config.llm_limits?.max_message_chars ??
+    server?.llm_limits?.max_message_chars ??
+    240;
+  const publicMessage = message.trim();
+  const invalidMessage =
+    chatAllowed &&
+    (Array.from(publicMessage).length > messageLimit ||
+      /[\u0000-\u001f]/.test(publicMessage));
   const last = decisionFor(table, hero);
   const send = async (kind: "action" | "control", next?: "human" | "llm") => {
     if (locked.current || !available || !playable) return;
     if (
       kind === "action" &&
-      (!valid || !legal.some((item) => item.key === action))
+      (!valid || invalidMessage || !legal.some((item) => item.key === action))
     )
       return;
     if (kind === "control" && (!next || next === mode)) return;
@@ -94,8 +103,8 @@ export function HeroControl({
             turn_token: turn!.turn_token,
             state_version: turn!.state_version,
             action,
-            ...(chatAllowed && message.trim()
-              ? { public_message: message.trim() }
+            ...(chatAllowed && publicMessage
+              ? { public_message: publicMessage }
               : {}),
           },
           requestController.signal,
@@ -237,7 +246,9 @@ export function HeroControl({
                   className={action === item.key ? "chosen-action" : ""}
                   onClick={() => setAction(item.key)}
                 >
-                  {item.kind === "call"
+                  {item.key === "check"
+                    ? "Check"
+                    : item.kind === "call"
                     ? `Call ${item.amount}`
                     : actionLabel(item.key)}
                 </button>
@@ -258,9 +269,21 @@ export function HeroControl({
                 }
               />
             </label>
+            {chatAllowed && (
+              <p className="field-note">
+                {Array.from(publicMessage).length} / {messageLimit} characters
+              </p>
+            )}
+            {invalidMessage && (
+              <p className="error-banner" role="alert">
+                Use one line with at most {messageLimit} characters.
+              </p>
+            )}
             <button
               className="button primary full-width"
-              disabled={!action || busy || locked.current || !valid}
+              disabled={
+                !action || invalidMessage || busy || locked.current || !valid
+              }
             >
               Submit {action ? actionLabel(action).toLowerCase() : "action"}
             </button>
