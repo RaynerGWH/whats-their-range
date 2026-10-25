@@ -1,6 +1,6 @@
 # Shared project context
 
-Revision: 11. Updated: 2026-10-25 18:12 Asia/Singapore.
+Revision: 12. Updated: 2026-10-25 18:16 Asia/Singapore.
 
 This is the current project brief and decision log for every coding chat and worktree. Read it before starting or resuming work. The integration chat maintains it from Rayner's decisions and verified branch evidence. The local canonical checkout is identified in [shared context access](shared-context.md).
 
@@ -30,21 +30,21 @@ Detailed design targets and proposed tool families are in [agent direction](agen
 
 ## Current implementation
 
-Original milestone snapshots were audited on 2026-10-25 and are retained below. The later Stage 1 delivery combines all four workstreams on `feat/baseline-integration` at `01f3a81`; its report and clean checkout have been inspected, with integration review now underway. Status labels in this table describe the original milestone audit, not that later delivery. This is not an automatic monitor, and test results do not establish poker strength.
+The combined Stage 1 baseline was reviewed, independently tested and merged into local `main` on 2026-10-25 via integration commit `a486a49`. The input delivery is `01f3a81`. Documentation-only follow-ups may advance the branch further. See the [integration review](review/stage-1-integration.md). No remote push was made. This is an inspection snapshot, not an automatic monitor, and passing checks do not establish poker strength.
 
 | Workstream | Branch and audited commit | Implemented | Integration status |
 | --- | --- | --- | --- |
-| Baseline and integration | `feat/integration`, `0fe9596` | Runnable simulator, heuristic policy, fixed LangGraph preparation and optional single OpenRouter decision call | Workstream code remains unmerged; shared planning documents are being added |
-| Strategy | `feat/strategy`, `6f44297` | Pure candidate analysis, hand labels and conditional calculations | Disconnected from the playing agent; no integrated solver or verified GTO dataset |
-| Backend | `feat/observability`, `9c63568` | Recorded spans, trace persistence and APIs, asynchronous LangSmith export, worker lifecycle improvements | Combined frontend and strategy behavior remains unverified |
-| Frontend | `feat/trace-explorer`, `5d34afa` | Trace tree, timeline, details and polling | Verified against fixtures and the baseline API; real trace backend integration remains outstanding |
-| Evaluation | `feat/evaluation`, `34c7e2d` | Reproducible tournament runner, policy adapters, pressure scenarios and saved results | Measures baseline policies; integrated LLM/tool-loop evaluation is future work |
+| Baseline and integration | Stage 1 `01f3a81`, integration `a486a49` | Combined simulator, traces, frontend, analysis module and evaluation | Reviewed and present in local main |
+| Strategy | Input `feat/strategy`, `6f44297` | Pure candidate analysis, hand labels and conditional calculations | Integrated as an available module; not connected to live action selection; no solver |
+| Backend | Input `feat/observability`, `9c63568`, plus Stage 1 fixes | Recorded spans, trace persistence/APIs, bounded LangSmith export, worker lifecycle and privacy protections | Integrated and checked with frontend; hosted providers remain unverified |
+| Frontend | Input `feat/trace-explorer`, `5d34afa`, plus Stage 1 fixes | Trace tree, timeline, details, polling and explicit completed-trace refresh | Integrated with real local trace records; provider calls used mocks |
+| Evaluation | Input `feat/evaluation`, `34c7e2d`, plus protocol 2 fixes | Reproducible tournaments, policy adapters, opaque IDs and separate hero policy seed | Integrated baseline evaluation; broader policy holdouts and full LLM/tool-loop evaluation remain future work |
 
-Recorded branch validation: strategy 59 API tests; backend 36 passed and 1 skipped by default, 37 passed with disposable local PostgreSQL; frontend 14 tests plus TypeScript/build and browser checks; evaluation 45 API tests and a saved 16-tournament smoke run using four unique seeds. Counts share baseline tests and must not be added together. These checks were inspected, not rerun by this planning chat. Provider and LangSmith tests used mocks. Hosted OpenRouter, LangSmith and Supabase operation remains unverified.
+Independent integration verification: 108 API tests passed, one optional PostgreSQL test skipped, 16 frontend tests passed, TypeScript and production build passed. The backend's recorded browser/lifecycle evidence and 16-tournament smoke set were inspected rather than repeated. Provider and LangSmith tests used mocks. Hosted OpenRouter, LangSmith and Supabase operation remains unverified. Original milestone test counts overlap and must not be added together.
 
 ## Evaluation integrity finding
 
-Confirmed in the original evaluation milestone `34c7e2d`: table IDs exposed split, deck seed, repeat, policy and scenario in observations and public event IDs. Stage 1's delivery `d97b465`, included in `01f3a81`, addresses this with opaque table IDs, table-local event IDs, separate policy seeds and reconstructed public names/action text. Its delivery report records semantic privacy regressions over actual provider payloads and local/exported traces. Integration is reviewing these fixes; they are not yet merged into the integration checkout or main. Broader generalization risks from fixed profiles and seat assignments remain for the next work.
+Confirmed in the original evaluation milestone `34c7e2d`: table IDs exposed split, deck seed, repeat, policy and scenario in observations and public event IDs. Stage 1's delivery `d97b465`, included in `01f3a81`, addresses this with opaque table IDs, table-local event IDs, separate policy seeds and reconstructed public names/action text. Semantic privacy regressions cover actual mocked-provider payloads and local/exported traces. Integration reran these checks and merged the fixes into local main. Broader generalization risks from fixed profiles and seat assignments remain for the next work.
 
 Before evaluating an LLM through that harness, use opaque policy-visible table and event identifiers and retain experiment metadata only in evaluator-owned records. Audit all prompt, tool, retrieval and trace paths for equivalent leakage. The current fixed names/seats also correspond to fixed opponent profiles, and the held-out split varies seeds only. Proposed additional controls are randomized identity/profile assignments between independent runs, held-out opponent policies and parameters, and isolated agent memory between evaluation runs. Preserve stable opponent identity within a tournament so legitimate learning remains possible.
 
@@ -52,13 +52,13 @@ The player agent must not receive opponent-policy source, simulator settings, de
 
 ## Next work and open decisions
 
-Stage 1 has been delivered by **Backend: tracing and persistence** on `feat/baseline-integration`, commit `01f3a8120790fbdad4d8589962be6d90fcb7d8b7`, with implementation at `d97b465`. On 2026-10-25 the integration chat inspected the clean checkout and delivery report: 108 API tests passed with one optional PostgreSQL skip, 16 frontend tests passed, type/build checks passed, 16 tournaments completed with repeat checks, and browser/lifecycle evidence was recorded. These are worker-reported checks, not yet rerun by integration. The four original workstreams are combined there, while `feat/integration` still awaits the reviewed merge. Strategic hand review remains pending.
+Stage 1 is complete as an engineering baseline and reviewed into local main. The original backend delivery `01f3a8120790fbdad4d8589962be6d90fcb7d8b7` remains preserved on `feat/baseline-integration`. The [integration review](review/stage-1-integration.md) records independently rerun checks and the merge. Strategic hand review remains pending.
 
 Rayner has authorized [Stage 2A](tasks/stage-2a.md) for the same backend chat and checkout, on a new `feat/pokerth-opponents` branch based on the completed Stage 1 delivery. The finish line is complete games with real PokerTH opponents and the existing hero decision path, visible in the application. The assignment was dispatched and an active implementation turn confirmed on 2026-10-25. Stage 2B then develops the fuller backend/strategy decision specification, model-directed tool loop and initial genuine solver access; it remains unassigned and provider access/budget remains unresolved.
 
 The [roadmap](roadmap.md) records this sequence, completion evidence, opponent-model work and a solver shortlist researched on 2026-10-25. Splitting Stage 2 into A and B changes sequencing; Stage 2A alone does not establish the target reasoning system or solver integration. No solver has been selected or integrated.
 
-The roadmap also records an [opponent reuse shortlist](roadmap.md#reuse-candidates), researched after Rayner raised existing bot libraries and requested reputation checks. The [QuantPlay assessment](research/quantplay.md) found sparse independent feedback and passed two upstream smoke-test modules at `d1b4ca2`. The subsequent [PokerTH assessment](research/pokerth.md) found a stronger community history and a separable AI engine 4 interface. Its decision module compiled in isolation at release `0a7dceb`, using a research randomness bridge, and passed seven equity checks plus 200 synthetic decision cases. Rayner then confirmed the combined direction: retain PokerKit's environment and connect PokerTH's opponent logic. This selects the integration approach, while the actual adapter, default profiles and human realism remain unverified. No external opponent is integrated, and the active Stage 1 assignment is unchanged.
+The roadmap also records an [opponent reuse shortlist](roadmap.md#reuse-candidates), researched after Rayner raised existing bot libraries and requested reputation checks. The [QuantPlay assessment](research/quantplay.md) found sparse independent feedback and passed two upstream smoke-test modules at `d1b4ca2`. The subsequent [PokerTH assessment](research/pokerth.md) found a stronger community history and a separable AI engine 4 interface. Its decision module compiled in isolation at release `0a7dceb`, using a research randomness bridge, and passed seven equity checks plus 200 synthetic decision cases. Rayner selected the combined direction, now assigned as Stage 2A. The actual adapter, default profiles and human realism remain unverified; no external opponent is integrated into main yet.
 
 Still to decide:
 

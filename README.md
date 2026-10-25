@@ -2,11 +2,11 @@
 
 A local NLH tournament simulator for testing LLM poker agents.
 
-This first skeleton is a playable spectator lab: six-player NLH freezeout tournaments, five probabilistic opponents, a replaceable agent, independent table workers, and replayable decision records.
+The current baseline is a playable spectator lab: six-player NLH freezeout tournaments, five probabilistic opponents, a replaceable agent, independent table workers, replayable decision records and an execution trace explorer. The [Stage 1 integration review](docs/review/stage-1-integration.md) records the combined checks. PokerTH opponents and the fuller strategy layer are the next milestones.
 
 ## Project direction
 
-Before starting or resuming project work, read [shared context access](docs/shared-context.md). It points every local worktree to the same live project brief, decision log and agent direction. That brief separates agreed goals, proposed work and verified implementation. The sections below describe the runnable skeleton.
+Before starting or resuming project work, read [shared context access](docs/shared-context.md). It points every local worktree to the same live project brief, decision log and agent direction. That brief separates agreed goals, proposed work and verified implementation. The sections below describe the runnable baseline.
 
 ## Run locally
 
@@ -71,7 +71,7 @@ On API restart, unfinished sessions are archived as interrupted. Replay survives
 
 Templates are included; nothing is deployed automatically.
 
-- **Supabase:** set `DATABASE_URL` to a server-side PostgreSQL connection (`postgresql+psycopg://...`, with `sslmode=require`). Prefer the session pooler for this persistent service. The backend creates its two tables and enables RLS on PostgreSQL; no browser policies are granted. Connect as the owner/backend role. Supabase Auth and per-user authorization are not yet integrated.
+- **Supabase:** set `DATABASE_URL` to a server-side PostgreSQL connection (`postgresql+psycopg://...`, with `sslmode=require`). Prefer the session pooler for this persistent service. The backend creates its tables and enables RLS on PostgreSQL; no browser policies are granted. Connect as the owner/backend role. Supabase Auth and per-user authorization are not yet integrated.
 - **Fly.io:** use `apps/api/fly.toml`, review app name/region, and set `DATABASE_URL`, `CONTROL_TOKEN`, `ALLOWED_ORIGINS` and optional provider/tracing secrets. The template requires a control token and keeps the machine awake for running tournaments. Use one machine and one Uvicorn worker. SQLite on ephemeral deployment storage is not durable.
 - **Vercel:** set root directory to `apps/web`; set `VITE_API_URL` to the API's HTTPS origin. Add the exact Vercel origin to backend `ALLOWED_ORIGINS`. Enter `CONTROL_TOKEN` in the dashboard's Connections panel. Never place provider keys or database credentials in `VITE_*` variables.
 
