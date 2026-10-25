@@ -1,6 +1,6 @@
 # Shared project context
 
-Revision: 14. Updated: 2026-10-25 18:52 Asia/Singapore.
+Revision: 15. Updated: 2026-10-25 19:00 Asia/Singapore.
 
 This is the current project brief and decision log for every coding chat and worktree. Read it before starting or resuming work. The integration chat maintains it from Rayner's decisions and verified branch evidence. The local canonical checkout is identified in [shared context access](shared-context.md).
 
@@ -32,6 +32,8 @@ Detailed design targets and proposed tool families are in [agent direction](agen
 ## Current implementation
 
 The combined Stage 1 baseline was reviewed into local `main` via `a486a49`. Stage 2A delivery `a82a152` was then reviewed, independently tested and merged into local `main` on 2026-10-25 via `e99817b`. Documentation-only follow-ups may advance the branch further. See the [Stage 2A integration review](review/stage-2a-integration.md) and the earlier [Stage 1 review](review/stage-1-integration.md). No remote push was made. This is an inspection snapshot, not an automatic monitor, and passing checks do not establish poker strength.
+
+Rayner requested committing and merging all current work as the starting baseline for agent development. The remaining shared-context notes in the original, strategy, frontend and evaluation checkouts were committed and merged. The consolidated checkpoint is tagged `baseline/stage-2a` on local main. See the [baseline record](baseline-stage-2a.md). Future Stage 2B work should start from this checkpoint or a later reviewed main revision, rather than an old worktree head.
 
 | Workstream | Branch and audited commit | Implemented | Integration status |
 | --- | --- | --- | --- |
@@ -99,6 +101,7 @@ All entries below were accepted through Rayner's discussion in the integration c
 | D011 | Rayner directed the backend agent to implement the playable environment before developing the fuller strategy | Assign Stage 2A to the existing backend checkout; preserve the current hero interface and defer new strategy/solver work to Stage 2B, refining D008's sequencing |
 | D012 | Rayner authorized commits during development and merges to main once work is solid and complete | Use coherent local commits; integration reviews and validates completed deliveries before merging into local main, without an additional permission round |
 | D013 | Rayner clarified during live review that a single scenario should not be used to call the simulation inaccurate | Evaluate recurring behavior across a meaningful sample; separate mechanical validity, adapter fidelity and strategic judgment; do not reject PokerTH or block strategy work on an isolated unusual action |
+| D014 | Rayner requested committing and merging all current work as the solid starting baseline before agent logic | Consolidate remaining worktree notes into local main, preserve the reviewed environment as `baseline/stage-2a`, and base Stage 2B on this checkpoint or a later reviewed main revision |
 
 ## Keeping this current
 

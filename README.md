@@ -4,25 +4,11 @@ A local NLH tournament simulator for testing LLM poker agents.
 
 The current baseline is a playable spectator lab: six-player NLH freezeout tournaments, five PokerTH engine 4 opponents (or an explicit legacy heuristic mode), a replaceable agent, independent table workers, replayable decision records and an execution trace explorer. The [Stage 2A delivery](docs/stage-2a.md) records the native opponent integration and game evidence. The fuller LLM strategy and solver are the next milestone.
 
+The committed starting point for that next milestone is tagged `baseline/stage-2a`. See the [baseline checkpoint](docs/baseline-stage-2a.md) for its contents, verification and remaining agent work.
+
 ## Project direction
 
 Before starting or resuming project work, read [shared context access](docs/shared-context.md). It points every local worktree to the same live project brief, decision log and agent direction. That brief separates agreed goals, proposed work and verified implementation. The sections below describe the runnable baseline.
-
-## Project direction
-
-Before starting or resuming project work, read [shared context access](docs/shared-context.md). It points every local worktree to the same live project brief, decision log and agent direction. That brief separates agreed goals, proposed work and verified implementation. The sections below describe the runnable skeleton.
-
-## Project direction
-
-Before starting or resuming project work, read [shared context access](docs/shared-context.md). It points every local worktree to the same live project brief, decision log and agent direction. That brief separates agreed goals, proposed work and verified implementation. The sections below describe the runnable skeleton.
-
-## Project direction
-
-Before starting or resuming project work, read [shared context access](docs/shared-context.md). It points every local worktree to the same live project brief, decision log and agent direction. That brief separates agreed goals, proposed work and verified implementation. The sections below describe the runnable skeleton.
-
-## Project direction
-
-Before starting or resuming project work, read [shared context access](docs/shared-context.md). It points every local worktree to the same live project brief, decision log and agent direction. That brief separates agreed goals, proposed work and verified implementation. The sections below describe the runnable skeleton.
 
 ## Run locally
 
