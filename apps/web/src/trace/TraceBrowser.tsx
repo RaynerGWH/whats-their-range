@@ -5,6 +5,7 @@ import TraceView, { Status } from "./TraceView";
 import type { TracePage, TraceRecord } from "./types";
 
 type Props = {
+  player?: number;
   tableId: string;
   hand: number;
   token: string;
@@ -16,6 +17,7 @@ type Props = {
 
 export default function TraceBrowser({
   tableId,
+  player,
   hand: currentHand,
   token,
   connection,
@@ -56,6 +58,7 @@ export default function TraceBrowser({
     setListError("");
     const query = new URLSearchParams({ limit: "50" });
     if (hand) query.set("hand", hand);
+    if (player !== undefined) query.set("player", String(player));
     if (pageCursor) query.set("cursor", pageCursor);
     request<TracePage>(`${path}?${query}`, token, undefined, controller.signal)
       .then((page) => {
@@ -63,7 +66,9 @@ export default function TraceBrowser({
         if (
           page.items.some(
             (item) =>
-              item.table_id !== tableId || (hand && item.hand !== Number(hand)),
+              item.table_id !== tableId ||
+              (hand && item.hand !== Number(hand)) ||
+              (player !== undefined && (item.metadata.player ?? 0) !== player),
           )
         )
           throw new Error("Trace response does not match this table and hand.");
@@ -84,7 +89,17 @@ export default function TraceBrowser({
         if (!controller.signal.aborted) setListBusy(false);
       });
     return () => controller.abort();
-  }, [path, tableId, hand, validHand, token, pageCursor, revision, connection]);
+  }, [
+    path,
+    tableId,
+    hand,
+    validHand,
+    token,
+    pageCursor,
+    revision,
+    connection,
+    player,
+  ]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -101,7 +116,11 @@ export default function TraceBrowser({
           controller.signal,
         );
         if (controller.signal.aborted) return;
-        if (next.trace_id !== traceId || next.table_id !== tableId)
+        if (
+          next.trace_id !== traceId ||
+          next.table_id !== tableId ||
+          (player !== undefined && (next.metadata.player ?? 0) !== player)
+        )
           throw new Error("Trace response does not match this decision.");
         setTrace(next);
         setTraceError("");
@@ -120,7 +139,7 @@ export default function TraceBrowser({
       controller.abort();
       clearTimeout(timer);
     };
-  }, [path, tableId, traceId, token, revision, connection]);
+  }, [path, tableId, traceId, token, revision, connection, player]);
 
   const changeHand = (value: string, selected: string | null = null) => {
     setHand(value);
