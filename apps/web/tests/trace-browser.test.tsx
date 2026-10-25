@@ -313,3 +313,36 @@ describe("step details", () => {
     ).toBe("noopener noreferrer");
   });
 });
+
+describe("seat-attributed traces", () => {
+  it("adds the player filter and rejects another seat's private trace", async () => {
+    const fetcher = vi.fn((url: string) =>
+      response(
+        url.includes("?")
+          ? { items: [], next_cursor: null }
+          : { ...trace, metadata: { player: 1 } },
+      ),
+    );
+    vi.stubGlobal("fetch", fetcher);
+    render(
+      <TraceBrowser {...props} player={2} decisionTraceId={trace.trace_id} />,
+    );
+    await screen.findByText(/Trace response does not match this decision/);
+    expect(fetcher.mock.calls.some(([url]) => url.includes("player=2"))).toBe(
+      true,
+    );
+    expect(screen.queryByRole("region", { name: "Step details" })).toBeNull();
+  });
+  it("accepts legacy unattributed traces only for seat zero", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn((url: string) =>
+        response(
+          url.includes("?") ? { items: [trace], next_cursor: null } : trace,
+        ),
+      ),
+    );
+    render(<TraceBrowser {...props} player={0} />);
+    await screen.findByRole("heading", { name: "Hand 3 · State 12" });
+  });
+});

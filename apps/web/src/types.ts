@@ -1,11 +1,51 @@
+export type SeatConfig = {
+  seat: number;
+  name: string;
+  model: string;
+  instruction_profile: "free_play";
+  harness: "baseline";
+  chat_enabled: boolean;
+};
+export type ChatMessage = {
+  id: string;
+  sequence: number;
+  player: number;
+  hand: number;
+  state_version: number;
+  text: string;
+};
+export type HeroAction = {
+  turn_token: string;
+  state_version: number;
+  action: string;
+  public_message?: string;
+};
+export type HeroControlChange = {
+  action: "set_hero_control";
+  hero_control: "human" | "llm";
+  state_version: number;
+};
+export type HeroTurn = {
+  player: number;
+  state_version: number;
+  chat_sequence: number;
+  turn_token: string;
+  observation: Record<string, unknown> & {
+    legal: { key: string; kind: string; amount: number }[];
+  };
+};
 export type Config = {
+  hero_control?: "human" | "llm";
+  player_count?: 4 | 6;
+  hero_seat?: number;
+  seat_configs?: SeatConfig[];
   name: string;
   seed: number;
   stack_bb: number;
   hands_per_level: number;
   payouts: "70/30" | "winner-take-all";
   mode: "heuristic" | "openrouter";
-  opponents?: "legacy" | "pokerth";
+  opponents?: "legacy" | "pokerth" | "llm";
   model: string;
   pace: number;
 };
@@ -44,6 +84,8 @@ export type Evidence = Stats & {
   recent_actions: Event[];
 };
 export type Decision = {
+  player?: number;
+  chat_sequence?: number;
   trace_id?: string | null;
   langsmith_url?: string | null;
   action: string;
@@ -52,14 +94,14 @@ export type Decision = {
   summary: string;
   uncertainty: string;
   evidence_ids: string[];
-  metrics: {
-    equity: number;
-    standard_error: number;
-    samples: number;
-    pot_odds_reference: number;
-    icm_at_hand_start: number;
-    assumption: string;
-    limitation: string;
+  metrics?: {
+    equity?: number;
+    standard_error?: number;
+    samples?: number;
+    pot_odds_reference?: number;
+    icm_at_hand_start?: number;
+    assumption?: string;
+    limitation?: string;
   };
   evidence: Evidence[];
   observation: Record<string, unknown>;
@@ -73,6 +115,10 @@ export type Decision = {
   usage: { prompt_tokens?: number; completion_tokens?: number; cost?: number };
 };
 export type Table = {
+  hero_turn?: HeroTurn | null;
+  chat?: ChatMessage[];
+  chat_sequence?: number;
+  decisions_by_player?: Record<string, Decision | null>;
   active_trace_id?: string | null;
   id: string;
   config: Config;
@@ -100,6 +146,12 @@ export type Table = {
   agent_decisions: number;
 };
 export type ServerConfig = {
+  capabilities?: {
+    manual_hero?: boolean;
+    llm_tables?: boolean;
+    public_chat?: boolean;
+    per_seat_traces?: boolean;
+  };
   openrouter_configured: boolean;
   default_model: string;
   tracing: boolean;
