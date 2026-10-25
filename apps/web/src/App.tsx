@@ -12,6 +12,8 @@ import {
   Square,
   X,
 } from "lucide-react";
+import { request } from "./api";
+import { HeroControl } from "./workspace/HeroControl";
 import { ThemeSwitch } from "./theme";
 import { useSession } from "./workspace/useSession";
 import { Connections, CreateDialog } from "./workspace/Dialogs";
@@ -46,14 +48,16 @@ export default function App() {
   const [seat, setSeat] = useState(0),
     [reveal, setReveal] = useState(false),
     [traceOpen, setTraceOpen] = useState(false);
+  const [inspection, setInspection] = useState(false);
   const active = tables.filter((table) => !finished(table.status));
   const ready = !!table?.players?.length;
   const decision = table ? decisionFor(table, seat) : null;
   useEffect(() => {
     setSeat(table?.config.hero_seat ?? 0);
     setReveal(false);
+    setInspection(false);
     setTraceOpen(false);
-  }, [selected, table?.config.hero_seat]);
+  }, [selected, table?.config.hero_seat, table?.config.hero_control]);
   const choose = (id: string) => {
     session.choose(id);
     setLibrary(false);
@@ -64,6 +68,7 @@ export default function App() {
   };
   const canTrace =
     !!table &&
+    (inspection || table.config.opponents !== "llm") &&
     (table.config.opponents === "llm"
       ? supports(server, "per_seat_traces")
       : seat === 0);
@@ -353,21 +358,45 @@ export default function App() {
                 <span>State {replay.version}</span>
               </div>
             )}
+            {table && (
+              <div className="view-choice">
+                <div className="segmented" aria-label="Workspace view">
+                  <button
+                    aria-pressed={!inspection}
+                    onClick={() => {
+                      setInspection(false);
+                      setReveal(false);
+                      setTraceOpen(false);
+                      setSeat(table.config.hero_seat ?? 0);
+                    }}
+                  >
+                    Play
+                  </button>
+                  <button
+                    aria-pressed={inspection}
+                    onClick={() => setInspection(true)}
+                  >
+                    Spectator inspection
+                  </button>
+                </div>
+                {inspection && (
+                  <span className="muted">
+                    Private cards and decision records are available in this
+                    view.
+                  </span>
+                )}
+              </div>
+            )}
             <div className="main-grid">
               <PokerTable
                 table={table}
                 selected={seat}
                 onSelect={selectSeat}
+                inspection={inspection}
                 reveal={reveal}
                 setReveal={setReveal}
               />
-              <DecisionPanel
-                key={`${selected}:${seat}`}
-                table={table}
-                seat={seat}
-                server={server}
-                onTrace={() => setTraceOpen(!traceOpen)}
-              />
+              <PublicChat table={table} server={server} replay={!!replay} />
             </div>
             {traceOpen && table && canTrace && (
               <div className="trace-workspace">
@@ -404,7 +433,43 @@ export default function App() {
               </div>
             )}
             <div className="lower-grid">
-              <PublicChat table={table} server={server} replay={!!replay} />
+              {table?.config.opponents === "llm" && !inspection ? (
+                <HeroControl
+                  key={table.id}
+                  table={table}
+                  server={server}
+                  connection={connection}
+                  replay={!!replay}
+                  onAction={(payload, signal) =>
+                    request(
+                      `/tables/${encodeURIComponent(table.id)}/hero-action`,
+                      token,
+                      payload,
+                      signal,
+                    )
+                  }
+                  onControl={(payload, signal) =>
+                    request(
+                      `/tables/${encodeURIComponent(table.id)}/control`,
+                      token,
+                      payload,
+                      signal,
+                    )
+                  }
+                  onRefresh={session.refresh}
+                />
+              ) : (
+                <DecisionPanel
+                  key={`${selected}:${seat}`}
+                  table={table}
+                  seat={inspection ? seat : (table?.config.hero_seat ?? 0)}
+                  server={server}
+                  onTrace={() => {
+                    if (!inspection) setSeat(table?.config.hero_seat ?? 0);
+                    setTraceOpen(!traceOpen);
+                  }}
+                />
+              )}
               <History
                 table={table}
                 replay={!!replay}
@@ -416,7 +481,7 @@ export default function App() {
           </>
         )}
         <footer>
-          <span>NLH · Tournament spectator</span>
+          <span>NLH · Tournament</span>
           <span>
             {server?.storage || "Storage unavailable"} ·{" "}
             {server?.tracing ? "LangSmith enabled" : "Local traces"}

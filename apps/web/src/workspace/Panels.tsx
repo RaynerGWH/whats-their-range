@@ -161,12 +161,14 @@ export function PokerTable({
   onSelect,
   reveal,
   setReveal,
+  inspection = false,
 }: {
   table?: Table;
   selected: number;
   onSelect: (seat: number) => void;
   reveal: boolean;
   setReveal: (value: boolean) => void;
+  inspection?: boolean;
 }) {
   const ready = !!table?.players?.length;
   return (
@@ -175,23 +177,29 @@ export function PokerTable({
       icon={<Terminal size={14} />}
       className="table-panel"
       tools={
-        <button
-          className="text-button"
-          disabled={!ready}
-          onClick={() => setReveal(!reveal)}
-        >
-          {reveal ? <EyeOff size={14} /> : <Eye size={14} />}
-          <span>
-            {reveal ? "Hide opponent cards" : "Reveal spectator cards"}
-          </span>
-        </button>
+        inspection ? (
+          <button
+            className="text-button"
+            disabled={!ready}
+            onClick={() => setReveal(!reveal)}
+          >
+            {reveal ? <EyeOff size={14} /> : <Eye size={14} />}
+            <span>
+              {reveal ? "Hide opponent cards" : "Reveal spectator cards"}
+            </span>
+          </button>
+        ) : (
+          <span className="muted">Hero cards only</span>
+        )
       }
     >
       <div className="table-meta">
         <span>
           {ready
             ? `${table.remaining} / ${table.players.length} players`
-            : "No table selected"}
+            : table
+              ? "Preparing table"
+              : "No table selected"}
         </span>
         <span>
           {ready
@@ -227,7 +235,7 @@ export function PokerTable({
               player={player}
               index={index}
               table={table}
-              reveal={reveal}
+              reveal={inspection && reveal}
               selected={selected}
               onSelect={onSelect}
             />
@@ -272,6 +280,7 @@ export function DecisionPanel({
   const player = table?.players?.find((player) => player.seat === seat);
   const decision = table ? decisionFor(table, seat) : null;
   const canTrace =
+    decision?.source !== "human" &&
     !!table &&
     (table.config.opponents === "llm"
       ? supports(server, "per_seat_traces")
@@ -317,6 +326,11 @@ export function DecisionPanel({
                 <strong>{actionLabel(player.last_action)}</strong>
               </p>
             )}
+          </div>
+        ) : decision.source === "human" ? (
+          <div className="empty-state">
+            <p>Manual decision · {actionLabel(decision.action)}</p>
+            <p>Source: human. No model execution.</p>
           </div>
         ) : tab === "Decision" ? (
           <DecisionSummary decision={decision} />
@@ -573,7 +587,7 @@ export function History({
       </div>
       <p className="panel-note">
         {replay ? "Replay snapshot" : "Latest public actions"}
-        {table && ` · State ${table.version}`}
+        {table?.version != null && ` · State ${table.version}`}
       </p>
     </Panel>
   );

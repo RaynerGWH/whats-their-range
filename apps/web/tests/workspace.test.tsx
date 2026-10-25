@@ -200,7 +200,7 @@ describe("capability-aware creation", () => {
       { ...config, opponents: "llm", seat_configs: seats, hero_seat: 2 },
       capable,
     );
-    expect(result.player_count).toBe(4);
+    expect(result.player_count).toBe(6);
     expect(result.mode).toBe("openrouter");
     expect(result.seat_configs?.[2].model).toBe("test/override");
     expect(
@@ -240,7 +240,7 @@ describe("capability-aware creation", () => {
     ).toBe("6");
     expect(screen.getByRole("button", { name: "Create table" })).toBeTruthy();
   });
-  it("shows four neutral LLM seats and only supported profiles/harnesses", () => {
+  it("shows six neutral LLM seats and only supported profiles/harnesses", () => {
     render(
       <CreateDialog
         server={{
@@ -258,7 +258,7 @@ describe("capability-aware creation", () => {
     expect(
       (screen.getByRole("combobox", { name: "Players" }) as HTMLSelectElement)
         .value,
-    ).toBe("4");
+    ).toBe("6");
     const profile = screen.getByRole("combobox", {
       name: "Seat 1 instruction profile",
     });
@@ -273,9 +273,9 @@ describe("capability-aware creation", () => {
         .map((option) => option.textContent),
     ).toEqual(["Baseline"]);
     fireEvent.change(screen.getByRole("combobox", { name: "Players" }), {
-      target: { value: "6" },
+      target: { value: "4" },
     });
-    expect(screen.getByRole("textbox", { name: "Seat 6 model" })).toBeTruthy();
+    expect(screen.queryByRole("textbox", { name: "Seat 6 model" })).toBeNull();
   });
 });
 describe("player and public chat boundaries", () => {

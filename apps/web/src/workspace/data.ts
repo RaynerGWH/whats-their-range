@@ -43,7 +43,7 @@ export function visibleChat(table: Table): ChatMessage[] {
 }
 export const supports = (
   server: ServerConfig | null,
-  capability: "llm_tables" | "public_chat" | "per_seat_traces",
+  capability: "llm_tables" | "public_chat" | "per_seat_traces" | "manual_hero",
 ) => server?.capabilities?.[capability] === true;
 export function seatDefaults(
   count: number,
@@ -69,7 +69,11 @@ export function creationPayload(
   if (config.opponents === "llm") {
     if (!supports(server, "llm_tables") || !server?.openrouter_configured)
       throw new Error("LLM tables are unavailable. Check Connections.");
-    const count = config.player_count ?? 4;
+    const count = config.player_count ?? 6;
+    if (config.hero_control === "human" && !supports(server, "manual_hero"))
+      throw new Error(
+        "Manual hero control is unavailable. Choose LLM control explicitly to automate the hero.",
+      );
     const seats = seatDefaults(count, config.seat_configs).map((seat) => ({
       ...seat,
       model: seat.model.trim(),
@@ -93,6 +97,7 @@ export function creationPayload(
   }
   // Omit additive fields entirely for old six-player backends.
   const {
+    hero_control: _control,
     player_count: _count,
     hero_seat: _hero,
     seat_configs: _seats,

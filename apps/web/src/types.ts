@@ -14,7 +14,28 @@ export type ChatMessage = {
   state_version: number;
   text: string;
 };
+export type HeroAction = {
+  turn_token: string;
+  state_version: number;
+  action: string;
+  public_message?: string;
+};
+export type HeroControlChange = {
+  action: "set_hero_control";
+  hero_control: "human" | "llm";
+  state_version: number;
+};
+export type HeroTurn = {
+  player: number;
+  state_version: number;
+  chat_sequence: number;
+  turn_token: string;
+  observation: Record<string, unknown> & {
+    legal: { key: string; kind: string; amount: number }[];
+  };
+};
 export type Config = {
+  hero_control?: "human" | "llm";
   player_count?: 4 | 6;
   hero_seat?: number;
   seat_configs?: SeatConfig[];
@@ -94,6 +115,7 @@ export type Decision = {
   usage: { prompt_tokens?: number; completion_tokens?: number; cost?: number };
 };
 export type Table = {
+  hero_turn?: HeroTurn | null;
   chat?: ChatMessage[];
   chat_sequence?: number;
   decisions_by_player?: Record<string, Decision | null>;
@@ -125,6 +147,7 @@ export type Table = {
 };
 export type ServerConfig = {
   capabilities?: {
+    manual_hero?: boolean;
     llm_tables?: boolean;
     public_chat?: boolean;
     per_seat_traces?: boolean;

@@ -18,9 +18,10 @@ export function useSession() {
   const [replay, setReplay] = useState<Table | null>(null);
   const [frames, setFrames] = useState<Table[]>([]);
   const [historyBusy, setHistoryBusy] = useState(false);
-  const selection = useRef(selected);
   const historyRequest = useRef<AbortController | null>(null);
   const generation = useRef(0);
+  const refreshRequest = useRef<AbortController | null>(null);
+  useEffect(() => () => refreshRequest.current?.abort(), [token]);
   useEffect(() => {
     const controller = new AbortController();
     let socket: WebSocket | undefined;
@@ -87,14 +88,12 @@ export function useSession() {
   const choose = (id: string) => {
     generation.current++;
     historyRequest.current?.abort();
-    selection.current = id;
     setSelected(id);
     setReplay(null);
     setFrames([]);
     setHistoryBusy(false);
   };
   useEffect(() => {
-    selection.current = selected;
     return () => {
       generation.current++;
       historyRequest.current?.abort();
@@ -154,6 +153,24 @@ export function useSession() {
         setHistoryBusy(false);
     }
   };
+  const refresh = async () => {
+    refreshRequest.current?.abort();
+    const controller = new AbortController();
+    refreshRequest.current = controller;
+    const data = await request<Table[]>(
+      "/tables",
+      token,
+      undefined,
+      controller.signal,
+    );
+    if (controller.signal.aborted) throw new Error("Refresh cancelled.");
+    setTables((old) =>
+      data.map((table) => {
+        const current = old.find((item) => item.id === table.id);
+        return current && current.version > table.version ? current : table;
+      }),
+    );
+  };
   const saveToken = (value: string) => {
     try {
       sessionStorage.setItem("wtr-token", value);
@@ -179,5 +196,6 @@ export function useSession() {
     control,
     create,
     loadHistory,
+    refresh,
   };
 }

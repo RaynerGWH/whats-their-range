@@ -1721,3 +1721,145 @@ footer {
     font-size: 9px;
   }
 }
+
+.view-choice {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0 0 12px;
+  font-size: 11px;
+}
+.segmented {
+  display: flex;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.segmented button {
+  padding: 7px 12px;
+  border: 0;
+  border-right: 1px solid var(--line);
+  color: var(--muted);
+  background: transparent;
+}
+.segmented button:last-child {
+  border-right: 0;
+}
+.segmented button[aria-pressed="true"] {
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+.hero-control {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.hero-mode {
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--line);
+}
+.hero-turn-body {
+  padding: 20px 16px;
+  flex: 1;
+}
+.manual-turn-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.manual-turn-heading h3 {
+  margin: 0;
+  font-size: 14px;
+}
+.manual-turn-heading span,
+.hero-message span {
+  color: var(--muted);
+  font-size: 10px;
+}
+.legal-actions {
+  border: 0;
+  padding: 0;
+  margin: 0 0 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.legal-actions legend {
+  color: var(--muted);
+  font-size: 11px;
+  margin-bottom: 10px;
+}
+.legal-actions button {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+}
+.legal-actions .chosen-action {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-bg);
+}
+.hero-message {
+  display: grid;
+  gap: 8px;
+  font-size: 11px;
+  margin-bottom: 16px;
+}
+.hero-message textarea {
+  resize: vertical;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--line);
+  color: var(--text);
+  background: var(--surface);
+  font: inherit;
+}
+
+/* Keep the audience view focused on the table and public conversation. */
+.main-grid > .chat-panel {
+  display: flex;
+  flex-direction: column;
+}
+.main-grid .chat-messages {
+  flex: 1;
+  height: 0;
+  min-height: 240px;
+}
+.main-grid .chat-message {
+  padding: 16px;
+}
+.main-grid .chat-message p {
+  font-size: 12px;
+}
+.main-grid .chat-panel .empty-state {
+  min-height: 240px;
+}
+@media (max-width: 900px) {
+  .main-grid .chat-messages {
+    flex: auto;
+    height: 260px;
+    min-height: 0;
+  }
+}
+.skip-link {
+  top: 8px;
+  transform: translateY(calc(-100% - 20px));
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+.lower-grid {
+  align-items: start;
+}
+.standings-panel .panel-scroll {
+  height: auto;
+  max-height: 340px;
+}

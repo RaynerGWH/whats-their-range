@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { X } from "lucide-react";
 import type { Config, ServerConfig } from "../types";
+import {
+  applyPreset,
+  readPreset,
+  savePreset,
+  type OpponentPreset,
+} from "./preset";
 import { creationPayload, seatDefaults, supports } from "./data";
 
 export function Dialog({
@@ -56,6 +62,16 @@ export function CreateDialog({
   onClose: () => void;
   onCreate: (config: Config) => Promise<void>;
 }) {
+  const [preset, setPreset] = useState<OpponentPreset>(
+    () =>
+      readPreset() || {
+        model: server?.default_model || "",
+        instruction_profile: "free_play",
+        harness: "baseline",
+        chat_enabled: true,
+      },
+  );
+  const [presetStatus, setPresetStatus] = useState("");
   const [config, setConfig] = useState<Config>(() => ({
     name: `Table ${count + 1}`,
     seed: Math.floor(Math.random() * 100000),
@@ -116,10 +132,15 @@ export function CreateDialog({
                   opponents,
                   ...(opponents === "llm"
                     ? {
-                        player_count: 4,
+                        player_count: 6,
+                        hero_control: "human",
                         hero_seat: 0,
                         mode: "openrouter",
-                        seat_configs: seatDefaults(4, old.seat_configs),
+                        seat_configs: applyPreset(
+                          seatDefaults(6, old.seat_configs),
+                          0,
+                          preset,
+                        ),
                       }
                     : { mode: "heuristic" }),
                 }));
@@ -135,7 +156,7 @@ export function CreateDialog({
           <label>
             Players
             <select
-              value={isLLM ? (config.player_count ?? 4) : 6}
+              value={isLLM ? (config.player_count ?? 6) : 6}
               disabled={!isLLM}
               onChange={(event) => {
                 const player_count = Number(event.target.value) as 4 | 6;
@@ -143,7 +164,11 @@ export function CreateDialog({
                   ...old,
                   player_count,
                   hero_seat: Math.min(old.hero_seat ?? 0, player_count - 1),
-                  seat_configs: seatDefaults(player_count, old.seat_configs),
+                  seat_configs: applyPreset(
+                    seatDefaults(player_count, old.seat_configs),
+                    Math.min(old.hero_seat ?? 0, player_count - 1),
+                    preset,
+                  ),
                 }));
               }}
             >
@@ -250,11 +275,19 @@ export function CreateDialog({
               <select
                 value={config.hero_seat ?? 0}
                 onChange={(event) =>
-                  update("hero_seat", Number(event.target.value))
+                  setConfig((old) => ({
+                    ...old,
+                    hero_seat: Number(event.target.value),
+                    seat_configs: applyPreset(
+                      old.seat_configs || [],
+                      Number(event.target.value),
+                      preset,
+                    ),
+                  }))
                 }
               >
                 {seatDefaults(
-                  config.player_count ?? 4,
+                  config.player_count ?? 6,
                   config.seat_configs,
                 ).map((seat) => (
                   <option key={seat.seat} value={seat.seat}>
@@ -263,6 +296,126 @@ export function CreateDialog({
                 ))}
               </select>
             </label>
+            <label>
+              Hero control
+              <select
+                value={config.hero_control || "human"}
+                onChange={(event) =>
+                  update("hero_control", event.target.value as "human" | "llm")
+                }
+              >
+                <option
+                  value="human"
+                  disabled={!supports(server, "manual_hero")}
+                >
+                  Manual
+                  {!supports(server, "manual_hero") ? " (unavailable)" : ""}
+                </option>
+                <option value="llm">LLM</option>
+              </select>
+            </label>
+            {!supports(server, "manual_hero") && (
+              <p className="field-note">
+                Manual control is unavailable. Choose LLM explicitly to automate
+                the hero.
+              </p>
+            )}
+            <fieldset className="seat-config">
+              <legend>Neutral opponent preset</legend>
+              <label>
+                Opponent model
+                <input
+                  value={preset.model}
+                  placeholder="Use table default"
+                  onChange={(event) => {
+                    const next = {
+                      ...preset,
+                      seats: undefined,
+                      model: event.target.value,
+                    };
+                    setPreset(next);
+                    update(
+                      "seat_configs",
+                      applyPreset(
+                        config.seat_configs || [],
+                        config.hero_seat ?? 0,
+                        next,
+                      ),
+                    );
+                    setPresetStatus("");
+                  }}
+                />
+              </label>
+              <label className="checkbox-label">
+                <input
+                  type="checkbox"
+                  checked={
+                    preset.chat_enabled && supports(server, "public_chat")
+                  }
+                  disabled={!supports(server, "public_chat")}
+                  onChange={(event) => {
+                    const next = {
+                      ...preset,
+                      seats: undefined,
+                      chat_enabled: event.target.checked,
+                    };
+                    setPreset(next);
+                    update(
+                      "seat_configs",
+                      applyPreset(
+                        config.seat_configs || [],
+                        config.hero_seat ?? 0,
+                        next,
+                      ),
+                    );
+                    setPresetStatus("");
+                  }}
+                />
+                Opponent public chat
+              </label>
+              <p className="field-note">
+                Free play · Baseline · Applied to {config.player_count! - 1}{" "}
+                opponents. Hero takeover keeps these settings.
+              </p>
+              <button
+                type="button"
+                className="button"
+                onClick={() => {
+                  try {
+                    savePreset({
+                      ...preset,
+                      model:
+                        preset.model.trim() ||
+                        config.model.trim() ||
+                        server?.default_model ||
+                        "",
+                      seats: config.seat_configs
+                        ?.filter((seat) => seat.seat !== config.hero_seat)
+                        .map((seat) => ({
+                          ...seat,
+                          model:
+                            seat.model.trim() ||
+                            config.model.trim() ||
+                            server?.default_model ||
+                            "",
+                        })),
+                    });
+                    setPresetStatus("Preset saved in this browser.");
+                  } catch {
+                    setPresetStatus(
+                      "Browser storage unavailable. Current settings still apply.",
+                    );
+                  }
+                }}
+              >
+                Save opponent preset
+              </button>
+              {presetStatus && (
+                <p role="status" className="field-note">
+                  {presetStatus}
+                </p>
+              )}
+            </fieldset>
             <p className="field-note">
               Free play supplies the rules and objective, with no suggested
               strategy. Each model chooses its own tactics.
@@ -438,6 +591,12 @@ export function Connections({
           <dt>Public chat</dt>
           <dd>
             {supports(server, "public_chat") ? "Available" : "Unavailable"}
+          </dd>
+        </div>
+        <div>
+          <dt>Manual hero</dt>
+          <dd>
+            {supports(server, "manual_hero") ? "Available" : "Unavailable"}
           </dd>
         </div>
         <div>
